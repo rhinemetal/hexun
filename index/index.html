@@ -1,0 +1,1410 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+<link href="style/index.css" rel="stylesheet" type="text/css" />
+<script src="http://img.hexun.com/zl/tool/jquery-1.4.2.min.js"></script>
+<script src="js/index.js"></script>
+<title></title>
+<base target="_blank" />
+</head>
+
+<body>
+
+<center><div id="fullScreeMedia"></div><div id="topFullWidthBanner"></div></center>
+
+<!--顶部工具条-->
+<div class="toolbar" id="t-float">
+	<div class="toolbarC clearfix">
+		<div class="toolbarCL">
+			<a href="#" class="a1">和讯财经端</a>
+			<a href="#" class="a2">公众号</a>
+		</div>
+		<div class="toolbarCR">
+			<!--未登录--> 
+			<div class="hr-login-box" id="longinBox">
+				<div class="hr-login-l fl">
+					<div class="txt"><strong class="fl">登录</strong><a href="https://reg.hexun.com/regname.aspx?gourl=http%3a%2f%2fwww.hexun.com%2f&fromhost=HX_WEB&urlReferrerhost=http%3a%2f%2fwww.hexun.com%2f" class="fr red">快速注册</a><span class="fr">没有账号？</span></div>
+					<input type="text" onblur="index.focusBtn(this,2)" onfocus="index.focusBtn(this,1)" value="用户名/手机/邮箱" id="name" autocomplete="off" />
+					<input type="password" onblur="index.focusBtn(this,2)" onfocus="index.focusBtn(this,1)" value="******" id="pwd" autocomplete="off" />
+					<input type="button" value="" onclick="index.loginGo()" class="btn" />
+					<label class="j"><input type="checkbox" checked="checked" id="check" />记住我</label>
+					<a target="_blank" href="http://reg.hexun.com/GetPasswordPre.aspx" class="reg">找回密码</a>
+					<p class="hr-login-error" id="loginError"><span class="ico">&nbsp;</span><u>登录超时，稍后再试</u></p>
+				</div>
+				<div class="hr-login-r fr">
+					<div class="vline"></div>
+					<p>免注册 快速登录</p>
+					<a href="https://reg.hexun.com/bindqq.aspx?gourl=aHR0cDovL3d3dy5oZXh1bi5jb20=&fromhost=www.hexun.com" class="qq"></a><a href="https://reg.hexun.com/bindsina.aspx?gourl=aHR0cDovL3d3dy5oZXh1bi5jb20=&fromhost=www.hexun.com" class="wb"></a><a href="https://reg.hexun.com/bindweixin.aspx?gourl=aHR0cDovL3d3dy5oZXh1bi5jb20=&fromhost=www.hexun.com" class="wx"></a>
+					<div class="close" onclick="index.hideBox('longinBox')"></div>
+				</div>
+			</div>
+			<!--未登录 e--> 
+
+			<a href="http://mymoney.hexun.com/istock/" class="bn">自选股</a>
+			<a href="https://reg.hexun.com/login.aspx" class="bn">注册</a>
+			<a href="javascript:void(0);" target="_self" class="loginBn" onclick="index.showlonginBox()"></a>
+
+			<!--已登录--> 
+			<div class="YesLogin claerfix">
+				<div class="username"></div>
+				<div class="round"></div>
+				<div class="menu">
+					<ul>
+						<li class="s">
+							<a href="#" class="t">个人门户</a>
+							<em class="tip"></em>
+							<div class="list">
+								<p class="clearfix"><strong class="fl"><a href="http://message.hexun.com/">消息</a></strong><span id="userMessageCount" class="fr"></span></p>
+								<p class="clearfix"><strong class="fl"><a href="http://message.hexun.com/notice">通知</a></strong><span id="userNotifyCount" class="fr"></span></p>
+								<p class="clearfix h"><strong class="fl"><a href="#">公告</a></strong><span class="fr">0</span></p>
+							</div>
+						</li>
+						<li>
+							<a href="#">钱包</a>
+						</li>
+						<li class="end"><a href="http://hexun.com/newHome/set/userinfo">设置</a></li>
+					</ul>
+				</div>
+			</div>
+			<!--已登录 e--> 
+
+		</div>
+	</div>
+</div>
+<!--顶部工具条 e-->
+
+<div class="layout mg top clearfix">
+	<h1 class="logo"><a href="#"><img src="images/logo.png" alt="" /></a></h1>
+	<div class="search">
+		<!--搜索-->
+		<div class="searchbox">
+			<div class="sm-lay clearfix">
+				<form id="hexunsearch" name="hexunsearch" action="" method="post" target="_blank" onsubmit="return false;">
+				<div class="s_let fl">
+				<div class="sl_lay fl">
+				<div class="l clearfix fl">
+				<div class="sl_select" id="selectBox"><span class="s-name">股&nbsp;票</span><span class="s-jt">&nbsp;</span></div>
+				<div class="selectLayer" id="selectLayer" style="display:none">
+							<div><span style="border:0px; line-height:33px">股&nbsp;票</span></div>
+							<div><span>基&nbsp;金</span></div>
+							<div><span>微&nbsp;博</span></div>
+							<div><span>新&nbsp;闻</span></div>
+							<div><span>博&nbsp;客</span></div>
+						</div>
+				</div>
+				<input type="text" class="hx_inp" id="textMessage" name="textMessage" value="输入代码/名称/拼音" autocomplete="off"/>
+				</div>
+					</div>
+				<input type="button" class="hx_btn"  id="btnSearch"/>
+				<div id="hidRadio" style="display:none;">
+					<input id="stockkey" type="hidden" name="key" />
+					<input id="stocktype" type="hidden" name="type" />
+				</div>
+				</form> 
+			</div>
+		</div>
+		<div class="searchWords">热门：<a href="">融和金服</a><a href="">兴全轻资产</a><a href="">长安产业精选</a><em>|</em><a href="">证券开户</a><a href="">买基金</a></div>
+		<div id="searchInfPanel"></div>
+		<script type="text/javascript" src="http://img.hexun.com/search/2014/js/config.js" charset="GB2312"></script>
+		<script type="text/javascript" src="http://img.hexun.com/search/2014/js/search20151231.js" charset="GB2312"></script>
+		<script type="text/javascript">
+		hexun.common.Search.get().init({
+			url:"http://so.hexun.com/ajax.do",
+			inputID:"textMessage",
+			containerID:"searchInfPanel",
+			config:urlConfigList,
+			searchBtnID:"btnSearch",
+			openNewPage:"_blank"
+		});
+		</script>
+		<!--搜索 e-->
+	</div>
+	<div class="right"><div class="ercode"><img src="images/ercode.png" alt="" /></div></div>
+</div>
+
+<!--导航-->
+<div class="layout mg nav clearfix">
+	<div class="b1">
+		<ul class="clearfix">
+			<li><a href="#">新闻</a></li>
+			<li><a href="#">时事</a></li>
+			<li><a href="#">视频</a></li>
+			<li><a href="#">评论</a></li>
+		</ul>
+	</div>
+	<div class="b1 ml15">
+		<ul class="clearfix">
+			<li><a href="#">股票</a></li>
+			<li><a href="#">美股</a></li>
+			<li><a href="#">港股</a></li>
+			<li><a href="#">新股</a></li>
+		</ul>
+	</div>
+	<div class="b1 ml15">
+		<ul class="clearfix">
+			<li><a href="#">基金</a></li>
+			<li><a href="#">私募</a></li>
+			<li><a href="#">理财</a></li>
+			<li><a href="#">信托</a></li>
+		</ul>
+	</div>
+	<div class="b1 ml15">
+		<ul class="clearfix">
+			<li><a href="#">P2P</a></li>
+			<li><a href="#">众筹</a><b></b></li>
+			<li><a href="#">债券</a></li>
+			<li><a href="#">互金</a></li>
+		</ul>
+	</div>
+	<div class="b1 ml15">
+		<ul class="clearfix">
+			<li><a href="#">期货</a></li>
+			<li><a href="#">原油</a></li>
+			<li><a href="#">大宗</a></li>
+			<li><a href="#">开户</a></li>
+		</ul>
+	</div>
+	<div class="b1 ml15">
+		<ul class="clearfix">
+			<li><a href="#">保险</a></li>
+			<li><a href="#">银行</a></li>
+			<li><a href="#">黄金</a></li>
+			<li><a href="#">外汇</a></li>
+		</ul>
+	</div>
+	<div class="b1 ml15">
+		<ul class="clearfix">
+			<li><a href="#">行情</a></li>
+			<li><a href="#">数据</a></li>
+			<li><a href="#">房产</a></li>
+			<li><a href="#">汽车</a></li>
+		</ul>
+	</div>
+	<div class="b1 ml15">
+		<ul class="clearfix">
+			<li><a href="#">博客</a></li>
+			<li><a href="#">微博</a></li>
+			<li><a href="#">论坛</a></li>
+			<li><a href="#">股吧</a></li>
+		</ul>
+	</div>
+	<div class="b2 ml15">
+		<ul class="clearfix">
+			<li class="w5"><a href="#">奢侈品</a></li>
+			<li class="w3"><a href="#">名家</a></li>
+			<li class="w5"><a href="#">贵金属</a></li>
+			<li class="w3"><a href="#">海外</a></li>
+		</ul>
+	</div>
+</div>
+<!--导航 e-->
+
+<div class="layout mg imgLink pt20">
+	<ul class="clearfix">
+		<li class="i2"><a href="#"><em></em>投资学院</a></li>
+		<li class="i3"><a href="#"><em></em>投顾志</a></li>
+		<li class="i4"><a href="#"><em></em>理财客</a></li>
+		<li class="i1"><a href="#"><em></em>和讯钱包</a></li>
+		<li class="i5"><a href="#"><em></em>融和金服</a></li>
+		<li class="i6"><a href="#"><em></em>和讯聚信</a></li>
+		<li class="i7"><a href="#"><em></em>放心保</a></li>
+		<li class="i8"><a href="#"><em></em>炒股大赛</a></li>
+		<li class="i9"><a href="#"><em></em>操盘宝</a></li>
+		<li class="i10"><a href="#"><em></em>和讯通</a></li>
+	</ul>
+</div>
+
+
+<!--广告1000*100-->
+<div class="layout mg pt20"><a href="#"><img src="images/1000x90.jpg" width="1000" height="100" /></a></div>
+<!--广告1000*100 end-->
+
+<!--广告192*70-->
+<div class="layout mg">
+	<ul class="clearfix mt20">
+		<li class="fl"><a href="#"><img src=" http://img.hexun.com/zl/img/temp.png" width="192" height="70" /></a></li>
+		<li class="fl ml10"><a href="#"><img src=" http://img.hexun.com/zl/img/temp.png" width="192" height="70" /></a></li>
+		<li class="fl ml10"><a href="#"><img src=" http://img.hexun.com/zl/img/temp.png" width="192" height="70" /></a></li>
+		<li class="fl ml10"><a href="#"><img src=" http://img.hexun.com/zl/img/temp.png" width="192" height="70" /></a></li>
+		<li class="fl ml10"><a href="#"><img src=" http://img.hexun.com/zl/img/temp.png" width="192" height="70" /></a></li>
+	</ul>
+</div>
+<!--广告192*70 end-->
+
+<!--全球指数-->
+<div class="layout mg globalData">
+	<a href="http://stockdata.stock.hexun.com/indexhq_000001_1.shtml"><i>上证指数</i><span id="shanghai-top"></span></a>
+	<a href="http://stockdata.stock.hexun.com/indexhq_399001_2.shtml"><i class="ml38">深证</i><span id="shenzhen-top"></span></a>
+	<a href="http://stockdata.stock.hexun.com/qqgz/index.aspx?code=90001"><i class="ml38">恒生指数</i><span id="hk-top"></span></a>
+	<a href="http://stockdata.stock.hexun.com/qqgz/index.aspx?code=.DJI"><i class="ml38">道琼斯指数</i><span id="NYSE-top"></span></a>
+	<a href="http://stockdata.stock.hexun.com/qqgz/index.aspx?code=.IXIC"><i class="ml38">纳斯达克</i><span id="NASDAQ-top"></span></a>
+</div>
+<!--全球指数 end-->
+
+<!--新闻,时事,评论,名家-->
+<div class="layout mg pt30 clearfix">
+	<div class="c1">
+		<div class="newsTop"><a href="#" id="setA1" onmouseover="index.setTab('setA',1,2)" class="s">新闻</a><em>|</em><a href="#" id="setA2" onmouseover="index.setTab('setA',2,2)">时事</a></div>
+		<div id="con_setA_1">
+			<div class="newsList">
+				<ul>
+					<li><a href="#">1外汇局“梧桐树”进入A股 或成国家队新平台国家队新平台国家队新平台国家队新平台</a></li>
+					<li><a href="#">外汇局“梧桐树”进入A股 或成国家队新平台</a></li>
+					<li><a href="#">外汇局“梧桐树”进入A股 或成国家队新平台</a></li>
+					<li><a href="#">外汇局“梧桐树”进入A股 或成国家队新平台</a></li>
+					<li><a href="#">外汇局“梧桐树”进入A股 或成国家队新平台</a></li>
+					<li><a href="" class="red">独家</a><em>|</em><a href="#">外汇局“梧桐树”进入A股 或成国家队新平台</a></li>
+					<li><a href="" class="red">警告</a><em>|</em><a href="#">外汇局“梧桐树”进入A股 或成国家队新平台</a></li>
+					<li><a href="#">外汇局“梧桐树”进入A股 或成国家队新平台</a></li>
+					<li><a href="#">外汇局“梧桐树”进入A股 或成国家队新平台</a></li>
+				</ul>
+				<div class="newsListAd"><a href="#" class="blue">专题</a><em>|</em><a href="#">外汇局“梧桐树”进入A股 或成国国家</a></div>
+			</div>
+		</div>
+		<div id="con_setA_2" class="h">
+			<div class="newsList">
+				<ul>
+					<li><a href="#">2外汇局“梧桐树”进入A股 或成国家队新平台国家队新平台国家队新平台国家队新平台</a></li>
+					<li><a href="#">外汇局“梧桐树”进入A股 或成国家队新平台</a></li>
+					<li><a href="#">外汇局“梧桐树”进入A股 或成国家队新平台</a></li>
+					<li><a href="#">外汇局“梧桐树”进入A股 或成国家队新平台</a></li>
+					<li><a href="#">外汇局“梧桐树”进入A股 或成国家队新平台</a></li>
+					<li><a href="" class="red">独家</a><em>|</em><a href="#">外汇局“梧桐树”进入A股 或成国家队新平台</a></li>
+					<li><a href="" class="red">警告</a><em>|</em><a href="#">外汇局“梧桐树”进入A股 或成国家队新平台</a></li>
+					<li><a href="#">外汇局“梧桐树”进入A股 或成国家队新平台</a></li>
+					<li><a href="#">外汇局“梧桐树”进入A股 或成国家队新平台</a></li>
+				</ul>
+				<div class="newsListAd"><a href="#" class="blue">专题</a><em>|</em><a href="#">外汇局“梧桐树”进入A股 或成国国家</a></div>
+			</div>
+		</div>
+	</div>
+	<div class="c1 ml40">
+		<div class="newsTop"><a href="#" class="s">评论</a><i></i><a href="#">名家</a></div>
+		<div class="newsList">
+			<ul>
+				<li><a href="#">外汇局“梧桐树”进入A股 或成国家队新平台国家队新平台国家队新平台国家队新平台</a></li>
+				<li><a href="#">外汇局“梧桐树”进入A股 或成国家队新平台</a></li>
+				<li><a href="#">外汇局“梧桐树”进入A股 或成国家队新平台</a></li>
+				<li><a href="#">外汇局“梧桐树”进入A股 或成国家队新平台</a></li>
+				<li><a href="#">外汇局“梧桐树”进入A股 或成国家队新平台</a></li>
+				<li><a href="#">外汇局“梧桐树”进入A股 或成国家队新平台</a></li>
+				<li><a href="#">外汇局“梧桐树”进入A股 或成国家队新平台</a></li>
+				<li><a href="#">外汇局“梧桐树”进入A股 或成国家队新平台</a></li>
+				<li><a href="#">外汇局“梧桐树”进入A股 或成国家队新平台</a></li>
+			</ul>
+				<div class="newsListAd"><a href="#" class="blue">专题</a><em>|</em><a href="#">外汇局“梧桐树”进入A股 或成国国家</a></div>
+		</div>
+	</div>
+	<div class="c0 ml40">
+		<div class="jrtj">
+			<div class="hd">
+				<div class="timeBox" id="timeBox"></div>
+				<script type="text/javascript">
+					var d = new Date();
+					document.getElementById("timeBox").innerHTML= '<span>'+d.getFullYear()+'</span>'+"·"+'<span>'+(d.getMonth()+1)+'</span>'+"·"+'<span>'+d.getDate()+'</span>';
+				</script>
+			</div>
+			<div class = "bd">
+				<a href="" class="avatar">
+					<img src="images/temp100x100.jpg" width="150" height="150" /></a>
+				<h2>
+					<a href="">牛市组合仓位操作</a>
+				</h2>
+				<p>
+					<a href="">讲师 跑赢大盘的王者</a>
+				</p>
+				<a  class="aBtn" href="">限时0元观看</a>
+			</div>
+		</div>
+	</div>
+</div>
+<!--新闻,时事,评论,名家 e-->
+
+<!--股票,行情,数据,投顾,研报,策略-->
+<div class="layout mg pt44 clearfix">
+	<div class="c1">
+		<div class="newsTop"><a href="#" class="s">股票</a><i></i><a href="#">行情</a><i></i><a href="#">数据</a></div>
+		<div class="stockData clearfix">
+			<div class="left" id="shanghai"></div>
+			<div class="right" id="shenzhen"></div>
+		</div>
+		<div class="newsList">
+			<ul>
+				<li><a href="#">外汇局“梧桐树”进入A股 或成国家队新平台国家队新平台国家队新平台国家队新平台</a></li>
+				<li><a href="#">外汇局“梧桐树”进入A股 或成国家队新平台</a></li>
+				<li><a href="#">外汇局“梧桐树”进入A股 或成国家队新平台</a></li>
+				<li><a href="#">外汇局“梧桐树”进入A股 或成国家队新平台</a></li>
+				<li><a href="#">外汇局“梧桐树”进入A股 或成国家队新平台</a></li>
+				<li><a href="#">外汇局“梧桐树”进入A股 或成国家队新平台</a></li>
+			</ul>
+			<div class="newsListAd"><a href="#" class="blue">专题</a><em>|</em><a href="#">外汇局“梧桐树”进入A股 或成国国家</a></div>
+		</div>
+	</div>
+	<div class="c1 ml40">
+		<div class="newsTop"><a href="#" class="s">投顾</a><i></i><a href="#">研报</a><i></i><a href="#">策略</a></div>
+		<div class="newsList">
+			<ul>
+				<li><a href="#">外汇局“梧桐树”进入A股 或成国家队新平台国家队新平台国家队新平台国家队新平台</a></li>
+				<li><a href="#">外汇局“梧桐树”进入A股 或成国家队新平台</a></li>
+				<li><a href="#">外汇局“梧桐树”进入A股 或成国家队新平台</a></li>
+				<li><a href="#">外汇局“梧桐树”进入A股 或成国家队新平台</a></li>
+				<li><a href="#">外汇局“梧桐树”进入A股 或成国家队新平台</a></li>
+				<li><a href="#">外汇局“梧桐树”进入A股 或成国家队新平台</a></li>
+				<li><a href="#">外汇局“梧桐树”进入A股 或成国家队新平台</a></li>
+				<li><a href="#">外汇局“梧桐树”进入A股 或成国家队新平台</a></li>
+				<li><a href="#">外汇局“梧桐树”进入A股 或成国家队新平台</a></li>
+			</ul>
+			<div class="newsListAd"><a href="#" class="blue">专题</a><em>|</em><a href="#">外汇局“梧桐树”进入A股 或成国国家</a></div>
+		</div>
+	</div>
+	<div class="c0 ml40"><iframe src="http://img.hexun.com/lux/indexSide/cd.html " width="300" height="370" frameborder="0"  marginwidth="0" marginheight="0" scrolling="no" frameborder="No" border="0" id="cdIfr"></iframe></div>
+</div>
+<!--股票,行情,数据,投顾,研报,策略 e-->
+
+
+<!--信托,私募,基金,理财,P2P-->
+<div class="layout mg pt44 clearfix">
+	<div class="c1">
+		<div class="newsTop"><a href="#" class="s">信托</a><i></i><a href="#">私募</a></div>
+		<div class="newsList">
+			<ul>
+				<li><a href="#">外汇局“梧桐树”进入A股 或成国家队新平台国家队新平台国家队新平台国家队新平台</a></li>
+				<li><a href="#">外汇局“梧桐树”进入A股 或成国家队新平台</a></li>
+				<li><a href="#">外汇局“梧桐树”进入A股 或成国家队新平台</a></li>
+				<li><a href="#">外汇局“梧桐树”进入A股 或成国家队新平台</a></li>
+				<li><a href="#">外汇局“梧桐树”进入A股 或成国家队新平台</a></li>
+				<li><a href="#">外汇局“梧桐树”进入A股 或成国家队新平台</a></li>
+				<li><a href="#">外汇局“梧桐树”进入A股 或成国家队新平台</a></li>
+				<li><a href="#">外汇局“梧桐树”进入A股 或成国家队新平台</a></li>
+				<li><a href="#">外汇局“梧桐树”进入A股 或成国家队新平台</a></li>
+				<li><a href="#">外汇局“梧桐树”进入A股 或成国家队新平台</a></li>
+			</ul>
+		</div>
+	</div>
+	<div class="c1 ml40">
+		<div class="newsTop"><a href="#" class="s">基金</a><i></i><a href="#">理财</a><i></i><a href="#">P2P</a></div>
+		<div class="stockData clearfix">
+			<div id="shanghaiFunds" class="left"></div>
+			<div id="shenzhenFunds" class="right"></div>
+		</div>
+		<div class="newsList">
+			<ul>
+				<li><a href="#">外汇局“梧桐树”进入A股 或成国家队新平台国家队新平台国家队新平台国家队新平台</a></li>
+				<li><a href="#">外汇局“梧桐树”进入A股 或成国家队新平台</a></li>
+				<li><a href="#">外汇局“梧桐树”进入A股 或成国家队新平台</a></li>
+				<li><a href="#">外汇局“梧桐树”进入A股 或成国家队新平台</a></li>
+				<li><a href="#">外汇局“梧桐树”进入A股 或成国家队新平台</a></li>
+				<li><a href="#">外汇局“梧桐树”进入A股 或成国家队新平台</a></li>
+				<li><a href="#">外汇局“梧桐树”进入A股 或成国家队新平台</a></li>
+			</ul>
+		</div>
+	</div>
+	<div class="c0 ml40">
+		<div class="lck">
+			<div class="hd"><a href="http://licaike.hexun.com/"></a></div>
+			<div class="bd">
+				<dl class="userBox clearfix">
+					<dt>
+						<a href="">
+							<img src="http://img.hexun.com/lux/indexSide/images/temp60x60.png" alt=""></a>
+					</dt>
+					<dd>
+						<h2>
+							<a href="">10秒注册立得60元新手红包</a>
+						</h2>
+						<p>所有用户注册成功均可领取新手红包</p>
+					</dd>
+				</dl>
+				<p class="tit">
+					<img src="http://img.hexun.com/lux/indexSide/images/iconG.png" alt="" valign="middle"> <a href="">债券型投资产品 (稳定收益)</a></p>
+				<table class="details">
+					<tr>
+						<td width="100">
+							<span class="mainColor f16"> <em class="f30">41.30</em>
+								%
+							</span>
+							<br/>
+							<span>预期年化收益</span>
+						</td>
+						<td width="100">
+							<span class="c00"> <em class="f30">20</em>
+								天
+							</span>
+							<br/>
+							投资期限
+						</td>
+						<td>
+							<a href="" class="bBtn">购 买</a>
+						</td>
+					</tr>
+				</table>
+			</div>
+			<div class="ft">
+				<div class="hotTab" id="tab1">
+					<div class="tabTitle">
+						<span  class="active" tab-type="title">热门推荐</span>
+					</div>
+					<div tab-type="content" class="show">
+						<table class="lckList">
+							<tr>
+								<td width="120"><a href="">国泰结构转型灵活</a></td>
+								<td width="38">近一年</td>
+								<td width="50" class="tar mainColor">14.38%</td>
+								<td width="36" class="tar"><span class="mainColor">1.4</span>折</td>
+								<td width="56"><a href="" class="bBtn">购 买</a></td>
+							</tr>
+							<tr>
+								<td width="120"><a href="">国泰结构转型灵活</a></td>
+								<td width="38">近一年</td>
+								<td width="50" class="tar mainColor">14.38%</td>
+								<td width="36" class="tar"><span class="mainColor">1.4</span>折</td>
+								<td width="56"><a href="" class="bBtn">购 买</a></td>
+							</tr>
+							<tr>
+								<td width="120"><a href="">国泰结构转型灵活</a></td>
+								<td width="38">近一年</td>
+								<td width="50" class="tar mainColor">14.38%</td>
+								<td width="36" class="tar"><span class="mainColor">1.4</span>折</td>
+								<td width="56"><a href="" class="bBtn">购 买</a></td>
+							</tr>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</div>
+</div>
+<!--信托,私募,基金,理财,P2P e-->
+
+<div class="layout mg pt40 pb40"><img src="images/1000x90.jpg" width="1000" height="100" /></div>
+
+<!--和讯热门金融产品-->
+<div class="layout mg pt10 pb40 fProduct">
+	<h4>和讯热门金融产品</h4>
+	<div class="con clearfix">
+		<div class="col bor">
+			<div class="i1"></div>
+			<div class="box">
+				<strong>凯丰对冲10号</strong>
+				<em>和讯新年用户福利</em>
+				<div class="txt1">最新净值<span><i>1.0000</i>元</span></div>
+				<div class="bottom clearfix">
+					<span>认购费：价外1%</span><a href="#" class="bn">立即抢购</a>
+				</div>
+			</div>
+			<div class="box">
+				<strong>中融-鑫瑞1号</strong>
+				<em>和讯新年用户福利</em>
+				<div class="txt1">目标收益<span><i>6.90</i>%</span></div>
+				<div class="bottom clearfix">
+					<span>起购金额：300万</span><a href="#" class="bn">立即抢购</a>
+				</div>
+			</div>
+		</div>
+		<div class="col bor">
+			<div class="i2"></div>
+			<div class="box">
+				<strong>植瑞-百瑞宝盈24个月</strong>
+				<em>专注100万以上高资人群增值</em>
+				<div class="txt1">预期收益<span><i>9.00</i>%</span></div>
+				<div class="bottom clearfix">
+					<span>起购金额：100万</span><a href="#" class="bn">立即抢购</a>
+				</div>
+			</div>
+			<div class="box">
+				<strong>植瑞-国购广场</strong>
+				<em>专注100万以上高资人群增值</em>
+				<div class="txt1">目标收益<span><i>9.00</i>%</span></div>
+				<div class="bottom clearfix">
+					<span>起购金额：100万</span><a href="#" class="bn">立即抢购</a>
+				</div>
+			</div>
+		</div>
+		<div class="col">
+			<div class="i3"></div>
+			<div class="box">
+				<strong>植瑞-百瑞宝盈24个月</strong>
+				<em>专注100万以上高资人群增值</em>
+				<div class="txt1">预期收益<span><i>9.00</i>%</span></div>
+				<div class="bottom clearfix">
+					<span>起购金额：100万</span><a href="#" class="bn">立即抢购</a>
+				</div>
+			</div>
+			<div class="box">
+				<strong>植瑞-国购广场</strong>
+				<em>专注100万以上高资人群增值</em>
+				<div class="txt1">目标收益<span><i>9.00</i>%</span></div>
+				<div class="bottom clearfix">
+					<span>起购金额：100万</span><a href="#" class="bn">立即抢购</a>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!--和讯热门金融产品 e-->
+
+<!--原油,大宗商品,期货,期指,现货-->
+<div class="layout mg pt10 clearfix">
+	<div class="c1">
+		<div class="newsTop"><a href="#" class="s">原油</a><i></i><a href="#">大宗商品</a></div>
+		<div class="stockData clearfix">
+			<div class="left" id="NYMEXCLcv1"></div>
+			<div class="right" id="ICELCOcv1"></div>
+		</div>
+		<div class="newsList">
+			<ul>
+				<li><a href="#">外汇局“梧桐树”进入A股 或成国家队新平台国家队新平台国家队新平台国家队新平台</a></li>
+				<li><a href="#">外汇局“梧桐树”进入A股 或成国家队新平台</a></li>
+				<li><a href="#">外汇局“梧桐树”进入A股 或成国家队新平台</a></li>
+				<li><a href="#">外汇局“梧桐树”进入A股 或成国家队新平台</a></li>
+				<li><a href="#">外汇局“梧桐树”进入A股 或成国家队新平台</a></li>
+				<li><a href="#">外汇局“梧桐树”进入A股 或成国家队新平台</a></li>
+				<li><a href="#">外汇局“梧桐树”进入A股 或成国家队新平台</a></li>
+			</ul>
+		</div>
+	</div>
+	<div class="c1 ml40">
+		<div class="newsTop"><a href="#" class="s">期货</a><i></i><a href="#">期指</a><i></i><a href="#">现货</a></div>
+		<div class="newsList">
+			<ul>
+				<li><a href="#">外汇局“梧桐树”进入A股 或成国家队新平台国家队新平台国家队新平台国家队新平台</a></li>
+				<li><a href="#">外汇局“梧桐树”进入A股 或成国家队新平台</a></li>
+				<li><a href="#">外汇局“梧桐树”进入A股 或成国家队新平台</a></li>
+				<li><a href="#">外汇局“梧桐树”进入A股 或成国家队新平台</a></li>
+				<li><a href="#">外汇局“梧桐树”进入A股 或成国家队新平台</a></li>
+				<li><a href="#">外汇局“梧桐树”进入A股 或成国家队新平台</a></li>
+				<li><a href="#">外汇局“梧桐树”进入A股 或成国家队新平台</a></li>
+				<li><a href="#">外汇局“梧桐树”进入A股 或成国家队新平台</a></li>
+				<li><a href="#">外汇局“梧桐树”进入A股 或成国家队新平台</a></li>
+				<li><a href="#">外汇局“梧桐树”进入A股 或成国家队新平台</a></li>
+			</ul>
+		</div>
+	</div>
+	<div class="c0 ml40"><iframe src="http://img.hexun.com/lux/indexSide/zgqhds.html" width="300" height="370" frameborder="0"  marginwidth="0" marginheight="0" scrolling="no" frameborder="No" border="0" id=""></iframe></div>
+</div>
+<!--原油,大宗商品,期货,期指,现货 e-->
+
+<!--银行,互联网金融-->
+<div class="layout mg pt44 clearfix">
+	<div class="c1">
+		<div class="newsTop"><a href="#" class="s">银行</a><i></i><a href="#">互联网金融</a></div>
+		<div class="bankData">
+			<strong>一年期利率</strong>
+			<p><a href="http://data.bank.hexun.com/ll/ckll.aspx">存款<i id="deposit"></i>%</a>，<a href="http://data.bank.hexun.com/ll/dkll.aspx">货款<i id="loan"></i>%</a></p>
+		</div>
+		<script>stockData.deposit();</script>
+		<div class="newsList">
+			<ul>
+				<li><a href="#">外汇局“梧桐树”进入A股 或成国家队新平台国家队新平台国家队新平台国家队新平台</a></li>
+				<li><a href="#">外汇局“梧桐树”进入A股 或成国家队新平台</a></li>
+				<li><a href="#">外汇局“梧桐树”进入A股 或成国家队新平台</a></li>
+				<li><a href="#">外汇局“梧桐树”进入A股 或成国家队新平台</a></li>
+				<li><a href="#">外汇局“梧桐树”进入A股 或成国家队新平台</a></li>
+				<li><a href="#">外汇局“梧桐树”进入A股 或成国家队新平台</a></li>
+				<li><a href="#">外汇局“梧桐树”进入A股 或成国家队新平台</a></li>
+			</ul>
+		</div>
+	</div>
+	<div class="c1 ml40">
+		<div class="newsTop"><a href="#" class="s">保险</a><i></i><a href="#">养老金</a></div>
+		<div class="newsList">
+			<ul>
+				<li><a href="#">外汇局“梧桐树”进入A股 或成国家队新平台国家队新平台国家队新平台国家队新平台</a></li>
+				<li><a href="#">外汇局“梧桐树”进入A股 或成国家队新平台</a></li>
+				<li><a href="#">外汇局“梧桐树”进入A股 或成国家队新平台</a></li>
+				<li><a href="#">外汇局“梧桐树”进入A股 或成国家队新平台</a></li>
+				<li><a href="#">外汇局“梧桐树”进入A股 或成国家队新平台</a></li>
+				<li><a href="#">外汇局“梧桐树”进入A股 或成国家队新平台</a></li>
+				<li><a href="#">外汇局“梧桐树”进入A股 或成国家队新平台</a></li>
+				<li><a href="#">外汇局“梧桐树”进入A股 或成国家队新平台</a></li>
+				<li><a href="#">外汇局“梧桐树”进入A股 或成国家队新平台</a></li>
+				<li><a href="#">外汇局“梧桐树”进入A股 或成国家队新平台</a></li>
+			</ul>
+		</div>
+	</div>
+	<div class="c0 ml40"><iframe src="http://img.hexun.com/lux/indexSide/fxb.html" width="300" height="370" frameborder="0"  marginwidth="0" marginheight="0" scrolling="no" frameborder="No" border="0" id=""></iframe></div>
+</div>
+<!--银行,互联网金融 e-->
+
+<!--债券,创投,股权众筹-->
+<div class="layout mg pt44 clearfix">
+	<div class="c1">
+		<div class="newsTop"><a href="#" class="s">债券</a></div>
+		<div class="stockData clearfix">
+			<div class="left" id="Gbond"></div>
+			<div class="right" id="QYbond"></div>
+		</div>
+		<div class="newsList">
+			<ul>
+				<li><a href="#">外汇局“梧桐树”进入A股 或成国家队新平台国家队新平台国家队新平台国家队新平台</a></li>
+				<li><a href="#">外汇局“梧桐树”进入A股 或成国家队新平台</a></li>
+				<li><a href="#">外汇局“梧桐树”进入A股 或成国家队新平台</a></li>
+				<li><a href="#">外汇局“梧桐树”进入A股 或成国家队新平台</a></li>
+				<li><a href="#">外汇局“梧桐树”进入A股 或成国家队新平台</a></li>
+				<li><a href="#">外汇局“梧桐树”进入A股 或成国家队新平台</a></li>
+				<li><a href="#">外汇局“梧桐树”进入A股 或成国家队新平台</a></li>
+			</ul>
+		</div>
+	</div>
+	<div class="c1 ml40">
+		<div class="newsTop"><a href="#" class="s">创投</a><i></i><a href="#">股权众筹</a></div>
+		<div class="newsList">
+			<ul>
+				<li><a href="#">外汇局“梧桐树”进入A股 或成国家队新平台国家队新平台国家队新平台国家队新平台</a></li>
+				<li><a href="#">外汇局“梧桐树”进入A股 或成国家队新平台</a></li>
+				<li><a href="#">外汇局“梧桐树”进入A股 或成国家队新平台</a></li>
+				<li><a href="#">外汇局“梧桐树”进入A股 或成国家队新平台</a></li>
+				<li><a href="#">外汇局“梧桐树”进入A股 或成国家队新平台</a></li>
+				<li><a href="#">外汇局“梧桐树”进入A股 或成国家队新平台</a></li>
+				<li><a href="#">外汇局“梧桐树”进入A股 或成国家队新平台</a></li>
+				<li><a href="#">外汇局“梧桐树”进入A股 或成国家队新平台</a></li>
+				<li><a href="#">外汇局“梧桐树”进入A股 或成国家队新平台</a></li>
+				<li><a href="#">外汇局“梧桐树”进入A股 或成国家队新平台</a></li>
+			</ul>
+		</div>
+	</div>
+	<div class="c0 ml40"><iframe src="http://img.hexun.com/lux/indexSide/hxzt.html" width="300" height="370" frameborder="0"  marginwidth="0" marginheight="0" scrolling="no" frameborder="No" border="0" id=""></iframe></div>
+</div>
+<!--债券,创投,股权众筹 e-->
+
+<div class="layout mg pt40 pb40"><img src="images/1000x90.jpg" width="1000" height="100" /></div>
+
+<!--和讯热门证券产品-->
+<div class="layout mg pt10 pb40 sProduct">
+	<h4>和讯热门证券产品</h4>
+	<div class="con clearfix">
+		<div class="box bor bob">
+			<strong>凯丰对冲10号</strong>
+			<em>和讯新年用户福利</em>
+			<div class="txt1">最新净值<span><i>1.0000</i>元</span></div>
+			<div class="bottom clearfix">
+				<span>认购费：价外1%</span><a href="#" class="bn">立即抢购</a>
+			</div>
+		</div>
+		<div class="box bor bob">
+			<strong>凯丰对冲10号</strong>
+			<em>和讯新年用户福利</em>
+			<div class="txt1">最新净值<span><i>1.0000</i>元</span></div>
+			<div class="bottom clearfix">
+				<span>认购费：价外1%</span><a href="#" class="bn">立即抢购</a>
+			</div>
+		</div>
+		<div class="box bob">
+			<strong>凯丰对冲10号</strong>
+			<em>和讯新年用户福利</em>
+			<div class="txt1">最新净值<span><i>1.0000</i>元</span></div>
+			<div class="bottom clearfix">
+				<span>认购费：价外1%</span><a href="#" class="bn">立即抢购</a>
+			</div>
+		</div>
+		<div class="box bor">
+			<strong>凯丰对冲10号</strong>
+			<em>和讯新年用户福利</em>
+			<div class="txt1">最新净值<span><i>1.0000</i>元</span></div>
+			<div class="bottom clearfix">
+				<span>认购费：价外1%</span><a href="#" class="bn">立即抢购</a>
+			</div>
+		</div>
+		<div class="box bor">
+			<strong>凯丰对冲10号</strong>
+			<em>和讯新年用户福利</em>
+			<div class="txt1">最新净值<span><i>1.0000</i>元</span></div>
+			<div class="bottom clearfix">
+				<span>认购费：价外1%</span><a href="#" class="bn">立即抢购</a>
+			</div>
+		</div>
+		<div class="box">
+			<strong><a href="">凯丰对冲10号</a></strong>
+			<em>和讯新年用户福利</em>
+			<div class="txt1">最新净值<span><i>1.0000</i>元</span></div>
+			<div class="bottom clearfix">
+				<span>认购费：价外1%</span><a href="#" class="bn">立即抢购</a>
+			</div>
+		</div>
+	</div>
+</div>
+<!--和讯热门证券产品 e-->
+
+<!--黄金,白银,外汇,汇率-->
+<div class="layout mg pt10 clearfix">
+	<div class="c1">
+		<div class="newsTop"><a href="#" class="s">黄金</a><i></i><a href="#">白银</a></div>
+		<div class="goldData">
+			<div id="goldData"></div>
+		</div>
+		<div class="newsList">
+			<ul>
+				<li><a href="#">外汇局“梧桐树”进入A股 或成国家队新平台国家队新平台国家队新平台国家队新平台</a></li>
+				<li><a href="#">外汇局“梧桐树”进入A股 或成国家队新平台</a></li>
+				<li><a href="#">外汇局“梧桐树”进入A股 或成国家队新平台</a></li>
+				<li><a href="#">外汇局“梧桐树”进入A股 或成国家队新平台</a></li>
+				<li><a href="#">外汇局“梧桐树”进入A股 或成国家队新平台</a></li>
+				<li><a href="#">外汇局“梧桐树”进入A股 或成国家队新平台</a></li>
+				<li><a href="#">外汇局“梧桐树”进入A股 或成国家队新平台</a></li>
+			</ul>
+		</div>
+	</div>
+	<div class="c1 ml40">
+		<div class="newsTop"><a href="#" class="s">外汇</a><i></i><a href="#">汇率</a></div>
+		<div class="stockData clearfix">
+			<div id="onshoreForex" class="left"></div>
+			<div id="offshoreForex" class="right"></div>
+		</div>
+		<div class="newsList">
+			<ul>
+				<li><a href="#">外汇局“梧桐树”进入A股 或成国家队新平台国家队新平台国家队新平台国家队新平台</a></li>
+				<li><a href="#">外汇局“梧桐树”进入A股 或成国家队新平台</a></li>
+				<li><a href="#">外汇局“梧桐树”进入A股 或成国家队新平台</a></li>
+				<li><a target="_blank" href="http://stock.hexun.com/ipoobserver/index.html"><img src="http://i1.hexunimg.cn/2014-08-22/167784535.jpg" alt="IPO观察"></a> <a href="#">外汇局“梧桐树”进入A股 或成国家队新平台</a></li>
+				<li><a target="_blank" href="http://forex.hexun.com/forex300s/index.html"><img src="http://i3.hexunimg.cn/2014-07-28/167056467.png" alt="外汇300秒"></a> <a href="#">外汇局“梧桐树”进入A股 或成国家队新平台</a></li>
+				<li><a href="#">外汇局“梧桐树”进入A股 或成国家队新平台</a></li>
+				<li><a href="#">外汇局“梧桐树”进入A股 或成国家队新平台</a></li>
+			</ul>
+		</div>
+	</div>
+	<div class="c0 ml40">
+			<div class="wh">
+				<div class="hd"><a href="http://forex.hexun.com/forexsalon/" class="a1"></a><a href="http://salon.hexun.com/gold/index.aspx" class="a2"></a></div>
+				<div class="bd">
+					<div class="msgBoard w">
+						<div class="clock">
+							<img src="images/icon_time1.jpg" alt=""></div>
+						<div class="top">
+							正在进行外汇沙龙，今日
+							<br>09：30-11：30</div>
+						<dl class="userBox clearfix">
+							<dt>
+								<a href="">
+									<img src="images/temp100x100.jpg" alt=""></a>
+							</dt>
+							<dd>
+								<h2 class="f14">
+									<a href="">李 辉</a>
+								</h2>
+								<p>钰佳国际首席分析师</p>
+								<a href="" class="aBtn">我要提问</a>
+							</dd>
+						</dl>
+					</div>
+					<div class="msgBoard h">
+						<div class="clock">
+							<img src="images/icon_time2.jpg" alt=""></div>
+						<div class="top">
+							黄金沙龙下期预告，03月09日
+							<br>09：30-11：30</div>
+						<dl class="userBox clearfix">
+							<dt>
+								<a href="">
+									<img src="images/temp100x100.jpg" alt=""></a>
+							</dt>
+							<dd>
+								<h2 class="f14">
+									<a href="">李 辉</a>
+								</h2>
+								<p>钰佳国际首席分析师</p>
+								<a href="" class="aBtn">我要提问</a>
+							</dd>
+						</dl>
+					</div>
+				</div>
+			</div>
+	</div>
+</div>
+<!--黄金,白银,外汇,汇率 e-->
+
+<!--论坛,股吧-->
+<div class="layout mg pt44 clearfix">
+	<div class="c1">
+		<div class="newsTop"><a href="#" class="s">论坛</a><i></i><a href="#">股吧</a></div>
+		<div class="newsList">
+			<ul>
+				<li><a href="#">外汇局“梧桐树”进入A股 或成国家队新平台国家队新平台国家队新平台国家队新平台</a></li>
+				<li><a href="#">外汇局“梧桐树”进入A股 或成国家队新平台</a></li>
+				<li><a href="#">外汇局“梧桐树”进入A股 或成国家队新平台</a></li>
+				<li><a href="#">外汇局“梧桐树”进入A股 或成国家队新平台</a></li>
+				<li><a href="#">外汇局“梧桐树”进入A股 或成国家队新平台</a></li>
+				<li><a href="#">外汇局“梧桐树”进入A股 或成国家队新平台</a></li>
+				<li><a href="#">外汇局“梧桐树”进入A股 或成国家队新平台</a></li>
+				<li><a href="#">外汇局“梧桐树”进入A股 或成国家队新平台</a></li>
+				<li><a href="#">外汇局“梧桐树”进入A股 或成国家队新平台</a></li>
+				<li><a href="#">外汇局“梧桐树”进入A股 或成国家队新平台</a></li>
+			</ul>
+		</div>
+	</div>
+	<div class="c1 ml40">
+		<div class="newsTop"><a href="#" class="s">博客</a><i></i><a href="#">微博</a></div>
+		<div class="newsList">
+			<ul>
+				<li><a href="#">外汇局“梧桐树”进入A股 或成国家队新平台国家队新平台国家队新平台国家队新平台</a></li>
+				<li><a href="#">外汇局“梧桐树”进入A股 或成国家队新平台</a></li>
+				<li><a href="#">外汇局“梧桐树”进入A股 或成国家队新平台</a></li>
+				<li><a href="#">外汇局“梧桐树”进入A股 或成国家队新平台</a></li>
+				<li><a href="#">外汇局“梧桐树”进入A股 或成国家队新平台</a></li>
+				<li><a href="#">外汇局“梧桐树”进入A股 或成国家队新平台</a></li>
+				<li><a href="#">外汇局“梧桐树”进入A股 或成国家队新平台</a></li>
+				<li><a href="#">外汇局“梧桐树”进入A股 或成国家队新平台</a></li>
+				<li><a href="#">外汇局“梧桐树”进入A股 或成国家队新平台</a></li>
+				<li><a href="#">外汇局“梧桐树”进入A股 或成国家队新平台</a></li>
+			</ul>
+		</div>
+	</div>
+	<div class="c0 ml40"><iframe src="http://img.hexun.com/lux/indexSide/cjmb.html" width="300" height="370" frameborder="0"  marginwidth="0" marginheight="0" scrolling="no" frameborder="No" border="0" id="mBoIfr"></iframe></div>
+</div>
+<!--论坛,股吧 e-->
+
+<!--科技,数码-->
+<div class="layout mg pt44 clearfix">
+	<div class="c1">
+		<div class="newsTop"><a href="#" class="s">科技</a><i></i><a href="#">数码</a></div>
+		<div class="newsPic">
+			<img src=" http://img.hexun.com/zl/img/temp.png" />
+			<a href="#" class="t">和讯观察联储是否加息依然难测</a>
+			<a href="#" class="m">详情></a>
+		</div>
+		<div class="newsList">
+			<ul>
+				<li><a href="#">外汇局“梧桐树”进入A股 或成国家队新平台国家队新平台国家队新平台国家队新平台</a></li>
+				<li><a href="#">外汇局“梧桐树”进入A股 或成国家队新平台</a></li>
+				<li><a href="#">外汇局“梧桐树”进入A股 或成国家队新平台</a></li>
+				<li><a href="#">外汇局“梧桐树”进入A股 或成国家队新平台</a></li>
+				<li><a href="#">外汇局“梧桐树”进入A股 或成国家队新平台</a></li>
+				<li><a href="#">外汇局“梧桐树”进入A股 或成国家队新平台</a></li>
+			</ul>
+		</div>
+	</div>
+	<div class="c1 ml40">
+		<div class="newsTop"><a href="#" class="s">汽车</a><i></i><a href="#">车型</a></div>
+		<div class="newsPic">
+			<img src=" http://img.hexun.com/zl/img/temp.png" />
+			<a href="#" class="t">和讯观察联储是否加息依然难测</a>
+			<a href="#" class="m">详情></a>
+		</div>
+		<div class="newsList">
+			<ul>
+				<li><a href="#">外汇局“梧桐树”进入A股 或成国家队新平台国家队新平台国家队新平台国家队新平台</a></li>
+				<li><a href="#">外汇局“梧桐树”进入A股 或成国家队新平台</a></li>
+				<li><a href="#">外汇局“梧桐树”进入A股 或成国家队新平台</a></li>
+				<li><a href="#">外汇局“梧桐树”进入A股 或成国家队新平台</a></li>
+				<li><a href="#">外汇局“梧桐树”进入A股 或成国家队新平台</a></li>
+				<li><a href="#">外汇局“梧桐树”进入A股 或成国家队新平台</a></li>
+			</ul>
+		</div>
+	</div>
+	<div class="c0 ml40">
+		<div class="hcd">
+			<div class="hd"><a href="http://chedai.hexun.com/"></a></div>
+			<div class="bd tac">
+				<a href="">
+					<img src="images/temp1.png" alt=""></a>
+					<h2>
+						<a href="">夏朗(进口)</a>
+					</h2>
+					<p>
+						首付<span class="f30 mainColor">0</span> 元 月供<span class="f30 mainColor">0</span> 元
+					</p>
+					<a href="" class="aBtn">我要申请贷款</a>
+			</div>
+		</div>
+	</div>
+</div>
+<!--科技,数码 e-->
+
+<div class="layout mg pt40 pb40"><img src="images/1000x90.jpg" width="1000" height="100" /></div>
+
+<!--海外,移民-->
+<div class="layout mg pt10 clearfix">
+	<div class="c1">
+		<div class="newsTop"><a href="#" class="s">海外</a><i></i><a href="#">移民</a></div>
+		<div class="newsPic">
+			<img src=" http://img.hexun.com/zl/img/temp.png" />
+			<a href="#" class="t">和讯观察联储是否加息依然难测</a>
+			<a href="#" class="m">详情></a>
+		</div>
+		<div class="newsList">
+			<ul>
+				<li><a href="#">外汇局“梧桐树”进入A股 或成国家队新平台国家队新平台国家队新平台国家队新平台</a></li>
+				<li><a href="#">外汇局“梧桐树”进入A股 或成国家队新平台</a></li>
+				<li><a href="#">外汇局“梧桐树”进入A股 或成国家队新平台</a></li>
+				<li><a href="#">外汇局“梧桐树”进入A股 或成国家队新平台</a></li>
+				<li><a href="#">外汇局“梧桐树”进入A股 或成国家队新平台</a></li>
+				<li><a href="#">外汇局“梧桐树”进入A股 或成国家队新平台</a></li>
+			</ul>
+		</div>
+	</div>
+	<div class="c1 ml40">
+		<div class="newsTop"><a href="#" class="s">房产</a><i></i><a href="#">新楼盘</a></div>
+		<div class="newsPic">
+			<img src=" http://img.hexun.com/zl/img/temp.png" />
+			<a href="#" class="t">和讯观察联储是否加息依然难测</a>
+			<a href="#" class="m">详情></a>
+		</div>
+		<div class="newsList">
+			<ul>
+				<li><a href="#">外汇局“梧桐树”进入A股 或成国家队新平台国家队新平台国家队新平台国家队新平台</a></li>
+				<li><a href="#">外汇局“梧桐树”进入A股 或成国家队新平台</a></li>
+				<li><a href="#">外汇局“梧桐树”进入A股 或成国家队新平台</a></li>
+				<li><a href="#">外汇局“梧桐树”进入A股 或成国家队新平台</a></li>
+				<li><a href="#">外汇局“梧桐树”进入A股 或成国家队新平台</a></li>
+				<li><a href="#">外汇局“梧桐树”进入A股 或成国家队新平台</a></li>
+			</ul>
+		</div>
+	</div>
+	<div class="c0 ml40">
+		<iframe width="300" height="370" frameborder="0" id="hfdIfr" border="0" scrolling="no" marginheight="0" marginwidth="0" src="http://open.tool.hexun.com/MongodbNewsService/hexunIndex/hfd.jsp"></iframe>
+	</div>
+</div>
+<!--海外,移民 e-->
+
+<!--商学院,收藏-->
+<div class="layout mg pt44 clearfix">
+	<div class="c1">
+		<div class="newsTop"><a href="#" class="s">商学院</a><i></i><a href="#">收藏</a></div>
+		<div class="newsPic">
+			<img src=" http://img.hexun.com/zl/img/temp.png" />
+			<a href="#" class="t">和讯观察联储是否加息依然难测</a>
+			<a href="#" class="m">详情></a>
+		</div>
+		<div class="newsList">
+			<ul>
+				<li><a href="#">外汇局“梧桐树”进入A股 或成国家队新平台国家队新平台国家队新平台国家队新平台</a></li>
+				<li><a href="#">外汇局“梧桐树”进入A股 或成国家队新平台</a></li>
+				<li><a href="#">外汇局“梧桐树”进入A股 或成国家队新平台</a></li>
+				<li><a href="#">外汇局“梧桐树”进入A股 或成国家队新平台</a></li>
+				<li><a href="#">外汇局“梧桐树”进入A股 或成国家队新平台</a></li>
+				<li><a href="#">外汇局“梧桐树”进入A股 或成国家队新平台</a></li>
+			</ul>
+		</div>
+	</div>
+	<div class="c1 ml40">
+		<div class="newsTop"><a href="#" class="s">读书</a></div>
+		<div class="newsPic">
+			<img src=" http://img.hexun.com/zl/img/temp.png" />
+			<a href="#" class="t">和讯观察联储是否加息依然难测</a>
+			<a href="#" class="m">详情></a>
+		</div>
+		<div class="newsList">
+			<ul>
+				<li><a href="#">外汇局“梧桐树”进入A股 或成国家队新平台国家队新平台国家队新平台国家队新平台</a></li>
+				<li><a href="#">外汇局“梧桐树”进入A股 或成国家队新平台</a></li>
+				<li><a href="#">外汇局“梧桐树”进入A股 或成国家队新平台</a></li>
+				<li><a href="#">外汇局“梧桐树”进入A股 或成国家队新平台</a></li>
+				<li><a href="#">外汇局“梧桐树”进入A股 或成国家队新平台</a></li>
+				<li><a href="#">外汇局“梧桐树”进入A股 或成国家队新平台</a></li>
+			</ul>
+		</div>
+	</div>
+	<div class="c0 ml40"><iframe src="http://img.hexun.com/lux/indexSide/zcyhsk-logined.html" width="300" height="370" frameborder="0"  marginwidth="0" marginheight="0" scrolling="no" frameborder="No" border="0" id="libraryIfr"></iframe></div>
+</div>
+<!--商学院,收藏 e-->
+
+<!--奢侈品,视频-->
+<div class="layout mg pt44 clearfix">
+	<div class="c1">
+		<div class="newsTop"><a href="#" class="s">奢侈品</a></div>
+		<div class="newsPic">
+			<img src=" http://img.hexun.com/zl/img/temp.png" />
+			<a href="#" class="t">和讯观察联储是否加息依然难测</a>
+			<a href="#" class="m">详情></a>
+		</div>
+		<div class="newsList">
+			<ul>
+				<li><a href="#">外汇局“梧桐树”进入A股 或成国家队新平台国家队新平台国家队新平台国家队新平台</a></li>
+				<li><a href="#">外汇局“梧桐树”进入A股 或成国家队新平台</a></li>
+				<li><a href="#">外汇局“梧桐树”进入A股 或成国家队新平台</a></li>
+				<li><a href="#">外汇局“梧桐树”进入A股 或成国家队新平台</a></li>
+				<li><a href="#">外汇局“梧桐树”进入A股 或成国家队新平台</a></li>
+				<li><a href="#">外汇局“梧桐树”进入A股 或成国家队新平台</a></li>
+			</ul>
+		</div>
+	</div>
+	<div class="c1 ml40">
+		<div class="newsTop"><a href="#" class="s">视频</a></div>
+		<div class="newsPic">
+			<img src=" http://img.hexun.com/zl/img/temp.png" />
+			<a href="#" class="t">和讯观察联储是否加 <span class="movIcon"></span></a>
+			<a href="#" class="m">详情></a>
+		</div>
+		<div class="newsList">
+			<ul>
+				<li><a href="#">外汇局“梧桐树”进入A股 或成国家队新平台国家队新平台国家队新平台国家队新平台</a></li>
+				<li><a href="#">外汇局“梧桐树”进入A股 或成国台</a> <span class="movIcon"></span></li>
+				<li><a href="#">外汇局“梧桐树”进入A股 或成国家队新平台</a></li>
+				<li><a href="#" class="red">麻省理工公开课</a><em>|</em><a href="#">外汇局“梧桐树”进入<span class="movIcon"></span></a></li>
+				<li class="ad"><div><a href="#">专题</a><em>|</em><a href="#">外汇局“梧桐树”进<span class="movIcon"></span></a></a></div></li>
+				<li><a href="#" class="red">麻省理工公开课</a><em>|</em><a href="#">外汇局“梧桐进入A<span class="movIcon"></span></a></a></li>
+			</ul>
+		</div>
+	</div>
+	<div class="c0 ml40">
+		<div id="publicClassNoLogin">
+			<div class="video">
+				<div class="hd"><a href="http://tv.hexun.com/2011/course/"></a></div>
+				<div class="bd">
+					<a class="hx_img_mask" href="#" target="_blank">
+						<img alt="张燕生 ： 贸易保护主义盛行 亚洲是最大受害者" src="images/temp4.png">
+						<div class="mask"></div>
+						<h2>
+							<span>
+								哈佛大学经济学教授
+								<br> <em>Nicholas A. Christakis</em>
+							</span>
+						</h2>
+					</a>
+					<p class="txt"><a href="">哈佛10年来最受欢迎的投资者教育课</a></p>
+				</div>
+				<div class="ft tac">
+					<p><a href="">《美元会倒闭吗》</a></p>
+					<p><a href="" class="aBtn">登录免费看精品课</a></p>
+				</div>
+			</div>
+		</div>
+		<div id="publicClassIsLogin" class="h">
+			<div class="video">
+					<div class="hd hd-logined"><a href="http://tv.hexun.com/2011/course/"></a></div>
+					<div class="bd">
+						<dl class="videoBox clearfix">
+							<dt><a href=""><img src="images/temp1.png" alt=""></a></dt>
+							<dd> 
+								<h2><a href="">传央行允许境外机构人</a></h2>
+								<p>讲师 Nicholas A. Christakis</p>
+								<a href="" class="vTag">央行</a> <a href="" class="vTag">央行</a>
+							</dd>
+						</dl>
+						<dl class="videoBox clearfix">
+							<dt><a href=""><img src="images/temp1.png" alt=""></a></dt>
+							<dd> 
+								<h2><a href="">传央行允许境外机构人</a></h2>
+								<p>讲师 Nicholas A. Christakis</p>
+								<a href="" class="vTag">央行</a> <a href="" class="vTag">央行</a>
+							</dd>
+						</dl>
+						<ul>
+							<li>
+								<a href="">   易宪容：人民币的市续场问题 只能通过 </a>
+							</li>
+							<li>
+								<a href="">   易宪容：人民币的市续场问题 只能通过 </a>
+							</li>
+							<li>
+								<a href="">   易宪容：人民币的市续场问题 只能通过 </a>
+							</li>
+							<li>
+								<a href="">   易宪容：人民币的市续场问题 只能通过 </a>
+							</li>
+						</ul>
+					</div>
+				</div>
+		</div>
+	</div>
+</div>
+<!--奢侈品,视频 e-->
+
+<div class="layout mg pt40 pb40"><img src="images/1000x90.jpg" width="1000" height="100" /></div>
+
+<div class="greyLayout pt30">
+	<div class="layout mg clearfix">
+		<!--今日头条-->
+		<div class="today">
+			<h4>和讯财经端<span>今日头条</span></h4>
+			<div class="todayMb">
+				<a href="#" target="_blank"><img src="http://img.hexun.com/zk/201511/zc/images/1.jpg" class="topImg"></a>
+				<div class="main">
+					<div id="focusImg1"></div>
+					<div id="newlist" class="newlist">
+						<ul>
+							<li>
+							<a class="fl let" target="_blank" href="http://news.hexun.com/2015/znxz/"><img src="http://i9.hexunimg.cn/mobile_show/image/20160406/20160406090134_350.jpg"></a>
+							<div class="fl rit">
+								<a class="t" target="_blank" href="http://news.hexun.com/2015/znxz/">工业4.0概念股盘异动拉升 宝德股份等4股涨停</a>
+								<div class="clearfix f">
+								<span class="fl"></span>
+								<span class="fr"></span>
+								</div>
+							</div>
+							</li>
+							<li>
+							<a class="fl let" target="_blank" href="http://news.hexun.com/2015/znxz/"><img src="http://minimg.hexun.com/i9.hexunimg.cn/mobile_show/image/20160406/20160406122908_632_c162x117.jpg"></a>
+							<div class="fl rit">
+								<a class="t" target="_blank" href="http://news.hexun.com/2015/znxz/">瑞银：A股纳入MSCI条件已成熟 望吸引22亿美元外资</a>
+								<div class="clearfix f">
+								<span class="fl">新浪网</span>
+								<span class="fr">12:26:05</span>
+								</div>
+							</div>
+							</li>
+							<li>
+							<a class="fl let" target="_blank" href="http://news.hexun.com/2015/znxz/"><img src="http://minimg.hexun.com/i6.hexunimg.cn/mobile_show/image/20160406/20160406114047_358_c162x117.jpg"></a>
+							<div class="fl rit">
+								<a class="t" target="_blank" href="http://news.hexun.com/2015/znxz/">债转股细节浮出水面：将成立资管公司承接银行债务</a>
+								<div class="clearfix f">
+								<span class="fl">华尔街见闻</span>
+								<span class="fr">11:34:26</span>
+								</div>
+							</div>
+							</li>
+							<li>
+							<a class="fl let" target="_blank" href="http://news.hexun.com/2015/znxz/"><img src="http://minimg.hexun.com/i2.hexunimg.cn/2016-04-06/183149589_c162x117.jpg"></a>
+							<div class="fl rit">
+								<a class="t" target="_blank" href="http://news.hexun.com/2015/znxz/">罗杰斯：我没卖出任何中国股票将来还想买</a>
+								<div class="clearfix f">
+								<span class="fl">和讯</span>
+								<span class="fr">09:46:24</span>
+								</div>
+							</div>
+							</li>
+						</ul>
+					</div>
+				</div>
+				<a href="#" target="_blank"><img src="http://img.hexun.com/zk/201511/zc/images/2.jpg" class="bottomImg"></a>
+			</div>
+		</div>
+		<script type="text/javascript" src="http://img.hexun.com/tool/js/focusImg.js"></script>
+		<script>
+		var aFocusData = []; 
+		aFocusData.push(
+			{ title:"冰岛总理涉隐藏资产宣布辞职", src:'http://minimg.hexun.com/i2.hexunimg.cn/mobile_show/image/20160406/20160406071531_650_621x310.jpg', href: 'http://news.hexun.com/2015/znxz/' },
+			{ title:"28888免费领体验金      ", src:'http://minimg.hexun.com/i4.hexunimg.cn/mobile_show/image/20160406/20160406095153_659_621x310.jpg', href: 'http://news.hexun.com/2015/znxz/' },
+			{ title:"玛莎拉蒂LEVANTE 99.98万起", src:'http://minimg.hexun.com/i4.hexunimg.cn/mobile_show/image/20160405/20160405075606_21_621x310.jpg', href: 'http://news.hexun.com/2015/znxz/' },
+			{ title:"郭伯雄：从军委副主席到被告席", src:'http://minimg.hexun.com/i3.hexunimg.cn/mobile_show/image/20160405/20160405181242_467_621x310.jpg', href: 'http://news.hexun.com/2015/znxz/' },
+			{ title:"细数那些落网的“红色通缉犯”", src:'http://minimg.hexun.com/i6.hexunimg.cn/mobile_show/image/20160406/20160406071948_376_621x310.jpg', href: 'http://news.hexun.com/2015/znxz/' }
+		);
+		if(aFocusData.length > 1){
+			new hexun.tool.FocusImgs('focusImg1',{ data : aFocusData, w : 222, h: 100,bBtn:false}); 
+		}else{
+			new hexun.tool.FocusImgs('focusImg1',{ data : aFocusData, w : 222, h: 100,bMouseWheel:false,bBtn:false,bBtnAnim:false,timer:99999}); 
+		}
+		</script>
+		<!--今日头条 e-->
+		
+		<!--封面秀-->
+		<div class="cover">
+			<h4>封面<span>秀</span></h4>
+			<div class="foucs_cover">
+				<div class="scroll" id="scrollCover"> 
+					<div class="scroll-box"> 
+						<a href="#" target="_blank">
+							<img src="http://i8.hexunimg.cn/2016-04-05/183126918.png" />
+							<span class="txt">东方财经<em>第102期</em></span>
+						</a> 
+					</div> 
+					<div class="scroll-box"> 
+						<a href="#" target="_blank">
+							<img src="http://i2.hexunimg.cn/2016-04-05/183133062.png" />
+							<span class="txt">东方财经<em>第102期</em></span>
+						</a> 
+					</div> 
+					<div class="scroll-box"> 
+						<a href="#" target="_blank">
+							<img src="http://i7.hexunimg.cn/2016-04-05/183132382.jpg" />
+							<span class="txt">东方财经<em>第102期</em></span>
+						</a> 
+					</div> 
+				</div> 
+				<div class="dot-wrap" id="dot1"></div> 
+			</div> 
+			<a href="javascript:;" class="leftArr" id="leftArr1"><span>&lt;</span><em></em></a> 
+			<a href="javascript:;" class="rightArr" id="rightArr1"><span>&gt;</span><em></em></a> 
+			<script>
+				var scroll = new ScrollPic();
+				scroll.scrollContId = "scrollCover"; //内容容器ID
+				scroll.dotListId = "dot1"; //点列表ID
+				scroll.dotClassName = ""; //点className
+				scroll.dotOnClassName = "current"; //当前点className
+				scroll.listType = ""; //列表类型(number:数字，其它为空)
+				scroll.listEvent = "onmouseover"; //切换事件
+				scroll.frameWidth = 300; //显示框宽度
+				scroll.pageWidth = 300; //翻页宽度
+				scroll.upright = false; //垂直滚动
+				scroll.speed = 3; //移动速度(单位毫秒，越小越快)
+				scroll.space = 60; //每次移动像素(单位px，越大越快)
+				scroll.autoPlay = true; //自动播放
+				scroll.autoPlayTime = 5; //自动播放间隔时间(秒)
+				scroll.circularly = true;
+				scroll.initialize(); //初始化
+				document.getElementById("leftArr1").onclick = function(){scroll.pre();return false};
+				document.getElementById("rightArr1").onclick = function(){scroll.next();return false};
+			</script>
+		</div>
+		<!--封面秀 e-->
+
+		<!--中国声-->
+		<div class="chinaSound">
+			<div class="foucs_cover">
+			 <div class="scroll" id="scrollchinaSound"> 
+				<div class="scroll-box">
+					<div class="title clearfix"><img src="images/bottom_logo1.jpg" class="fl" alt="" /><div class="txt">和讯原创精品</div></div>
+					<div class="pic"><img src="images/temp.jpg" alt="" /></div>
+					<p><a href="#" class="color1 f16 pr20">24小时全球金融市场</a><a href="#" class="color2">老荣论市</a></p>
+					<p><a href="#" class="color3 f24 pr20">和讯鸡毛信</a><a href="#" class="color4 f16">中国分析师访谈</a></p>
+					<p><a href="#" class="color5 f16 pr20">每日股票池</a><a href="#" class="color6 f24">睡前和你侃</a></p>
+					<p><a href="#" class="color7 f18 pr20">和讯座论会</a><a href="#" class="color8 f18">财经A档案</a></p>
+					<p><a href="#" class="color9 f16 pr20">中国经济学人</a><a href="#" class="color1 f24">每日股票池</a></p>
+				</div>
+				<div class="scroll-box">
+					<div class="title clearfix"><img src="images/bottom_logo2.jpg" class="fl" alt="" /><div class="txt">和讯原创精品</div></div>
+					<div class="pic"><img src="images/temp.jpg" alt="" /></div>
+					<p><a href="#" class="color1 f16 pr20">24小时全球金融市场</a><a href="#" class="color2">老荣论市</a></p>
+					<p><a href="#" class="color7 f18 pr20">和讯座论会</a><a href="#" class="color8 f18">财经A档案</a></p>
+					<p><a href="#" class="color9 f16 pr20">中国经济学人</a><a href="#" class="color1 f24">每日股票池</a></p>
+					<p><a href="#" class="color3 f24 pr20">和讯鸡毛信</a><a href="#" class="color4 f16">中国分析师访谈</a></p>
+					<p><a href="#" class="color5 f16 pr20">每日股票池</a><a href="#" class="color6 f24">睡前和你侃</a></p>
+				</div>
+				<div class="scroll-box">
+					<div class="title clearfix"><img src="images/bottom_logo3.jpg" class="fl" alt="" /><div class="txt">和讯原创精品</div></div>
+					<div class="pic"><img src="images/temp.jpg" alt="" /></div>
+					<p><a href="#" class="color3 f24 pr20">和讯鸡毛信</a><a href="#" class="color4 f16">中国分析师访谈</a></p>
+					<p><a href="#" class="color9 f16 pr20">中国经济学人</a><a href="#" class="color1 f24">每日股票池</a></p>
+					<p><a href="#" class="color5 f16 pr20">每日股票池</a><a href="#" class="color6 f24">睡前和你侃</a></p>
+					<p><a href="#" class="color1 f16 pr20">24小时全球金融市场</a><a href="#" class="color2">老荣论市</a></p>
+					<p><a href="#" class="color7 f18 pr20">和讯座论会</a><a href="#" class="color8 f18">财经A档案</a></p>
+				</div>
+			 </div> 
+			 <div class="dot-wrap" id="dot2"></div> 
+			</div>
+			<a href="javascript:;" class="leftArr" id="leftArr2"><span>&lt;</span><em></em></a> 
+			<a href="javascript:;" class="rightArr" id="rightArr2"><span>&gt;</span><em></em></a> 
+			<script>
+				var chinaSoundScroll = new ScrollPic();
+				chinaSoundScroll.scrollContId = "scrollchinaSound"; //内容容器ID
+				chinaSoundScroll.dotListId = "dot2"; //点列表ID
+				chinaSoundScroll.dotClassName = ""; //点className
+				chinaSoundScroll.dotOnClassName = "current"; //当前点className
+				chinaSoundScroll.listType = ""; //列表类型(number:数字，其它为空)
+				chinaSoundScroll.listEvent = "onmouseover"; //切换事件
+				chinaSoundScroll.frameWidth = 300; //显示框宽度
+				chinaSoundScroll.pageWidth = 300; //翻页宽度
+				chinaSoundScroll.upright = false; //垂直滚动
+				chinaSoundScroll.speed = 3; //移动速度(单位毫秒，越小越快)
+				chinaSoundScroll.space = 60; //每次移动像素(单位px，越大越快)
+				chinaSoundScroll.autoPlay = true; //自动播放
+				chinaSoundScroll.autoPlayTime = 5; //自动播放间隔时间(秒)
+				chinaSoundScroll.circularly = true;
+				chinaSoundScroll.initialize(); //初始化
+				document.getElementById("leftArr2").onclick = function(){chinaSoundScroll.pre();return false};
+				document.getElementById("rightArr2").onclick = function(){chinaSoundScroll.next();return false};
+			</script>
+		</div>
+		<!--中国声 e-->
+	</div>
+
+	<div class="layout mg pt40 pb40"><img src="images/1000x200.jpg" width="1000" height="200" /></div>
+
+	<div class="layout mg clearfix">
+		<div class="w662 fl">
+			<h4 class="pb10"><a href="#" class="s">合作专区</a></h4>
+			<div class="foucs_cover">
+				<div class="scroll" id="scrollPic"> 
+					<div class="scroll-box">
+						<ul class="clearfix">
+							<li><a href="#"><img src="http://img.hexun.com/zl/img/temp.png" alt="" /><em></em><span>揭秘世界顶级奢侈品的品牌</span></a></li>
+							<li><a href="#"><img src="http://img.hexun.com/zl/img/temp.png" alt="" /><em></em><span>揭秘世界顶级奢侈品的品牌</span></a></li>
+							<li class="end"><a href="#"><img src="http://img.hexun.com/zl/img/temp.png" alt="" /><em></em><span>揭秘世界顶级奢侈品的品牌</span></a></li>
+						</ul>
+					</div> 
+					<div class="scroll-box">
+						<ul class="clearfix">
+							<li><a href="#"><img src="http://img.hexun.com/zl/img/temp.png" alt="" /><em></em><span>揭秘世界顶级奢侈品的品牌</span></a></li>
+							<li><a href="#"><img src="http://img.hexun.com/zl/img/temp.png" alt="" /><em></em><span>揭秘世界顶级奢侈品的品牌</span></a></li>
+							<li class="end"><a href="#"><img src="http://img.hexun.com/zl/img/temp.png" alt="" /><em></em><span>揭秘世界顶级奢侈品的品牌</span></a></li>
+						</ul>
+					</div>
+					<div class="scroll-box">
+						<ul class="clearfix">
+							<li><a href="#"><img src="http://img.hexun.com/zl/img/temp.png" alt="" /><em></em><span>揭秘世界顶级奢侈品的品牌</span></a></li>
+							<li><a href="#"><img src="http://img.hexun.com/zl/img/temp.png" alt="" /><em></em><span>揭秘世界顶级奢侈品的品牌</span></a></li>
+							<li class="end"><a href="#"><img src="http://img.hexun.com/zl/img/temp.png" alt="" /><em></em><span>揭秘世界顶级奢侈品的品牌</span></a></li>
+						</ul>
+					</div>
+				</div> 
+				<div class="dot-wrap" id="dot3"></div> 
+				<a href="javascript:;" class="leftArr" id="leftArr3"><span>&lt;</span><em></em></a> 
+				<a href="javascript:;" class="rightArr" id="rightArr3"><span>&gt;</span><em></em></a> 
+			</div> 
+			<script>
+				var scrollPic = new ScrollPic();
+				scrollPic.scrollContId = "scrollPic"; //内容容器ID
+				scrollPic.dotListId = "dot3"; //点列表ID
+				scrollPic.dotClassName = ""; //点className
+				scrollPic.dotOnClassName = "current"; //当前点className
+				scrollPic.listType = ""; //列表类型(number:数字，其它为空)
+				scrollPic.listEvent = "onmouseover"; //切换事件
+				scrollPic.frameWidth = 662; //显示框宽度
+				scrollPic.pageWidth = 662; //翻页宽度
+				scrollPic.upright = false; //垂直滚动
+				scrollPic.speed = 3; //移动速度(单位毫秒，越小越快)
+				scrollPic.space = 60; //每次移动像素(单位px，越大越快)
+				scrollPic.autoPlay = true; //自动播放
+				scrollPic.autoPlayTime = 5; //自动播放间隔时间(秒)
+				scrollPic.circularly = true;
+				scrollPic.initialize(); //初始化
+				document.getElementById("leftArr3").onclick = function(){scrollPic.pre();return false};
+				document.getElementById("rightArr3").onclick = function(){scrollPic.next();return false};
+			</script>
+			<div class="list">
+				<ul class="clearfix">
+					<li><a href="#">揭秘世界顶级品的品略</a></li>
+					<li><a href="#">揭秘世界顶级奢侈品</a></li>
+					<li class="end"><a href="#">揭秘世界顶级奢侈品的品略</a></li>
+					<li><a href="#">揭秘世界顶级品牌战略</a></li>
+					<li><a href="#">揭秘世界顶级奢的品牌战略</a></li>
+					<li class="end"><a href="#">揭秘世界顶级奢的战略</a></li>
+				</ul>
+			</div>
+		</div>
+		<div class="w300 fr">
+			<h4 class="pb10"><a href="#" id="setCJZGH1" onmouseover="index.setTab('setCJZGH',1,2)" class="s">财经中国会</a><span class="vline">|</span><a href="#" id="setCJZGH2" onmouseover="index.setTab('setCJZGH',2,2)">财富精英俱乐部</a></h4>
+			<div id="con_setCJZGH_1"><img src="http://img.hexun.com/zl/img/temp.png" width="300" height="250" alt="" /></div>
+			<div id="con_setCJZGH_2" class="h"><img src="http://i9.hexunimg.cn/2016-04-18/183367658.png" width="300" height="250" alt="" /></div>
+		</div>
+	</div>
+</div>
+<script>index.isLogin()</script>
+<!--footer-->
+<div class="footer">
+<div class="f-top">
+<div class="wmar">
+<div class=hx_f_nav>
+<div class=fl>和讯分公司</div>
+<div id=nav_listxgdx class=nav_listxgdx><span style="PADDING-BOTTOM: 0px; PADDING-LEFT: 28px; PADDING-RIGHT: 6px; PADDING-TOP: 0px" id=navspan class=fl>|</span> 
+<div class=con-bank-select>
+<div id=sitbox class=slet onclick="index.selectMenuList('sitbox','sitlist')"><span class=s-name>地方站</span><span class=s-jt>&nbsp;</span> 
+<ul id=sitlist>
+	<li><a href="http://fujian.hexun.com/index.html" target=_blank>福建</a></li>
+	<li><a href="http://henan.hexun.com/index.html" target=_blank>河南</a></li>
+	<li><a href="http://sichuan.hexun.com/index.html" target=_blank>四川</a></li>
+	<li><a href="http://hunan.hexun.com/index.html" target=_blank>湖南</a></li>
+	<li><a href="http://hubei.hexun.com/index.html" target=_blank>湖北</a></li>
+	<li><a style="BORDER-BOTTOM: 0px" href="http://jiangsu.hexun.com/index.html" target=_blank>江苏</a></li>
+</ul>
+</div></div><span style="PADDING-BOTTOM: 0px; PADDING-LEFT: 20px; PADDING-RIGHT: 28px; PADDING-TOP: 0px" id=navspan01 class=fl>|</span> </div>
+<div class=fl><a href="http://corp.hexun.com/contact/index.html" target=_blank>联系我们</a> - <a href="http://corp.hexun.com/default/index.html" target=_blank>关于我们</a> - <a href="http://www.hotjob.cn/wt/hexun/web/index?brandCode=1" target=_blank>加入和讯</a> - <a href="http://corp.hexun.com/partner/" target=_blank>合作伙伴</a> - <a href="http://corp.hexun.com/adcenter/index.html" target=_blank>广告服务</a> - <a href="http://news.hexun.com/2015/znxz/" target=_blank>和讯财经新闻端</a> - <a href="http://news.hexun.com/sitemap/" target=_blank>网站导航</a> - <a href="http://corp.hexun.com/law/index.html" target=_blank>授权声明</a> - <a href="http://corp.hexun.com/sm/index.html" target=_blank>郑重声明</a> - <a href="http://kf.hexun.com/?id=hexun" target=_blank>客服中心</a> </div></div>
+</div>
+</div>
+<div class="hx_f_img wmar" style="width:1020px"><a href="http://www.itrust.org.cn/yz/pjwx.asp?wm=2723558454"><img src="http://img.hexun.com/www/2010/img/hlwxh.gif" alt=""></a><a href="http://www.bj.cyberpolice.cn/index.jsp"><img src="http://img.hexun.com/www/2010/bj110.gif" alt=""></a>
+<a href="http://www.bjjubao.org" target="_blank"><img src="http://img.hexun.com/www/2013/hlwjbzx.gif" alt="北京互联网举报中心"></a><a href="http://www.baom.com.cn"><img src="http://img.hexun.com/www/2013/hlwxh.gif" alt="首都互联网协会"></a>
+<!--可信网站图片LOGO安装开始-->
+<script src="http://kxlogo.knet.cn/seallogo.dll?sn=e130802110100418659cqy000000&amp;size=0"></script>
+<!--可信网站图片LOGO安装结束-->
+<a href="http://py.qianlong.com/"><img src="http://www.qianlong.com/img/ql_media15.gif" alt="北京地区网站联合辟谣平台"></a>
+<a href="http://news.hexun.com/2014/wlaq/"><img src="http://img.hexun.com/www/2014/wlaq2.jpg" alt="首都网络安全日"></a><a href="http://www.12377.cn/"><img src="http://img.hexun.com/zk/201512/hs/footer_1.jpg" alt="违法和不良信息举报中心" style="border:0"></a><a href="http://www.12377.cn/node_548446.htm" target="_blank"><img src="http://img.hexun.com/zk/201512/hs/footer_2.jpg" /></a>
+</div>
+<div class="hx_f_con wmar channelCopy">
+违法和不良信息举报电话：010-85650899 客服电话：010-85650688 传真：010-85650844 邮箱：yhts#staff.hexun.com(发送时#改为@)<br />
+本站郑重声明：和讯网 北京和讯在线信息咨询服务有限公司所载文章、数据仅供参考，使用前请核实，风险自负。<br />
+[<a href="http://img.hexun.com/2015/company/ICP100713/index.html">京ICP证100713号</a>]&nbsp;&nbsp;<a href="http://img.hexun.com/2012/company/0223/index.html">互联网新闻信息服务许可</a> <a href="http://img.hexun.com/2014/company/B220090331/index.html">增值电信业务经营许可证[B2-20090331]</a>　广告经营许可证[京海工商广字第0407号] <a href="http://img.hexun.com/2015/company/1110434/index.html">测绘资质证书[乙测资字1110434]</a><br />
+<a href="http://img.hexun.com/2015/company/0604/index.html">信息网络传播视听节目许可证：0109404号</a>  <a href="http://img.hexun.com/2014/company/Broadcast707/">广播电视节目制作经营许可证（京）字第707号</a>  [<a href="http://img.hexun.com/2014/company/JWW2014/index.html">京网文[2014]0945-245号</a>] <a href="http://img.hexun.com/2013/company/hlwyp.jpg">互联网药品信息服务资格证书</a><br />
+<div class="icp" ><a target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=11000002000026" class="icpico"><img src="http://www.beian.gov.cn/file/ghs.png"  /><p>京公网安备 11000002000026号</p></a></div>
+Copyright&copy;和讯网 北京和讯在线信息咨询服务有限公司 All Rights Reserved 版权所有 复制必究<br /></div>
+</div>
+<!--footer e-->
+
+
+
+
+</body>
+</html>
+
