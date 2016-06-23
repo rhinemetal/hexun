@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+<link href="http://i8.hexunimg.cn/zl/hx/articlePage/style/article.css" rel="stylesheet" type="text/css" />
+<script src="http://i8.hexunimg.cn/zl/tool/jquery-1.8.3.min.js"></script>
+<script src="js/articleTop.js"></script>
+<base target="_blank" />
+<title></title>
+</head>
+
+<body>
+
+
+<!--顶部工具条-->
+<div class="toolbar" id="t-float">
+	<div class="toolbarC clearfix">
+		<div class="toolbarCL clearfix">
+			<div class="navL clearfix">
+				<a href="#" class="l1">和讯首页</a>
+				<a href="#" class="l1">新闻</a>
+				<a href="#" class="l1">股票</a>
+				<a href="#" class="l1">基金</a>
+				<a href="#" class="l1">期货</a>
+				<a href="#" class="l1">外汇</a>
+				<a href="#" class="l1 end">债券</a>
+				<div class="more">
+					<div class="bn">更多</div>
+					<div class="mLink">
+						<ul class="clearfix">
+							<li><a href="#">时事</a></li>
+							<li><a href="#">美股</a></li>
+							<li><a href="#">私募</a></li>
+							<li><a href="#">P2P</a></li>
+							<li class="pr"><a href="#">众筹</a><em></em></li>
+							<li><a href="#">原油</a></li>
+							<li><a href="#">保险</a></li>
+							<li><a href="#">银行</a></li>
+							<li><a href="#">行情</a></li>
+							<li><a href="#">奢侈品</a></li>
+							<li><a href="#">数据</a></li>
+							<li><a href="#">博客</a></li>
+							<li><a href="#">微博</a></li>
+							<li><a href="#">名家</a></li>
+							<li><a href="#">视频</a></li>
+							<li><a href="#">评论</a></li>
+							<li><a href="#">港股</a></li>
+							<li><a href="#">新股</a></li>
+							<li><a href="#">理财</a></li>
+							<li><a href="#">贵金属</a></li>
+							<li><a href="#">信托</a></li>
+							<li><a href="#">互金</a></li>
+							<li><a href="#">大宗</a></li>
+							<li><a href="#">开户</a></li>
+							<li><a href="#">黄金</a></li>
+							<li><a href="#">房产</a></li>
+							<li><a href="#">汽车</a></li>
+							<li><a href="#">论坛</a></li>
+							<li class="pr"><a href="#">股吧</a><em></em></li>
+							<li><a href="#">海　外</a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="toolbarCR">
+			<!--未登录--> 
+			<div class="hr-login-box" id="longinBox">
+				<div class="hr-login-l fl">
+					<div class="txt"><strong class="fl">登录</strong><a href="https://reg.hexun.com/regname.aspx?gourl=http%3a%2f%2fwww.hexun.com%2f&fromhost=HX_WEB&urlReferrerhost=http%3a%2f%2fwww.hexun.com%2f" class="fr red">快速注册</a><span class="fr">没有账号？</span></div>
+					<input type="text" onblur="articleTop.focusBtn(this,2)" onfocus="articleTop.focusBtn(this,1)" value="用户名/手机/邮箱" id="name" autocomplete="off" />
+					<input type="password" onblur="articleTop.focusBtn(this,2)" onfocus="articleTop.focusBtn(this,1)" value="******" id="pwd" autocomplete="off" />
+					<input type="button" value="" onclick="articleTop.loginGo()" class="btn" />
+					<label class="j"><input type="checkbox" checked="checked" id="check" />记住我</label>
+					<a target="_blank" href="http://reg.hexun.com/GetPasswordPre.aspx" class="reg">找回密码</a>
+					<p class="hr-login-error" id="loginError"><span class="ico">&nbsp;</span><u>登录超时，稍后再试</u></p>
+				</div>
+				<div class="hr-login-r fr">
+					<div class="vline"></div>
+					<p>免注册 快速登录</p>
+					<a href="https://reg.hexun.com/bindqq.aspx?gourl=aHR0cDovL3d3dy5oZXh1bi5jb20=&fromhost=www.hexun.com" class="qq"></a><a href="https://reg.hexun.com/bindsina.aspx?gourl=aHR0cDovL3d3dy5oZXh1bi5jb20=&fromhost=www.hexun.com" class="wb"></a><a href="https://reg.hexun.com/bindweixin.aspx?gourl=aHR0cDovL3d3dy5oZXh1bi5jb20=&fromhost=www.hexun.com" class="wx"></a>
+					<div class="close" onclick="articleTop.hideBox('longinBox')"></div>
+				</div>
+			</div>
+			<!--未登录 e--> 
+
+			<a href="#" class="bn bnApp">和讯财经端</a>
+			<a href="https://reg.hexun.com/login.aspx" class="bn">注册</a>
+			<a href="javascript:void(0);" target="_self" class="loginBn" onclick="articleTop.showlonginBox()"></a>
+
+			<!--已登录--> 
+			<div class="YesLogin claerfix">
+				<div class="username"></div>
+				<div class="round"></div>
+				<div class="menu">
+					<ul>
+						<li class="s">
+							<a href="#" class="t">个人门户</a>
+							<em class="tip"></em>
+							<div class="list">
+								<p class="clearfix"><strong class="fl"><a href="http://message.hexun.com/">消息</a></strong><span id="userMessageCount" class="fr"></span></p>
+								<p class="clearfix"><strong class="fl"><a href="http://message.hexun.com/notice">通知</a></strong><span id="userNotifyCount" class="fr"></span></p>
+								<p class="clearfix h"><strong class="fl"><a href="#">公告</a></strong><span class="fr">0</span></p>
+							</div>
+						</li>
+						<li>
+							<a href="#">钱包</a>
+						</li>
+						<li class="end"><a href="http://hexun.com/newHome/set/userinfo">设置</a></li>
+					</ul>
+				</div>
+			</div>
+			<!--已登录 e--> 
+		</div>
+	</div>
+	<script>articleTop.scrollTop();articleTop.isLogin();</script>
+</div>
+<!--顶部工具条 e-->
+
+<div class="articleTopBg">
+	<div class="layout mg imgLink pt20">
+		<ul class="clearfix">
+			<li class="i2"><a href="http://px.hexun.com/"><em></em>投资学院</a></li>
+			<li class="i3"><a href="http://tg.hexun.com/"><em></em>投顾志</a></li>
+			<li class="i4"><a href="http://licaike.hexun.com/"><em></em>理财客</a></li>
+			<li class="i1"><a href="https://epay.hexun.com/"><em></em>和讯钱包</a></li>
+			<li class="i5"><a href="https://www.rhjf.com.cn/"><em></em>融和金服</a></li>
+			<li class="i6"><a href="http://dai.hexun.com/"><em></em>聚信金融</a></li>
+			<li class="i7"><a href="http://www.fangxinbao.com/"><em></em>放心保</a></li>
+			<li class="i8"><a href="http://match.vip.hexun.com/"><em></em>炒股大赛</a></li>
+			<li class="i9"><a href="http://ds.hexun.com/"><em></em>期货大赛</a></li>
+			<li class="i10"><a href="http://integration.hexun.com/upload/hexuntongzsy/index.html"><em></em>和讯通</a></li>
+		</ul>
+	</div>
+	<div class="logonav clearfix">
+		<div class="fl headerL">
+			<a href="http://www.hexun.com" target="_blank"><img alt="" src="http://img.hexun.com/2015/sylogo/hexun_logo.jpg"></a>
+			<a href="http://www.hexun.com" target="_blank" id="subChannelLogo"><img src="http://img.hexun.com/images2008/emp.gif" alt="" border="0" /></a>
+		</div>
+		<div id="slogen" class="fl"></div>
+		<div class="links"><a href="">和讯首页</a> &gt; <a href="">新闻</a> &gt; <a href="">国内新闻</a> &gt; 正文</div>
+		<div class="topSearch">
+			<form id="hexunsearch2015" name="hexunsearch2015" method="post" target="_blank" onsubmit="return false;">
+				<div class="s_m fr">
+					<input type="text" class="hx_inp" id="textMessage2015"  value="" autocomplete="off" style="color: rgb(133,133, 133);">
+					<input type="button" class="hx_btn" id="btnSearch">
+					<input id="stockkey" type="hidden" name="key" value="1">
+					<input id="stocktype" type="hidden" name="type" value="all">
+				</div>
+			</form>
+			<div id="searchInfPanel"></div>
+			<script type="text/javascript" src="http://img.hexun.com/search/2014/js/config.js"></script>
+			<script type="text/javascript" src="js/search.js"></script>
+			<script type="text/javascript">
+				hexun.common.Search.get().init({
+					url:"http://so.hexun.com/ajax.do",//数据地址
+					inputID:"textMessage2015",//搜索框地址ID
+					containerID:"searchInfPanel",//联想容器ID
+					config:urlConfigList,//链接配置
+					searchBtnID:"btnSearch",//搜索按钮的ID
+					openNewPage:true//是否新打开页面,不传时就是在当前页打开
+				});
+			</script>
+		</div>
+	</div>
+</div>
+
+<div class="layout mg clearfix">
+	<div class="w600">
+		<div><img src="images/1000x90.jpg" width="600" height="60" /></div>
+	</div>
+	<div class="w300">
+		<div><img src="images/1000x90.jpg" width="300" height="60" /></div>
+	</div>
+</div>
+
+<div class="layout mg articleName">
+	<h1>李大霄否认被打脸 市场吹响六市场吹响六大反击信号</h1>
+	<div class="clearfix">
+		<div class="tip fl"><span class="pr20">2016-01-26 14:12:04</span>新华网新华网新华网新华网华网新华网新华网   李丽</div>
+		<div id="share">
+		
+		</div>
+		<div class="line"></div>
+		<a href="#anchorC" class="cs" target="_self"></a>
+	</div>
+</div>
+<div class="layout mg clearfix">
+	<div class="w600">
+		<div class="art_context">
+			<div class="art_contextBox">
+				<p><a href="">和讯网</a>消息 1月26日，早盘沪深两市大幅低开，盘中弱势震荡。截至午间休盘，沪指跌2.09%，报2877.11点；深成指跌2.32%，报9955.92点；创业板指跌2.80%，报2098.31点。对此，英大证券首席经济学家李大霄对和讯网表示，今天的下行是受到全球外围市场尤其是美国的冲击，并不是A股本身的原因，外围市场也不会一直下行。</p>
+				<p>香港联系汇率问题也会造成整个A股和港股的剧烈波动。香港政府非常坚决地维系联系汇率，IMF也表态支持，这对A股的稳定也很重要。</p>
+				<p align="center"><img align="middle" src="http://www.fangxinbao.com/inc/2014/flyinsurance/img/banner.jpg" alt="张涛(资料图)" title="点击看大图" style="BORDER-BOTTOM: #000 1px solid; TEXT-ALIGN: center; BORDER-LEFT: #000 1px solid; MARGIN: 4px auto; BORDER-TOP: #000 1px solid; BORDER-RIGHT: #000 1px solid"><br><font style="TEXT-ALIGN: center; COLOR: #000000; FONT-SIZE: 12px; TEXT-DECORATION: none">张涛(资料图)</font></p>
+				<p>主营图书出版和发行,南方传媒是广东省的出版龙头企业。1)公司拥有出版、印刷、发行、零售、跨媒体经营等出版传媒(601999,股吧)行业一体化完整产业链,在广东省中小学教材发行业务中占有主导地位,中小学教材出版业务在全国新课标教材市场具有强大的竞争力和品牌影响力。2)公司营收稳健,财务状况良好,公司2015年前三季度实现营业收入34.66亿元,同比增长2.27%;归母净利润3.42亿元,同比增长18.84%。</p>
+				<p>随着全球经济增速放缓，金融体系局部风险频繁显露。近日，多位业内人士对和讯网表示，一线城市房市存在一定风险隐患，银行信贷或由此受到冲击，不过中国对系统性金融风险已经有充分的认识和预备，仍在可控范围之内。</p>
+				<p>在张郁峰看来，政府对于风险已经有充分的认识和预备，当然具体何时发生，如何发生，可能并不是中国所能决定的，而只要在预估当中，这些风险仍旧在可控范围。随着全球经济增速放缓，金融体系局部风险频繁显露。近日，多位业内人士对和讯网表示，不过中国对系统性金融风险已经有充分的认识和预备，仍在可控范围之内。</p>
+				<p>近日，多位业内人士对和讯网表示，一线城市房市存在一定风险隐患，</p>
+				<p>和讯网消息 1月26日，早盘沪深两市大幅低开，盘中弱势震荡。截至午间休盘，沪指跌2.09%，报2877.11点；深成指跌2.32%，报9955.92点；创业板指跌2.80%，报2098.31点。对此，英大证券首席经济学家李大霄对和讯网表示，今天的下行是受到全球外围市场尤其是美国的冲击，并不是A股本身的原因，外围市场也不会一直下行。</p>
+				<p>香港联系汇率问题也会造成整个A股和港股的剧烈波动。香港政府非常坚决地维系联系汇率，IMF也表态支持，这对A股的稳定也很重要。</p>
+				<p align="center"><img align="middle" src="http://www.fangxinbao.com/inc/2014/flyinsurance/img/banner.jpg" alt="张涛(资料图)" title="点击看大图" style="BORDER-BOTTOM: #000 1px solid; TEXT-ALIGN: center; BORDER-LEFT: #000 1px solid; MARGIN: 4px auto; BORDER-TOP: #000 1px solid; BORDER-RIGHT: #000 1px solid"><br><font style="TEXT-ALIGN: center; COLOR: #000000; FONT-SIZE: 12px; TEXT-DECORATION: none">张涛(资料图)</font></p>
+				<p>主营图书出版和发行,南方传媒是广东省的出版龙头企业。1)公司拥有出版、印刷、发行、零售、跨媒体经营等出版传媒(601999,股吧)行业一体化完整产业链,在广东省中小学教材发行业务中占有主导地位,中小学教材出版业务在全国新课标教材市场具有强大的竞争力和品牌影响力。2)公司营收稳健,财务状况良好,公司2015年前三季度实现营业收入34.66亿元,同比增长2.27%;归母净利润3.42亿元,同比增长18.84%。</p>
+				<p>随着全球经济增速放缓，金融体系局部风险频繁显露。近日，多位业内人士对和讯网表示，一线城市房市存在一定风险隐患，银行信贷或由此受到冲击，不过中国对系统性金融风险已经有充分的认识和预备，仍在可控范围之内。</p>
+				<p>在张郁峰看来，政府对于风险已经有充分的认识和预备，当然具体何时发生，如何发生，可能并不是中国所能决定的，而只要在预估当中，这些风险仍旧在可控范围。随着全球经济增速放缓，金融体系局部风险频繁显露。近日，多位业内人士对和讯网表示，不过中国对系统性金融风险已经有充分的认识和预备，仍在可控范围之内。</p>
+				<p align="center"><img align="middle" src="http://www.fangxinbao.com/inc/2014/flyinsurance/img/banner.jpg" alt="张涛(资料图)" title="点击看大图" style="BORDER-BOTTOM: #000 1px solid; TEXT-ALIGN: center; BORDER-LEFT: #000 1px solid; MARGIN: 4px auto; BORDER-TOP: #000 1px solid; BORDER-RIGHT: #000 1px solid"><br><font style="TEXT-ALIGN: center; COLOR: #000000; FONT-SIZE: 12px; TEXT-DECORATION: none">张涛(资料图)</font></p>
+				<p>主营图书出版和发行,南方传媒是广东省的出版龙头企业。1)公司拥有出版、印刷、发行、零售、跨媒体经营等出版传媒(601999,股吧)行业一体化完整产业链,在广东省中小学教材发行业务中占有主导地位,中小学教材出版业务在全国新课标教材市场具有强大的竞争力和品牌影响力。2)公司营收稳健,财务状况良好,公司2015年前三季度实现营业收入34.66亿元,同比增长2.27%;归母净利润3.42亿元,同比增长18.84%。</p>
+				<p>随着全球经济增速放缓，金融体系局部风险频繁显露。近日，多位业内人士对和讯网表示，一线城市房市存在一定风险隐患，银行信贷或由此受到冲击，不过中国对系统性金融风险已经有充分的认识和预备，仍在可控范围之内。</p>
+				<p>在张郁峰看来，政府对于风险已经有充分的认识和预备，当然具体何时发生，如何发生，可能并不是中国所能决定的，而只要在预估当中，这些风险仍旧在可控范围。随着全球经济增速放缓，金融体系局部风险频繁显露。近日，多位业内人士对和讯网表示，不过中国对系统性金融风险已经有充分的认识和预备，仍在可控范围之内。</p>
+				<p>近日，多位业内人士对和讯网表示，一线城市房市存在一定风险隐患，</p>
+			</div>
+			<div class="showAll"><span>看全文</span></div>
+			<div class="source clearfix">
+				<a name="anchorC"></a>
+				<div class="txt">和讯网今天刊登了《<b>李大霄否认被打脸 市场六大反击信号</b>》一文，关于此事的更多报道，请在和讯财经客户端上阅读。</div>
+				<img src="images/01.jpg" />
+			</div>
+		</div>
+
+
+		<!--评论-->
+		<div class="comments">
+			<div class="tit"><strong>写评论</strong><span>已有<i id="commentsSum"></i>个网友评论了这篇新闻</span></div>
+			<div class="formContent">
+				<textarea class="content" id="content"></textarea>
+			</div>
+			<div class="formSubmit clearfix"><span class="bn" data="only">提 交</span><span class="tip">还可输入<i class="maxNum">500</i>字</span> </div>
+			<div class="pt20">
+				<h3 class="commentsTit">最新评论</h3>
+				<div id="commentsHideUserName"></div>
+				<div id="commentsBox"></div>
+			</div>
+			<div class="showAllComments"><span>查看剩下<i>100</i>条评论</span></div>
+		</div>
+		<!--评论 e-->
+
+
+		<!--你可能会喜欢-->
+		<div class="like">
+			<h4>你可能会喜欢</h4>
+			<ul class="clearfix pt20">
+				<li><a href="#"><img src="http://img.hexun.com/zl/img/temp.png" /><span>中企海外并购潮起两月花费已达去年总额购潮起两月...</span></a></li>
+				<li><a href="#"><img src="http://img.hexun.com/zl/img/temp.png" /><span>中企海外并购潮起两月花费已达去年总额购潮起两月...</span></a></li>
+				<li class="end"><a href="#"><img src="http://img.hexun.com/zl/img/temp.png" /><span>中企海外并购潮起两月花费已达去年总额购潮起两月...</span></a></li>
+			</ul>
+		</div>
+		<!--你可能会喜欢 e-->
+		<!--图片广告-->
+		<div class="picAd">
+			<div><img src="http://img.hexun.com/zl/img/temp.png" width="600" height="60" /></div>
+			<div class="clearfix pt20">
+				<img src="http://img.hexun.com/zl/img/temp.png" width="290" height="250" class="fl mr20" />
+				<img src="http://img.hexun.com/zl/img/temp.png" width="290" height="250" class="fl" />
+				<img src="http://img.hexun.com/zl/img/temp.png" width="290" height="250" class="fl mr20 mt20" />
+				<img src="http://img.hexun.com/zl/img/temp.png" width="290" height="250" class="fl mt20" />
+			</div>
+		</div>
+		<!--图片广告 e-->
+	</div>
+	<div class="w300">
+		<iframe width="300" height="370" frameborder="0" id="rightIframe" class="mt40" border="0" scrolling="no" marginheight="0" marginwidth="0" src="http://www.hexun.com/hxpage-jrtj/"></iframe>
+		<!--投顾志-->
+		<div class="tgz" style="display:none">
+			<h3><a href=""></a></h3>
+			<div class="tgzT clearfix pt20">
+				<a href="#"><img src="http://img.hexun.com/zl/img/temp.png" class="pic" /></a>
+				<div class="info">
+					<strong>夏立军</strong> <img src="images/right01.png" /> <span class="f14">投资顾问</span>
+					<p>安信证券合肥长江西路证券营业部 <br />所在地:四川省-绵阳市</p>
+				</div>
+			</div>
+			<div class="tgzC">
+				<ul class="clearfix">
+					<li><span class="s1"></span>看看</li>
+					<li><span class="s2"></span>提问</li>
+					<li><span class="s3"></span>计划</li>
+					<li><span class="s4"></span>电话</li>
+				</ul>
+			</div>
+			<div class="tgzB">
+				<i>投顾观点</i>
+				<ul>
+					<li><a href="#">两会窗口博弈生风 资金回归情燃两会</a></li>
+					<li><a href="#">两会窗口博弈生风 资金回归情燃两会</a> <img src="images/i1.png" /></li>
+					<li><a href="#">两会窗口博弈生风 资金回归情燃两会</a></li>
+					<li><a href="#">两会窗口博弈生风 资金回归情燃两会</a></li>
+				</ul>
+			</div>
+		</div>
+		<!--投顾志 e-->
+		<div class="mt40"><img src="http://img.hexun.com/zl/img/temp.png" width="300" height="250" /></div>
+		<div class="rightTextAd">
+			<ul class="pt10">
+				<li><a href="#" class="red">技术性追涨停在线直播</a><em>|</em><a href="">震荡市力争稳健收益</a></li>
+				<li><a href="#">高端平台聚焦海外投资</a><em>|</em><a href="">股海到汇市一键穿越</a></li>
+				<li><a href="#">时隔六年石油抄底机遇</a><em>|</em><a href="" class="red">A股惊现8年罕见现象</a></li>
+				<li><a href="#">简单的筛选迷人的收益高清 </a><em>|</em><a href="">比特币行情看这里里</a></li>
+			</ul>
+		</div>
+		<h3 class="rTit">热门新闻排行榜</h3>
+		<ul class="top10">
+			<li><a href="#" class="f16">多部委预警一线城市高房价 </a></li>
+			<li><a href="#" class="f16">多部委预警一线城市高房价 </a></li>
+			<li><a href="#" class="f16">多部委预警一线城市高房价 </a></li>
+			<li><a href="#">多部委预警一线城市高房价 </a></li>
+			<li><a href="#">多部委预警一线城市高房价 </a></li>
+			<li><a href="#">多部委预警一线城市高房价 </a></li>
+			<li><a href="#">多部委预警一线城市高房价 </a></li>
+			<li><a href="#">多部委预警一线城市高房价 </a></li>
+			<li><a href="#">多部委预警一线城市高房价 </a></li>
+			<li><a href="#">多部委预警一线城市高房价 </a></li>
+		</ul>
+		<div class="mt40"><img width="300" height="250" src="http://img.hexun.com/zl/img/temp.png"></div>
+		<h3 class="rTit">和讯热销金融证券产品</h3>
+		<div class="sProduct">
+			<div class="box bor bob">
+				<strong>凯丰对冲10号</strong>
+				<em>和讯新年用户福利</em>
+				<div class="txt1">最新净值<span><i>1.0000</i>元</span></div>
+				<div class="bottom clearfix">
+					<span>认购费：价外1%</span><a href="#" class="bn">立即抢购</a>
+				</div>
+			</div>
+			<div class="box bor bob">
+				<strong>凯丰对冲10号</strong>
+				<em>和讯新年用户福利</em>
+				<div class="txt1">最新净值<span><i>1.0000</i>元</span></div>
+				<div class="bottom clearfix">
+					<span>认购费：价外1%</span><a href="#" class="bn">立即抢购</a>
+				</div>
+			</div>
+			<div class="box bob">
+				<strong>凯丰对冲10号</strong>
+				<em>和讯新年用户福利</em>
+				<div class="txt1">最新净值<span><i>1.0000</i>元</span></div>
+				<div class="bottom clearfix">
+					<span>认购费：价外1%</span><a href="#" class="bn">立即抢购</a>
+				</div>
+			</div>
+			<div class="box bor">
+				<strong>凯丰对冲10号</strong>
+				<em>和讯新年用户福利</em>
+				<div class="txt1">最新净值<span><i>1.0000</i>元</span></div>
+				<div class="bottom clearfix">
+					<span>认购费：价外1%</span><a href="#" class="bn">立即抢购</a>
+				</div>
+			</div>
+			<div class="box bor">
+				<strong>凯丰对冲10号</strong>
+				<em>和讯新年用户福利</em>
+				<div class="txt1">最新净值<span><i>1.0000</i>元</span></div>
+				<div class="bottom clearfix">
+					<span>认购费：价外1%</span><a href="#" class="bn">立即抢购</a>
+				</div>
+			</div>
+			<div class="box">
+				<strong><a href="">凯丰对冲10号</a></strong>
+				<em>和讯新年用户福利</em>
+				<div class="txt1">最新净值<span><i>1.0000</i>元</span></div>
+				<div class="bottom clearfix">
+					<span>认购费：价外1%</span><a href="#" class="bn">立即抢购</a>
+				</div>
+			</div>
+			<div class="box bor bob">
+				<strong>凯丰对冲10号</strong>
+				<em>和讯新年用户福利</em>
+				<div class="txt1">最新净值<span><i>1.0000</i>元</span></div>
+				<div class="bottom clearfix">
+					<span>认购费：价外1%</span><a href="#" class="bn">立即抢购</a>
+				</div>
+			</div>
+			<div class="box bor bob">
+				<strong>凯丰对冲10号</strong>
+				<em>和讯新年用户福利</em>
+				<div class="txt1">最新净值<span><i>1.0000</i>元</span></div>
+				<div class="bottom clearfix">
+					<span>认购费：价外1%</span><a href="#" class="bn">立即抢购</a>
+				</div>
+			</div>
+			<div class="box bob">
+				<strong>凯丰对冲10号</strong>
+				<em>和讯新年用户福利</em>
+				<div class="txt1">最新净值<span><i>1.0000</i>元</span></div>
+				<div class="bottom clearfix">
+					<span>认购费：价外1%</span><a href="#" class="bn">立即抢购</a>
+				</div>
+			</div>
+			<div class="box bor">
+				<strong>凯丰对冲10号</strong>
+				<em>和讯新年用户福利</em>
+				<div class="txt1">最新净值<span><i>1.0000</i>元</span></div>
+				<div class="bottom clearfix">
+					<span>认购费：价外1%</span><a href="#" class="bn">立即抢购</a>
+				</div>
+			</div>
+			<div class="box bor">
+				<strong>凯丰对冲10号</strong>
+				<em>和讯新年用户福利</em>
+				<div class="txt1">最新净值<span><i>1.0000</i>元</span></div>
+				<div class="bottom clearfix">
+					<span>认购费：价外1%</span><a href="#" class="bn">立即抢购</a>
+				</div>
+			</div>
+			<div class="box">
+				<strong><a href="">凯丰对冲10号</a></strong>
+				<em>和讯新年用户福利</em>
+				<div class="txt1">最新净值<span><i>1.0000</i>元</span></div>
+				<div class="bottom clearfix">
+					<span>认购费：价外1%</span><a href="#" class="bn">立即抢购</a>
+				</div>
+			</div>
+		</div>
+		<div class="mt40"><img width="300" height="250" src="http://img.hexun.com/zl/img/temp.png"></div>
+	</div>
+</div>
+<script src="http://img.hexun.com/zl/tool/autosize.js"></script>
+<script src="http://i8.hexunimg.cn/zl/hx/articlePage/js/article.js"></script>
+
+<div class="shortcut-2014-w1000" id="shortcut-2014" style="display:none">
+ <div class="shortcut-2014-w1000-con clearfix">
+  <div class="topHeaderConL"><a href="http://www.hexun.com" target="blank" class="tohome">和讯首页</a>|<a href="http://3g.hexun.com/download_news/" target="_blank" class="mobileUpload">手机和讯</a></div>
+   <div class="topHeaderConR">
+    <link href="http://login.tool.hexun.com/OtherInterFace/style/newbase.css" rel="stylesheet" type="text/css">
+    <script src="http://login.tool.hexun.com/OtherInterFace/js/popup.js" type="text/javascript" charset="gb2312"></script>
+    <script charset="gb2312" type="text/javascript" language="javascript">
+      var href=window.location.href;   
+      hexunMember_loginSetup_signOutURL=href;//登出地址
+      hexunMember_loginSetup_noLoginDisplayMsg=""; //没登陆的提示
+      hexunMember_loginSetup_noLoginDisplayFlag="";//登录和注册中间的分隔符号 或 用户名与登出中间的分隔符号，不需要分隔符可以为空
+      hexunMember_loginSetup_islogined_isDisplay=true;//如果是登陆状态，true=显示用户名和登出按钮等信息,flase=不显示任何信息
+      hexunMember_loginSetup_referrer=document.referrer;//请不要修改此项
+      hexunMember_loginSetup_MastLogin=0;//如果需要不登陆就一直弹窗，在此设置一下弹窗时间间隔(秒)。如果等于0本项无效
+    </script>
+   <!--登录前-->
+    <div id="loginBef" class="loginBef" style="display: block;">
+     <div id="hexunMember_liveDisplay"><div id="hexunMember_nologinSetup_div_display_nologin"><span id="hexunMember_nologinSetup_span_display_noLoginDisplayMsg"></span><span id="hexunMember_nologinSetup_span_display_loginBTN"><a style="cursor:pointer" onclick="javascript:popupLogin();">登录</a></span><span id="hexunMember_nologinSetup_span_display_flag"></span><span id="hexunMember_nologinSetup_span_display_userREG"><a style="cursor:pointer" onclick="javascript:popupReg();">注册</a></span></div></div>
+    </div>
+    <!--登录后-->
+    <div id="loginAfter" class="loginAfter" style="display:none">     
+    </div>
+    <script src="http://login.tool.hexun.com/OtherInterFace/login_2014_drop.aspx" type="text/javascript" charset="gb2312"></script>
+   </div>
+ </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="statement"><p>【免责声明】本文仅代表作者本人观点，与和讯网无关。和讯网站对文中陈述、观点判断保持中立，不对所包含内容的准确性、可靠性或完整性提供任何明示或暗示的保证。请读者仅作参考，并请自行承担全部责任。</p></div>
+<!--footer-->
+<div class="footer">
+	<div class="link">
+		<div class="con">
+			<a href="">和讯股票恭候您的意见</a> - 
+			<a href="">联系我们</a> - 
+			<a href="">关于我们</a> - 
+			<a href="">广告服务</a>
+		</div>
+	</div>
+	<div class="txt">违法和不良信息举报电话：010-85650899 传真：010-85650844 邮箱：yhts@staff.hexun.com <br />本站郑重声明：和讯信息科技有限公司系政府批准的证券投资咨询机构[ZX0005]。所载文章、数据仅供参考，使用前请核实，风险自负。</div>
+</div>
+<!--footer e-->
+
+
+
+
+
+</body>
+</html>
+
