@@ -1,0 +1,2098 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<title>个股首页</title>
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+<script type="text/javascript" src="http://img.hexun.com/base/version/hx_base.min1.1.js"></script>
+<script type="text/javascript" src="js/jquery-1.4.2.min.js"></script>
+<link href="css/style.css" rel="stylesheet" type="text/css"  charset="gb2312" />
+<script>
+    var hqxx_code  = "sse601009"; //行情信息
+    var xgzq_Hcode = "hkex01398";//相关证券-港股
+    var xgzq_Acode = "";//相关证券-A股
+    var xgzq_AType = ""; // 相关证券-债券代码
+    var zjfg_code  = "szse000001,szse300055,sse600519,sse600050,sse600163,sse600506,sse600814,szse300315,sse600998,szse000538";//最近访问股
+    var yx_code = '601398'; // 股票印象应用
+    var tjgz_code  = "601398";//推荐的关注
+    var block_code = '140'; // 股票所属板块ID
+    var stockCode = '601398';
+    var blockCodes = 'otherH09010,otherH38000,otherH40001,otherH50002';
+</script>
+		
+</head>
+
+<body>
+<!--头 start-->
+<link type="text/css" rel="stylesheet" href="http://img.hexun.com/css/zt/data_head.css"/>
+<script src="http://img.hexun.com/js/2010/hexunjs.js"></script>
+<div class="detail_header2010">
+    <!-- 导航登录等 -->
+    <div id="newsHeaderNav">
+        <table width="100%" height="20" cellspacing="0" cellpadding="0" border="0">
+            <tbody><tr>
+                <td>
+                    <ul class="homeword">
+                        <li><a target="_blank" href="http://www.hexun.com/">和讯首页</a></li>
+                        <li><a target="_blank" href="http://news.hexun.com/">新闻</a></li>
+                        <li><a target="_blank" href="http://stock.hexun.com/">股票</a></li>
+                        <li><a target="_blank" href="http://funds.hexun.com/">基金</a></li>
+                        <li><a target="_blank" href="http://datainfo.stock.hexun.com/">股票数据</a></li>
+                        <li><a target="_blank" href="http://vol.stock.hexun.com/">资金流向</a></li>
+                        <li><a target="_blank" href="http://funds.money.hexun.com/fundsdata/focus/data1.htm">基金数据</a></li>
+                        <li><a target="_blank" href="http://quote.hexun.com/default.htm#stock">行情中心</a></li>
+                        <li><a target="_blank" href="http://guba.hexun.com/default.htm">股吧</a></li>
+                        <li><a target="_blank" href="http://jijinba.hexun.com/">基金吧</a></li>
+                        <li><a target="_blank" href="http://t.hexun.com/" style="color:#f00">微博</a></li>
+                    </ul>
+                </td>
+                <td align="center">
+                    <!--登录注册-->
+                    <div id="hexunMember_liveDisplay"></div>
+                    <link href='http://login.tool.hexun.com/OtherInterFace/style/newbase.css' rel='stylesheet' type='text/css' />
+                    <script src="http://login.tool.hexun.com/OtherInterFace/js/popup.js" type="text/javascript" charset="gb2312"></script>
+                    <script charset="gb2312" type="text/javascript" language="javascript">
+                        var href = window.location.href;
+                        hexunMember_loginSetup_signOutURL = href; //登出地址
+                        hexunMember_loginSetup_noLoginDisplayMsg = ""; //没登陆的提示
+                        hexunMember_loginSetup_noLoginDisplayFlag = "|"; //登录和注册中间的分隔符号 或 用户名与登出中间的分隔符号，不需要分隔符可以为空
+                        hexunMember_loginSetup_islogined_isDisplay = true; //如果是登陆状态，true=显示用户名和登出按钮等信息,flase=不显示任何信息
+                        hexunMember_loginSetup_referrer = document.referrer; //请不要修改此项
+                        hexunMember_loginSetup_MastLogin = 0; //如果需要不登陆就一直弹窗，在此设置一下弹窗时间间隔(秒)。如果等于0本项无效
+                    </script>
+                    <!--登录注册over-->
+                </td>
+            </tr>
+            </tbody></table>
+        <div class="clear"></div>
+    </div>
+    <!-- logo等 -->
+		<div id="logoetc">
+        <div class="logo"><a target="_blank" href="http://www.hexun.com"><img border="0" alt="和讯" src="http://img.hexun.com/img/2010/logo-hexun.gif"/></a><a id="subChannelLogo" target="_blank" href="http://news.hexun.com"><img border="0" src="img/zlkp_logo.gif"/></a></div>
+        <div id="hexunCalendar" class="date"></div>
+        <div class="seach_head">
+            <form target="_blank" method="post" action="http://data.stock.hexun.com/search/default.aspx" onsubmit="return false" name="sb_form" id="formSearch">
+                <table width="100%" cellspacing="0" cellpadding="0" border="0" id="Table1">
+                    <tbody><tr>
+                        <td>
+                            <input type="radio" value="stockdata" checked="" name="radio1" id="stockdata"/>股票/基金
+                            <input type="radio" value="stockquote" name="radio1" id="stockquote"/>实时行情
+                            <input type="radio" value="stockbar" name="radio1" id="stockbar"/>股吧
+                        </td>
+                        <td>
+                            <div>
+                                <input type="text" onblur="Suggest.blurObj()" onfocus="Suggest.focusObj()" onkeydown="Suggest.keyDown(event);if(event.keyCode == 13) StockDataSearch2009_Submit()" autocomplete="off" value="代码/名称/拼音" class="input2" name="msn_stockid" id="ajaxinput" style="color: rgb(153, 153, 153);"/>
+                            </div>
+                            <div class="floattable" id="ajaxdiv"></div>
+                        </td>
+                        <td>
+                            <input type="hidden" id="typeqgwp" value="a" name="typeqgwp"/>
+                            <input type="hidden" value="" id="sw" name="sw"/>
+                            <input type="image" src="http://img.hexun.com/zt/2010/btn_cx.gif" name="ajaxbutton" onclick="StockDataSearch2009_Submit()" id="ajaxbutton" style="vertical-align:middle;"/>
+                            <a target="_blank" href="http://stock.hexun.com/mystock/after.aspx"><img border="0" align="absMiddle" src="http://img.hexun.com/zt/2010/btn_gp.gif"/></a>
+                            <a target="_blank" href="http://wizard.stock.hexun.com/bigtrade/"><img border="0" align="absMiddle" src="http://img.hexun.com/zt/2010/btn_xzhq.gif"/></a>
+                        </td>
+                    </tr>
+                    </tbody></table>
+            </form>
+            <script type="text/javascript" language="javascript" src="http://data.stock.hexun.com/js/stocksearch.js"></script>
+        </div>
+		</div>
+    <!--一级导航结束-->
+    <div class="clear"></div>
+    <script src="http://login.tool.hexun.com/OtherInterFace/login_2010_Style02.aspx" type="text/javascript" charset="gb2312"></script>
+</div>
+<!--头end-->
+<div class="container bc">
+	<!--导航-->
+	<div class="navs pl10">
+		<a href="http://www.hexun.com">和讯网</a> > <a href="#">行情中心</a> > <a href="#">实时行情</a> > <span>贵州茅台(600519)</span>
+	</div>
+</div>
+<!--重点关注-->
+<div class="nav_zd bc">
+	<strong>重点关注：</strong>
+	<ul class="clearfix">
+		<li><a href="#">实时行情</a></li>
+		<li><a href="#">资金流向</a></li>
+		<li><a href="#">盘中明细</a></li>
+		<li><a href="#">资讯聚合</a></li>
+		<li><a href="#">公司简介</a></li>
+		<li><a href="#">股权结构</a></li>
+		<li><a href="#">流通股东</a></li>
+		<li><a href="#">高管</a></li>
+		<li><a href="#">财务数据</a></li>
+		<li><a href="#">上市发行</a></li>
+		<li><a href="#">关注度</a></li>
+		<li><a href="#">技术点评</a></li>
+		<li><a href="#">经营分析</a></li>
+		<li class="old_link"><a href="#">返回旧版</a></li>
+	</ul>
+</div>
+<!--重点关注 e-->
+
+<!--全球市场-->
+<div class="container bc stock_info">
+	<iframe width="958" scrolling="no" height="28" frameborder="0" src="http://data.stock.hexun.com/iframe/iframe_markets.htm"></iframe>
+</div>
+<!--全球市场 e-->
+
+<!--行情情息 s-->
+<div class="bank_infos_b mt10 bc">
+	<div class="bank_infosBg clearfix" style="overflow:hidden;height:30px">
+		<div class="bank_infos-tit fl">
+			<h1 class="stockName pl20 fl"><span id="q_sname"></span></h1>
+			<h1 class="fl ml5 mt10"><span id="q_scode"></span></h1>
+		</div>
+		<div class="bank_infos-finance fl clearfix">
+			<span class="fl">财务：</span><a href="#" class="fl"><em class="star_o"><em class="star_i" style="width:50%"></em></em></a>
+		</div>
+		<ul class="bank_infos-list fl"><li>所属行业：食品饮料</li><li>所属概念：奢侈品 高转送 春节</li></ul>
+		<div class="fr bank_infos-zs">
+			<span id="zs_stock_topbn" class="zs_stock_bn_on" code="600519" mtype="1" onclick="addIStock(this)">+ 自选 (<em></em>+人)</span>
+			<a target="_blank" href="http://mymoney.hexun.com/istock/default.aspx" class="fl mt5 ml10">我的股票</a>
+		</div>
+	</div>
+</div>
+<div class="bank_infos_con container bc">
+	<div class="price_time fl">
+		<h1>
+			<table width="100%">
+				<tr>
+					<td><div class="price_a fr"><span id="q_current">-- </span></div></td>
+					<td><div class="price_b fr"><span id="q_updownprice">-- </span><span id="q_upDownRate">(--) </span></div></td>
+				</tr>
+			</table>
+			<div class="price_txt"><span id="q_state" style="display:none">---</span>&nbsp;&nbsp;截止 <span id="q_time">---</span></div>
+		</h1>
+	</div>
+	<ul class="other fl">
+		<li>最高：<span id="q_zg">--</span></li>
+		<li>昨收：<span id="q_zs">--</span></li>
+		<li>均价：<span id="q_jj">--</span></li>
+		<li class="w130">成交量：<span id="q_cjl">--</span></li>
+		<li class="w140">　外　盘：<span id="q_wp" class="color_900">--</span></li>
+		<li class="w120"><a href="#">总市值</a>：<span id="q_zsz">--</span></li>
+		<li>最低：<span id="q_zd">--</span></li>
+		<li>今开：<span id="q_jk">--</span></li>
+		<li>现手：<span id="q_xs">--</span></li>
+		<li class="w130">成交额：<span id="q_cje">--</span></li>
+		<li class="w140">　内　盘：<span id="q_np" class="color_090">--</span></li>
+		<li class="w120"><a href="#">市盈率</a>：<span id="q_syl">--</span></li>
+		<li>换手：<span id="q_hs">--</span></li>
+		<li>量比：<span id="q_lb">--</span></li>
+		<li>振幅：<span id="q_zf">--</span></li>
+		<li class="w130">委&nbsp;&nbsp;比：<span id="q_wb">--</span></li>
+		<li class="w140"><a href="#">每股收益</a>：<span id="q_mgsy">--</span></li>
+		<li class="w120"><a href="#">市净率</a>：<span id="q_sjl">--</span></li>
+	</ul>
+</div>
+<!--行情情息 e-->
+
+
+<div class="stockm">
+	<div class="stockl">
+		<!--左侧导航 s-->
+		<div>
+			<dl>
+				<dt>行情走势</dt>
+				<dd><a href="#">实时行情</a></dd>
+				<dd><a href="#">资金流向</a></dd>
+				<dd><a href="#">盘中明细</a></dd>
+				<dd><a href="#">盘后明细</a></dd>
+				<dd><a href="#">行业资金</a></dd>
+				<dd><a href="#">大盘资金</a></dd>
+			</dl>
+			<dl>
+				<dt>新闻资讯</dt>
+				<dd><a href="#">资讯聚合</a></dd>
+				<dd class="more"><span>更多资讯 &raquo;</span>
+					<div>
+						<ul>
+							<li><a href="#">---------</a></li>
+							<li><a href="#">----------</a></li>
+							<li><a href="#">---------</a></li>
+							<li><a href="#">----------</a></li>
+							<li><a href="#">---------</a></li>
+							<li><a href="#">----------</a></li>
+						</ul>
+					</div>
+				</dd>
+				<dd><a href="#">公司公告</a></dd>
+			</dl>
+			<dl>
+				<dt>主力追踪</dt>
+				<dd><a href="#">机构持仓</a></dd>
+				<dd><a href="#" class="gray">龙虎榜(0条)</a></dd>
+				<dd><a href="#" class="gray">融资融券(0条)</a></dd>
+				<dd><a href="#" class="gray">大宗交易(0条)</a></dd>
+				<dd><a href="#">主力控盘</a></dd>
+			</dl>
+			<dl>
+				<dt>研究分析</dt>
+				<dd><a href="#">财务评估</a></dd>
+				<dd><a href="#">价值评估</a></dd>
+				<dd><a href="#">技术评估</a></dd>
+				<dd><a href="#">智股魔方</a></dd>
+				<dd><a href="#">透视日报</a></dd>
+				<dd><a href="#">研究报告</a></dd>
+			</dl>
+			<dl>
+				<dt>公司资料</dt>
+				<dd><a href="#">公司概况</a></dd>
+				<dd><a href="#">收入分布</a></dd>
+				<dd class="more"><span>分红融资 &raquo;</span>
+					<div>
+						<ul>
+							<li><a href="#">---------</a></li>
+							<li><a href="#">----------</a></li>
+							<li><a href="#">---------</a></li>
+							<li><a href="#">----------</a></li>
+							<li><a href="#">---------</a></li>
+							<li><a href="#">----------</a></li>
+						</ul>
+					</div>
+				</dd>
+				<dd><a href="#">高管名录</a></dd>
+				<dd><a href="#">所属板块</a></dd>
+			</dl>
+			<dl>
+				<dt>财务数据</dt>
+				<dd><a href="#">最新财务</a></dd>
+				<dd><a href="#">ENGLISH</a></dd>
+				<dd><a href="#">财务比率</a></dd>
+				<dd class="more"><span>财务报表 &raquo;</span>
+					<div>
+						<ul>
+							<li><a href="#">分红预案(暂无)</a></li>
+							<li><a href="#">分红转增股本(暂无)</a></li>
+							<li><a href="#">配股(暂无)</a></li>
+							<li><a href="#" class="gray">增发(暂无)</a></li>
+							<li><a href="#" class="gray">转债(暂无)</a></li>
+							<li><a href="#">首次发行(暂无)</a></li>
+							<li><a href="#">分红预案(暂无)</a></li>
+							<li><a href="#">分红转增股本(暂无)</a></li>
+							<li><a href="#">配股(暂无)</a></li>
+							<li><a href="#" class="gray">增发(暂无)</a></li>
+							<li><a href="#" class="gray">转债(暂无)</a></li>
+							<li><a href="#">首次发行(暂无)</a></li>
+						</ul>
+					</div>
+				</dd>
+				<dd><a href="#">财务评估</a></dd>
+			</dl>
+			<dl>
+				<dt>股东分析</dt>
+				<dd><a href="#">十大股东</a></dd>
+				<dd><a href="#">十大流通股东</a></dd>
+				<dd><a href="#">限售股解禁</a></dd>
+				<dd><a href="#">股东户数</a></dd>
+				<dd><a href="#">股本结构</a></dd>
+			</dl>
+			<dl>
+				<dt>网友关注</dt>
+				<dd><a href="#">关注度</a></dd>
+				<dd><a href="#">个股微博</a></dd>
+				<dd><a href="#">股吧</a></dd>
+				<dd><a href="#">个股论坛</a></dd>
+				<dd><a href="#">投诉该公司</a></dd>
+			</dl>
+			<dl>
+				<dt>股市备忘</dt>
+				<dd><a href="#">每日交易提示</a></dd>
+				<dd><a href="#">公告速递</a></dd>
+				<dd><a href="#">一周备忘</a></dd>
+				<dd><a href="#">四大报摘要</a></dd>
+				<dd><a href="#">新股申购中签</a></dd>
+				<dd><a href="#">大小非解禁</a></dd>
+				<dd><a href="#">重大事项查询</a></dd>
+				<dd><a href="#">看图解盘</a></dd>
+				<dd><a href="#">动态报盘</a></dd>
+				<dd><a href="#">市场行情监测</a></dd>
+				<dd><a href="#">多空大揭秘</a></dd>
+				<dd><a href="#">市场传闻</a></dd>
+				<dd><a href="#">券商交易通道</a></dd>
+			</dl>
+			<dl>
+				<dt>宏观数据</dt>
+				<dd><a href="#">宏观数据首页</a></dd>
+				<dd><a href="#">国民经济核算</a></dd>
+				<dd><a href="#">价格税收</a></dd>
+				<dd><a href="#">财政税收</a></dd>
+				<dd><a href="#">金融保险</a></dd>
+				<dd><a href="#">三大产业</a></dd>
+				<dd><a href="#">人口与就业</a></dd>
+				<dd><a href="#">其它数据</a></dd>
+				<dd><a href="#">数据查询</a></dd>
+			</dl>
+		</div>
+		<!--左侧导航 e-->
+	</div>
+
+	<div class="stockc">
+		<!--分时图形 s-->
+		<!--iframe width="530" scrolling="no" height="430" frameborder="0" id="SiPad" src="" marginheight="0" marginwidth="0"></iframe-->
+		<script>
+			//var flashIfr = document.getElementById("SiPad");
+			//var flashIfr_n = encodeURI("贵州茅台");
+			//flashIfr.src="gzhq20130416.html?c=000001&m=1&p=20000001&t=0&n="+flashIfr_n;
+		</script>
+		<!--分时图形 e-->
+
+		<!--相关证券 s-->
+		<h3 class="sctock_tit clearfix">
+			<div class="sctock_tit_l"><a href="#">相关证券</a><!--em id="xgzq"></em--></div>
+			<div class="sctock_tit_r"></div>
+		</h3>
+		<div class="sctock_con pl10 clearfix" id="xgzq_data" style="height:72px">
+			<ul id="xgzq_data1"></ul>
+			<ul id="xgzq_data2"></ul>
+			<ul id="xgzq_data3"></ul>
+		</div>
+		<!--相关证券 e-->
+
+		<!--概要数据 s-->
+		<h3 class="sctock_tit clearfix">
+			<div class="sctock_tit_l">概要数据</div>
+			<div class="sctock_tit_r">截止：12-14</div>
+		</h3>
+		<div class="sctock_con">
+			<table class="ml10">
+				<col width="65">
+				<col width="75">
+				<col width="75">
+				<col width="65">
+				<col width="75">
+				<col width="50">
+				<col width="62">
+				<col width="70">
+				<tr>
+					<td class="tr"><a href="#" class="unl">总股本</a>：</td>
+					<td>222536亿</td>
+					<td class="tr"><a href="#" class="unl">每股收益</a>：</td>
+					<td>0.35元<span class="color_900">↑</span></td>
+					<td class="tr"><a href="#" class="unl">销售毛利率</a>：</td>
+					<td>50.50%</td>
+					<td class="tr"><a href="#" class="unl">市盈率</a>：</td>
+					<td>97.60 </td>
+				</tr>
+				<tr>
+					<td class="tr"><a href="#" class="unl">流通A股</a>：</td>
+					<td>222536亿</td>
+					<td class="tr"><a href="#" class="unl">每股净资产</a>：</td>
+					<td>2.65元<span class="color_900">↑</span></td>
+					<td class="tr"><a href="#" class="unl">净利增长率</a>：</td>
+					<td>32.12%</td>
+					<td class="tr"><a href="#" class="unl">三费率</a>：</td>
+					<td>13.22%</td>
+				</tr>
+				<tr>
+					<td class="tr"><a href="#" class="unl">总市值</a>：</td>
+					<td>9700亿</td>
+					<td class="tr"><a href="#" class="unl">每股现金流</a>：</td>
+					<td>2.65元</td>
+					<td class="tr"><a href="#" class="unl">收入增长率</a>：</td>
+					<td>10.60%</td>
+					<td class="tr"><a href="#" class="unl">户均持股</a>：</td>
+					<td>16653<span class="color_090">↓</span></td>
+				</tr>
+			</table>
+		</div>
+		<!--概要数据 e-->
+		<!--广告位 s-->
+		<a href="#"><img src="temp/demo.png" width="525" height="100" class="ad mt20 mb20"  alt="" /></a>
+		<!--广告位 e-->
+		<!--相关排名 s-->
+		<h3 class="sctock_tit clearfix">
+			<div class="sctock_tit_l">相关排名</div>
+			<div class="sctock_tit_r">截止：12-14 15:00</div>
+		</h3>
+		<div class="sctock_con">
+			<div class="xgpm pl10">
+				<table class="data">
+					<col width="88">
+					<col width="440">
+					<tr>
+						<td class="bg2">
+							<table>
+								<col width="88">
+								<tr><td class="bg1" style="height:29px;*height:30px"></td></tr>
+								<tr><td class="bg1"><span class="pl5">辉煌科技</span></td></tr>
+								<tr><td class="bg1"><div class="tdtxt" style="width:88px">计算机行业计算机行业</div></td></tr>
+								<tr><td class="bg1"><span class="pl5">A股平均</span></td></tr>
+								<tr><td class="bg1"><span class="pl5">行业排名</span></td></tr>
+								<tr><td class="bg1 bg1n"><span class="pl5">A股排名</span></td></tr>
+							</table>
+						</td>
+						<td valign="top" style="border-right:0px">
+							<div class="xgpm_o">
+								<ul id="xgpm_data">
+									<li class="fl">
+										<table width="100%">
+											<tr><td><a href="#" class="unl">5日涨跌幅</a></td></tr>
+											<tr><td><span class="color_900 fl pl10">0.15%↑</span> <span class="le_o"><span class="le_r" style="width:40%"></span></span></td></tr>
+											<tr><td><span class="color_090 fl pl10">0.15%↑</span> <span class="le_o"><span class="le_g" style="width:60%"></span></span></td></tr>
+											<tr><td><span class="color_900 fl pl10">0.15%↑</span> <span class="le_o"><span class="le_r" style="width:40%"></span></span></td></tr>
+											<tr><td class="bg4"><b>第<a href="#" class="unl">174</a>名</b></td></tr>
+											<tr><td class="bg4" style="border-bottom:0;"><b>第<a href="#" class="unl">174</a>名</b></td></tr>
+										</table>
+									</li>
+									<li class="fl">
+										<table width="100%">
+											<tr><td><a href="#" class="unl">总市值</a></td></tr>
+											<tr><td><span class="color_900 fl pl10">0.15%↑</span> <span class="le_o"><span class="le_r" style="width:100%"></span></span></td></tr>
+											<tr><td><span class="color_090 fl pl10">0.15%↑</span> <span class="le_o"><span class="le_g" style="width:80%"></span></span></td></tr>
+											<tr><td><span class="color_900 fl pl10">0.15%↑</span> <span class="le_o"><span class="le_r" style="width:100%"></span></span></td></tr>
+											<tr><td class="bg4"><b>第<a href="#" class="unl">174</a>名</b></td></tr>
+											<tr><td class="bg4" style="border-bottom:0;"><b>第<a href="#" class="unl">174</a>名</b></td></tr>
+										</table>
+									</li>
+									<li class="fl">
+										<table width="100%">
+											<tr><td><a href="#" class="unl">市盈率</a></td></tr>
+											<tr><td>1</td></tr>
+											<tr><td>1</td></tr>
+											<tr><td>1</td></tr>
+											<tr><td class="bg4"><b>第<a href="#" class="unl">174</a>名</b></td></tr>
+											<tr><td class="bg4" style="border-bottom:0;"><b>第<a href="#" class="unl">174</a>名</b></td></tr>
+										</table>
+									</li>
+									<li class="fl">
+										<table width="100%">
+											<tr><td><a href="#" class="unl">每股收益</a></td></tr>
+											<tr><td>1</td></tr>
+											<tr><td>1</td></tr>
+											<tr><td>1</td></tr>
+											<tr><td class="bg4"><b>第<a href="#" class="unl">174</a>名</b></td></tr>
+											<tr><td class="bg4" style="border-bottom:0;"><b>第<a href="#" class="unl">174</a>名</b></td></tr>
+										</table>
+									</li>
+									<li class="fl">
+										<table width="100%">
+											<tr><td>1</td></tr>
+											<tr><td>1</td></tr>
+											<tr><td>1</td></tr>
+											<tr><td>1</td></tr>
+											<tr><td class="bg4"><b>第<a href="#" class="unl">174</a>名</b></td></tr>
+											<tr><td class="bg4" style="border-bottom:0;"><b>第<a href="#" class="unl">174</a>名</b></td></tr>
+										</table>
+									</li>
+									<li class="fl">
+										<table width="100%">
+											<tr><td>1</td></tr>
+											<tr><td>1</td></tr>
+											<tr><td>1</td></tr>
+											<tr><td>1</td></tr>
+											<tr><td class="bg4"><b>第<a href="#" class="unl">174</a>名</b></td></tr>
+											<tr><td class="bg4" style="border-bottom:0;"><b>第<a href="#" class="unl">174</a>名</b></td></tr>
+										</table>
+									</li>
+									<li class="fl">
+										<table width="100%">
+											<tr><td>1</td></tr>
+											<tr><td>1</td></tr>
+											<tr><td>1</td></tr>
+											<tr><td>1</td></tr>
+											<tr><td class="bg4"><b>第<a href="#" class="unl">174</a>名</b></td></tr>
+											<tr><td class="bg4" style="border-bottom:0;"><b>第<a href="#" class="unl">174</a>名</b></td></tr>
+										</table>
+									</li>
+									<li class="fl">
+										<table width="100%">
+											<tr><td>1</td></tr>
+											<tr><td>1</td></tr>
+											<tr><td>1</td></tr>
+											<tr><td>1</td></tr>
+											<tr><td class="bg4"><b>第<a href="#" class="unl">174</a>名</b></td></tr>
+											<tr><td class="bg4" style="border-bottom:0;"><b>第<a href="#" class="unl">174</a>名</b></td></tr>
+										</table>
+									</li>
+								</ul>
+							</div>
+						</td>
+					</tr>
+				</table>
+			</div>
+			<div class="pl10 color_75">A股共2222只股票，计算机行业共123只股票</div>
+		</div>
+		<!--相关排名 e-->
+		<!--最新公告 s-->
+		<h3 class="sctock_tit clearfix">
+			<div class="sctock_tit_l">最新公告<em>(不用下载,点击直接浏览)</em></div>
+			<div class="sctock_tit_r"><a href="#">更多>></a></div>
+		</h3>
+		<div style="height:73px;overflow:hidden">
+			<ul class="sckock_gg pl10 color_75 clearfix">
+				<li><p class="fl"><a href="#" class="mr10 f14 color_75">[年报季报]</a><a href="#" class="f14 unl">青岛啤酒(600600)：2012年半年度主要财务指标青岛啤酒年半年度主要财务指标</a></p><em class="fr">12-08-06</em></li>
+				<li><p class="fl"><a href="#" class="mr10 f14 color_75">[其他]</a><a href="#" class="f14 unl">青岛啤酒(600600)：2012年半年度主要财务指标青岛啤酒2012年半年度主要财务指标</a></p><em class="fr">12-08-06</em></li>
+				<li><p class="fl"><a href="#" class="mr10 f14 color_75">[分红规划]</a><a href="#" class="f14 unl">青岛啤酒(600600)：2012年半年度主要财务指标青岛啤酒年半年度主要财务指标</a></p><em class="fr">12-08-06</em></li>
+				<li><p class="fl"><a href="#" class="mr10 f14 color_75">[年报季报]</a><a href="#" class="f14 unl">青岛啤酒(600600)：2012年半年度主要财务指标青岛啤酒年半年度主要财务指标</a></p><em class="fr">12-08-06</em></li>
+				<li><p class="fl"><a href="#" class="mr10 f14 color_75">[其他]</a><a href="#" class="f14 unl">青岛啤酒(600600)：2012年半年度主要财务指标青岛啤酒2012年半年度主要财务指标</a></p><em class="fr">12-08-06</em></li>
+				<li><p class="fl"><a href="#" class="mr10 f14 color_75">[分红规划]</a><a href="#" class="f14 unl">青岛啤酒(600600)：2012年半年度主要财务指标青岛啤酒年半年度主要财务指标</a></p><em class="fr">12-08-06</em></li>
+				<li><p class="fl"><a href="#" class="mr10 f14 color_75">[年报季报]</a><a href="#" class="f14 unl">青岛啤酒(600600)：2012年半年度主要财务指标青岛啤酒年半年度主要财务指标</a></p><em class="fr">12-08-06</em></li>
+				<li><p class="fl"><a href="#" class="mr10 f14 color_75">[其他]</a><a href="#" class="f14 unl">青岛啤酒(600600)：2012年半年度主要财务指标青岛啤酒2012年半年度主要财务指标</a></p><em class="fr">12-08-06</em></li>
+				<li><p class="fl"><a href="#" class="mr10 f14 color_75">[分红规划]</a><a href="#" class="f14 unl">青岛啤酒(600600)：2012年半年度主要财务指标青岛啤酒年半年度主要财务指标</a></p><em class="fr">12-08-06</em></li>
+				<li><p class="fl"><a href="#" class="mr10 f14 color_75">[年报季报]</a><a href="#" class="f14 unl">青岛啤酒(600600)：2012年半年度主要财务指标青岛啤酒年半年度主要财务指标</a></p><em class="fr">12-08-06</em></li>
+				<li><p class="fl"><a href="#" class="mr10 f14 color_75">[其他]</a><a href="#" class="f14 unl">青岛啤酒(600600)：2012年半年度主要财务指标青岛啤酒2012年半年度主要财务指标</a></p><em class="fr">12-08-06</em></li>
+				<li><p class="fl"><a href="#" class="mr10 f14 color_75">[分红规划]</a><a href="#" class="f14 unl">青岛啤酒(600600)：2012年半年度主要财务指标青岛啤酒年半年度主要财务指标</a></p><em class="fr">12-08-06</em></li>
+				<li><p class="fl"><a href="#" class="mr10 f14 color_75">[年报季报]</a><a href="#" class="f14 unl">青岛啤酒(600600)：2012年半年度主要财务指标青岛啤酒年半年度主要财务指标</a></p><em class="fr">12-08-06</em></li>
+				<li><p class="fl"><a href="#" class="mr10 f14 color_75">[其他]</a><a href="#" class="f14 unl">青岛啤酒(600600)：2012年半年度主要财务指标青岛啤酒2012年半年度主要财务指标</a></p><em class="fr">12-08-06</em></li>
+				<li><p class="fl"><a href="#" class="mr10 f14 color_75">[分红规划]</a><a href="#" class="f14 unl">青岛啤酒(600600)：2012年半年度主要财务指标青岛啤酒年半年度主要财务指标</a></p><em class="fr">12-08-06</em></li>
+				<li><p class="fl"><a href="#" class="mr10 f14 color_75">[年报季报]</a><a href="#" class="f14 unl">青岛啤酒(600600)：2012年半年度主要财务指标青岛啤酒年半年度主要财务指标</a></p><em class="fr">12-08-06</em></li>
+				<li><p class="fl"><a href="#" class="mr10 f14 color_75">[其他]</a><a href="#" class="f14 unl">青岛啤酒(600600)：2012年半年度主要财务指标青岛啤酒2012年半年度主要财务指标</a></p><em class="fr">12-08-06</em></li>
+				<li><p class="fl"><a href="#" class="mr10 f14 color_75">[分红规划]</a><a href="#" class="f14 unl">青岛啤酒(600600)：2012年半年度主要财务指标青岛啤酒年半年度主要财务指标</a></p><em class="fr">12-08-06</em></li>
+				<li><p class="fl"><a href="#" class="mr10 f14 color_75">[年报季报]</a><a href="#" class="f14 unl">青岛啤酒(600600)：2012年半年度主要财务指标青岛啤酒年半年度主要财务指标</a></p><em class="fr">12-08-06</em></li>
+				<li><p class="fl"><a href="#" class="mr10 f14 color_75">[其他]</a><a href="#" class="f14 unl">青岛啤酒(600600)：2012年半年度主要财务指标青岛啤酒2012年半年度主要财务指标</a></p><em class="fr">12-08-06</em></li>
+			</ul>
+		</div>
+		<!--最新公告 e-->
+		<!--资讯聚合 s-->
+		<h3 class="sctock_tit clearfix">
+			<div class="sctock_tit_l">资讯聚合</div>
+			<div class="sctock_tit_r"><a href="#" class="baidu">百度一下</a><a href="#" class="google">谷歌一下</a><a href="#">更多>></a></div>
+		</h3>
+		<div class="sctock_tab ml10 mb10">
+			<ul id="sctock_tab_2">
+				<li id="tb_zxjh1" onclick="tab('tb_zxjh',1,8)" class="s">全部</li>
+				<li id="tb_zxjh2" onclick="tab('tb_zxjh',2,8)">个股新闻</li>
+				<li id="tb_zxjh3" onclick="tab('tb_zxjh',3,8)">行业新闻</li>
+				<li id="tb_zxjh4" onclick="tab('tb_zxjh',4,8)">研报</li>
+				<li id="tb_zxjh5" onclick="tab('tb_zxjh',5,8)">博客</li>
+				<li id="tb_zxjh6" onclick="tab('tb_zxjh',6,8)">股吧</li>
+				<li id="tb_zxjh7" onclick="tab('tb_zxjh',7,8)">专题</li>
+				<li id="tb_zxjh8" onclick="tab('tb_zxjh',8,8)">视频</li>
+			</ul>
+		</div>
+		<div class="sctock_con pl10 pt10">
+			<div id="con_tb_zxjh_1">
+				<ul class="sckock_zx color_75 clearfix">
+					<li><p class="fl"><a class="mr10 f14 color_75" href="#" target="_blank">[个股新闻]</a><a target="_blank" class="f14" title="巨丰投顾：A股三个女人一台戏" href="#">巨丰投顾：A股三个女人一台戏</a></p><div class="ly"><a class="color_75" target="_blank" href="#">和讯股票股票</a></div><em class="fr">07-31</em></li>
+					<li><p class="fl"><a href="#" class="f14 sp unl">1青岛啤酒(600600)：2012年半年度主要财务指标青岛啤酒(600600)：2012年半年度主要财务指标</a></p><div class="ly"><a class="color_75" target="_blank" href="#">新浪</a></div><em class="fr">08-06</em></li>
+					<li><p class="fl"><a href="#" class="mr10 f14 color_75">[年报季报]</a><a href="#" class="f14 unl">青岛啤酒(600600)：2012年半年度主要财务指标青岛啤酒(600600)：2012年半年度主要财务指标</a></p><div class="ly"><a class="color_75" target="_blank" href="#">执行官</a></div><em class="fr">08-06</em></li>
+					<li><p class="fl"><a href="#" class="mr10 f14 color_75">[年报季报]</a><a href="#" class="f14 unl">青岛啤酒(600600)：2012年半年度主要财务指标青岛啤酒(600600)：2012年半年度主要财务指标</a></p><div class="ly"><a class="color_75" target="_blank" href="#">新浪</a></div><em class="fr">08-06</em></li>
+					<li><p class="fl"><a href="#" class="f14 ba unl">青岛啤酒(600600)：2012年半年度主要财务指标青岛啤酒(600600)：2012年半年度主要财务指标</a></p><div class="ly"><a class="color_75" target="_blank" href="#">新浪</a></div><em class="fr">08-06</em></li>
+					<li><p class="fl"><a href="#" class="mr10 f14 color_75">[分红规划]</a><a href="#" class="f14 unl">青岛啤酒(600600)：2012年半年度主要财务指标青岛啤酒(600600)：2012年半年度主要财务指标</a></p><div class="ly"><a class="color_75" target="_blank" href="#">东方财富</a></div><span class="fl ml10"></span><em class="fr">08-06</em></li>
+				</ul>
+			</div>
+			<div id="con_tb_zxjh_2" style="display:none">
+				<ul class="sckock_zx color_75 clearfix">
+					<li><p class="fl"><a href="#" class="mr10 f14 color_75">[年报季报]2</a><a href="#" class="f14 unl">青岛啤酒(600600)：2012年半年度主要财务指标青岛啤酒(600600)：2012年半年度主要财务指标</a></p><span class="fl ml10">东方财富</span><em class="fr">12-08-06</em></li>
+					<li><p class="fl"><a href="#" class="f14 sp unl">1青岛啤酒(600600)：2012年半年度主要财务指标青岛啤酒(600600)：2012年半年度主要财务指标</a></p><span class="fl ml10">新浪</span><em class="fr">12-08-06</em></li>
+					<li><p class="fl"><a href="#" class="mr10 f14 color_75">[年报季报]</a><a href="#" class="f14 unl">青岛啤酒(600600)：2012年半年度主要财务指标青岛啤酒(600600)：2012年半年度主要财务指标</a></p><span class="fl ml10">执行官</span><em class="fr">12-08-06</em></li>
+					<li><p class="fl"><a href="#" class="mr10 f14 color_75">[年报季报]</a><a href="#" class="f14 unl">青岛啤酒(600600)：2012年半年度主要财务指标青岛啤酒(600600)：2012年半年度主要财务指标</a></p><span class="fl ml10">新浪</span><em class="fr">12-08-06</em></li>
+					<li><p class="fl"><a href="#" class="f14 ba unl">青岛啤酒(600600)：2012年半年度主要财务指标青岛啤酒(600600)：2012年半年度主要财务指标</a><span class="fl ml10">东方财富</span></p><em class="fr">12-08-06</em></li>
+					<li><p class="fl"><a href="#" class="mr10 f14 color_75">[分红规划]</a><a href="#" class="f14 unl">青岛啤酒(600600)：2012年半年度主要财务指标青岛啤酒(600600)：2012年半年度主要财务指标</a></p><span class="fl ml10">东方财富</span><em class="fr">12-08-06</em></li>
+				</ul>
+			</div>
+			<div id="con_tb_zxjh_3" style="display:none">
+				<ul class="sckock_zx color_75 clearfix">
+					<li><p class="fl"><a href="#" class="mr10 f14 color_75">[年报季报]3</a><a href="#" class="f14 unl">青岛啤酒(600600)：2012年半年度主要财务指标青岛啤酒(600600)：2012年半年度主要财务指标</a></p><span class="fl ml10">东方财富</span><em class="fr">12-08-06</em></li>
+					<li><p class="fl"><a href="#" class="f14 sp unl">1青岛啤酒(600600)：2012年半年度主要财务指标青岛啤酒(600600)：2012年半年度主要财务指标</a></p><span class="fl ml10">新浪</span><em class="fr">12-08-06</em></li>
+					<li><p class="fl"><a href="#" class="mr10 f14 color_75">[年报季报]</a><a href="#" class="f14 unl">青岛啤酒(600600)：2012年半年度主要财务指标青岛啤酒(600600)：2012年半年度主要财务指标</a></p><span class="fl ml10">执行官</span><em class="fr">12-08-06</em></li>
+					<li><p class="fl"><a href="#" class="mr10 f14 color_75">[年报季报]</a><a href="#" class="f14 unl">青岛啤酒(600600)：2012年半年度主要财务指标青岛啤酒(600600)：2012年半年度主要财务指标</a></p><span class="fl ml10">新浪</span><em class="fr">12-08-06</em></li>
+					<li><p class="fl"><a href="#" class="f14 ba unl">青岛啤酒(600600)：2012年半年度主要财务指标青岛啤酒(600600)：2012年半年度主要财务指标</a><span class="fl ml10">东方财富</span></p><em class="fr">12-08-06</em></li>
+					<li><p class="fl"><a href="#" class="mr10 f14 color_75">[分红规划]</a><a href="#" class="f14 unl">青岛啤酒(600600)：2012年半年度主要财务指标青岛啤酒(600600)：2012年半年度主要财务指标</a></p><span class="fl ml10">东方财富</span><em class="fr">12-08-06</em></li>
+				</ul>
+			</div>
+			<div id="con_tb_zxjh_4" style="display:none">
+				<ul class="sckock_zx color_75 clearfix">
+					<li><p class="fl"><a href="#" class="mr10 f14 color_75">[年报季报]4</a><a href="#" class="f14 unl">青岛啤酒(600600)：2012年半年度主要财务指标青岛啤酒(600600)：2012年半年度主要财务指标</a></p><span class="fl ml10">东方财富</span><em class="fr">12-08-06</em></li>
+					<li><p class="fl"><a href="#" class="f14 sp unl">1青岛啤酒(600600)：2012年半年度主要财务指标青岛啤酒(600600)：2012年半年度主要财务指标</a></p><span class="fl ml10">新浪</span><em class="fr">12-08-06</em></li>
+					<li><p class="fl"><a href="#" class="mr10 f14 color_75">[年报季报]</a><a href="#" class="f14 unl">青岛啤酒(600600)：2012年半年度主要财务指标青岛啤酒(600600)：2012年半年度主要财务指标</a></p><span class="fl ml10">执行官</span><em class="fr">12-08-06</em></li>
+					<li><p class="fl"><a href="#" class="mr10 f14 color_75">[年报季报]</a><a href="#" class="f14 unl">青岛啤酒(600600)：2012年半年度主要财务指标青岛啤酒(600600)：2012年半年度主要财务指标</a></p><span class="fl ml10">新浪</span><em class="fr">12-08-06</em></li>
+					<li><p class="fl"><a href="#" class="f14 ba unl">青岛啤酒(600600)：2012年半年度主要财务指标青岛啤酒(600600)：2012年半年度主要财务指标</a><span class="fl ml10">东方财富</span></p><em class="fr">12-08-06</em></li>
+					<li><p class="fl"><a href="#" class="mr10 f14 color_75">[分红规划]</a><a href="#" class="f14 unl">青岛啤酒(600600)：2012年半年度主要财务指标青岛啤酒(600600)：2012年半年度主要财务指标</a></p><span class="fl ml10">东方财富</span><em class="fr">12-08-06</em></li>
+				</ul>
+			</div>
+			<div id="con_tb_zxjh_5" style="display:none">
+				<ul class="sckock_zx color_75 clearfix">
+					<li><p class="fl"><a href="#" class="mr10 f14 color_75">[年报季报]5</a><a href="#" class="f14 unl">青岛啤酒(600600)：2012年半年度主要财务指标青岛啤酒(600600)：2012年半年度主要财务指标</a></p><span class="fl ml10">东方财富</span><em class="fr">12-08-06</em></li>
+					<li><p class="fl"><a href="#" class="f14 sp unl">1青岛啤酒(600600)：2012年半年度主要财务指标青岛啤酒(600600)：2012年半年度主要财务指标</a></p><span class="fl ml10">新浪</span><em class="fr">12-08-06</em></li>
+					<li><p class="fl"><a href="#" class="mr10 f14 color_75">[年报季报]</a><a href="#" class="f14 unl">青岛啤酒(600600)：2012年半年度主要财务指标青岛啤酒(600600)：2012年半年度主要财务指标</a></p><span class="fl ml10">执行官</span><em class="fr">12-08-06</em></li>
+					<li><p class="fl"><a href="#" class="mr10 f14 color_75">[年报季报]</a><a href="#" class="f14 unl">青岛啤酒(600600)：2012年半年度主要财务指标青岛啤酒(600600)：2012年半年度主要财务指标</a></p><span class="fl ml10">新浪</span><em class="fr">12-08-06</em></li>
+					<li><p class="fl"><a href="#" class="f14 ba unl">青岛啤酒(600600)：2012年半年度主要财务指标青岛啤酒(600600)：2012年半年度主要财务指标</a><span class="fl ml10">东方财富</span></p><em class="fr">12-08-06</em></li>
+					<li><p class="fl"><a href="#" class="mr10 f14 color_75">[分红规划]</a><a href="#" class="f14 unl">青岛啤酒(600600)：2012年半年度主要财务指标青岛啤酒(600600)：2012年半年度主要财务指标</a></p><span class="fl ml10">东方财富</span><em class="fr">12-08-06</em></li>
+				</ul>
+			</div>
+			<div id="con_tb_zxjh_6" style="display:none">
+				<ul class="sckock_zx color_75 clearfix">
+					<li><p class="fl"><a href="#" class="mr10 f14 color_75">[年报季报]6</a><a href="#" class="f14 unl">青岛啤酒(600600)：2012年半年度主要财务指标青岛啤酒(600600)：2012年半年度主要财务指标</a></p><span class="fl ml10">东方财富</span><em class="fr">12-08-06</em></li>
+					<li><p class="fl"><a href="#" class="f14 sp unl">1青岛啤酒(600600)：2012年半年度主要财务指标青岛啤酒(600600)：2012年半年度主要财务指标</a></p><span class="fl ml10">新浪</span><em class="fr">12-08-06</em></li>
+					<li><p class="fl"><a href="#" class="mr10 f14 color_75">[年报季报]</a><a href="#" class="f14 unl">青岛啤酒(600600)：2012年半年度主要财务指标青岛啤酒(600600)：2012年半年度主要财务指标</a></p><span class="fl ml10">执行官</span><em class="fr">12-08-06</em></li>
+					<li><p class="fl"><a href="#" class="mr10 f14 color_75">[年报季报]</a><a href="#" class="f14 unl">青岛啤酒(600600)：2012年半年度主要财务指标青岛啤酒(600600)：2012年半年度主要财务指标</a></p><span class="fl ml10">新浪</span><em class="fr">12-08-06</em></li>
+					<li><p class="fl"><a href="#" class="f14 ba unl">青岛啤酒(600600)：2012年半年度主要财务指标青岛啤酒(600600)：2012年半年度主要财务指标</a><span class="fl ml10">东方财富</span></p><em class="fr">12-08-06</em></li>
+					<li><p class="fl"><a href="#" class="mr10 f14 color_75">[分红规划]</a><a href="#" class="f14 unl">青岛啤酒(600600)：2012年半年度主要财务指标青岛啤酒(600600)：2012年半年度主要财务指标</a></p><span class="fl ml10">东方财富</span><em class="fr">12-08-06</em></li>
+				</ul>
+			</div>
+			<div id="con_tb_zxjh_7" style="display:none">
+				<ul class="sckock_zx color_75 clearfix">
+					<li><p class="fl"><a href="#" class="mr10 f14 color_75">[年报季报]7</a><a href="#" class="f14 unl">青岛啤酒(600600)：2012年半年度主要财务指标青岛啤酒(600600)：2012年半年度主要财务指标</a></p><span class="fl ml10">东方财富</span><em class="fr">12-08-06</em></li>
+					<li><p class="fl"><a href="#" class="f14 sp unl">1青岛啤酒(600600)：2012年半年度主要财务指标青岛啤酒(600600)：2012年半年度主要财务指标</a></p><span class="fl ml10">新浪</span><em class="fr">12-08-06</em></li>
+					<li><p class="fl"><a href="#" class="mr10 f14 color_75">[年报季报]</a><a href="#" class="f14 unl">青岛啤酒(600600)：2012年半年度主要财务指标青岛啤酒(600600)：2012年半年度主要财务指标</a></p><span class="fl ml10">执行官</span><em class="fr">12-08-06</em></li>
+					<li><p class="fl"><a href="#" class="mr10 f14 color_75">[年报季报]</a><a href="#" class="f14 unl">青岛啤酒(600600)：2012年半年度主要财务指标青岛啤酒(600600)：2012年半年度主要财务指标</a></p><span class="fl ml10">新浪</span><em class="fr">12-08-06</em></li>
+					<li><p class="fl"><a href="#" class="f14 ba unl">青岛啤酒(600600)：2012年半年度主要财务指标青岛啤酒(600600)：2012年半年度主要财务指标</a><span class="fl ml10">东方财富</span></p><em class="fr">12-08-06</em></li>
+					<li><p class="fl"><a href="#" class="mr10 f14 color_75">[分红规划]</a><a href="#" class="f14 unl">青岛啤酒(600600)：2012年半年度主要财务指标青岛啤酒(600600)：2012年半年度主要财务指标</a></p><span class="fl ml10">东方财富</span><em class="fr">12-08-06</em></li>
+				</ul>
+			</div>
+			<div id="con_tb_zxjh_8" style="display:none">
+				<ul class="sckock_zx color_75 clearfix">
+					<li><p class="fl"><a href="#" class="mr10 f14 color_75">[年报季报]8</a><a href="#" class="f14 unl">青岛啤酒(600600)：2012年半年度主要财务指标青岛啤酒(600600)：2012年半年度主要财务指标</a></p><span class="fl ml10">东方财富</span><em class="fr">12-08-06</em></li>
+					<li><p class="fl"><a href="#" class="f14 sp unl">1青岛啤酒(600600)：2012年半年度主要财务指标青岛啤酒(600600)：2012年半年度主要财务指标</a></p><span class="fl ml10">新浪</span><em class="fr">12-08-06</em></li>
+					<li><p class="fl"><a href="#" class="mr10 f14 color_75">[年报季报]</a><a href="#" class="f14 unl">青岛啤酒(600600)：2012年半年度主要财务指标青岛啤酒(600600)：2012年半年度主要财务指标</a></p><span class="fl ml10">执行官</span><em class="fr">12-08-06</em></li>
+					<li><p class="fl"><a href="#" class="mr10 f14 color_75">[年报季报]</a><a href="#" class="f14 unl">青岛啤酒(600600)：2012年半年度主要财务指标青岛啤酒(600600)：2012年半年度主要财务指标</a></p><span class="fl ml10">新浪</span><em class="fr">12-08-06</em></li>
+					<li><p class="fl"><a href="#" class="f14 ba unl">青岛啤酒(600600)：2012年半年度主要财务指标青岛啤酒(600600)：2012年半年度主要财务指标</a><span class="fl ml10">东方财富</span></p><em class="fr">12-08-06</em></li>
+					<li><p class="fl"><a href="#" class="mr10 f14 color_75">[分红规划]</a><a href="#" class="f14 unl">青岛啤酒(600600)：2012年半年度主要财务指标青岛啤酒(600600)：2012年半年度主要财务指标</a></p><span class="fl ml10">东方财富</span><em class="fr">12-08-06</em></li>
+				</ul>
+			</div>
+		</div>
+		<!--资讯聚合 e-->
+		<!--资金流向 s-->
+		<h3 class="sctock_tit clearfix" style="position:relative;">
+			<div class="sctock_tit_l">资金流向<em style="display:none">[12-14 15:00:36]</em></div>
+			<div class="sctock_tit_r">
+				<span id="zjlx_show"><a href="javascript:void(0)">介绍</a></span>
+				<div class="tip" style="right:-18px;top:32px">
+					<div class="tip_con">
+						<div class="p10">据21世纪网报道，证监会表示目前已派出15个工作组，先行现场调查15家企业，以自查报告检查和现场检查相结合的方式进行核查。据了解，上述15个工作组主要以专业会计师为主。</div>
+						<div class="close_tip"></div>
+						<div class="arr"></div>
+					</div>
+				</div>
+			</div>
+		</h3>
+		<div class="sctock_tab ml10">
+			<ul id="sctock_tab_3">
+				<li onclick="reIframe('IFR_zjlx','IFR_zjlx_01')" class="s">盘中分析</li>
+				<li onclick="setIframe('IFR_zjlx','iframe/IFR_zjlx_02.html','215','IFR_zjlx_01')">资金轨迹</li>
+				<li onclick="setIframe('IFR_zjlx','iframe/IFR_zjlx_03.html','200','IFR_zjlx_01')">盘中明细</li>
+				<li onclick="setIframe('IFR_zjlx','iframe/IFR_zjlx_04.html','185','IFR_zjlx_01')">盘后分析</li>
+				<li onclick="setIframe('IFR_zjlx','iframe/IFR_zjlx_05.html','200','IFR_zjlx_01')">盘后明细</li>
+			</ul>
+		</div>
+		<div class="sctock_con pl10 pt10">
+			<div id="IFR_zjlx_01">
+				<div class="clearfix">
+					<div class="fl"><img src="temp/10.png" alt="" /></div>
+					<div class="fl pl30 pt15">
+						<table>
+							<col width="60">
+							<col width="100">
+							<col width="90">
+							<col width="90">
+							<tr>
+								<td>超级大单</td>
+								<td>净流入<a href="#" class="color_900 f14 fb">1684</a>万元</td>
+								<td>两市第<a href="#" class="f14 fb unl">222</a></b>位</td>
+								<td>同行业第<a href="#" class="f14 fb unl">55</a>位↑</td>
+							</tr>
+							<tr>
+								<td>超级大单</td>
+								<td>净流入<a href="#" class="color_900 f14 fb">1684</a>万元</td>
+								<td>两市第<a href="#" class="f14 fb unl">222</a></b>位</td>
+								<td>同行业第<a href="#" class="f14 fb unl">55</a>位↑</td>
+							</tr>
+							<tr>
+								<td>超级大单</td>
+								<td>净流入<a href="#" class="color_900 f14 fb">1684</a>万元</td>
+								<td>两市第<a href="#" class="f14 fb unl">222</a></b>位</td>
+								<td>同行业第<a href="#" class="f14 fb unl">55</a>位↑</td>
+							</tr>
+							<tr>
+								<td>超级大单</td>
+								<td>净流入<a href="#" class="color_900 f14 fb">1684</a>万元</td>
+								<td>两市第<a href="#" class="f14 fb unl">222</a></b>位</td>
+								<td>同行业第<a href="#" class="f14 fb unl">55</a>位↑</td>
+							</tr>
+						</table>
+						<div class="tr"><a href="#">更多>></a></div>
+					</div>
+				</div>
+			</div>
+			<iframe id="IFR_zjlx" width="100%" frameborder="0" scrolling="no" style="display:none"></iframe>
+		</div>
+		<!--资金流向 e-->
+		<!--主力追踪 s-->
+		<h3 class="sctock_tit clearfix">
+			<div class="sctock_tit_l">主力追踪</div>
+			<div class="sctock_tit_r">截止：12-14 <a href="#">介绍</a></div>
+		</h3>
+		<div class="sctock_tab ml10">
+			<ul id="sctock_tab_4">
+				<li onclick="reIframe('IFR_zlzz','IFR_zlzz_01')" class="s">机构持仓</li>
+				<li><a href="http://stockdata.stock.hexun.com/lhb/gg600419.shtml" target="_blank">龙虎榜</a></li>
+				<li><a href="http://stockdata.stock.hexun.com/rzrq/s002353.shtml" target="_blank">融资融券</a></li>
+				<li><a href="http://stockdata.stock.hexun.com/dzjy/300180.shtml" target="_blank">大宗交易</a></li>
+				<li><a href="http://stockdata.stock.hexun.com/ggzjc/StockDetail_300257.shtml" target="_blank">高管增减持</a></li>
+				<li onclick="setIframe('IFR_zlzz','iframe/IFR_zlzz_06.html','110','IFR_zlzz_01')">主力控盘</li>
+			</ul>
+		</div>
+		<div class="sctock_con pl10 pt10">
+			<div id="IFR_zlzz_01">
+				<table class="data tdh">
+					<col width="67">
+					<col width="100">
+					<col width="100">
+					<col width="72">
+					<col width="96">
+					<col width="94">
+					<thead>
+						<tr>
+							<th>机构类型</th>
+							<th>持股总数(万股)</th>
+							<th>持股市值(万元)</th>
+							<th>占流通A股%</th>
+							<th>持股变动(万股)</th>
+							<th class="bono">两市排名(共888)</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td><span class="pl10">全部</span></td>
+							<td class="tr"><span class="pr10">5,555.55</span></td>
+							<td class="tr"><span class="pr10">5,555.55</span></td>
+							<td class="tr"><span class="pr10">55.55</span></td>
+							<td class="tr"><span class="pr10">-5,555.55</span></td>
+							<td class="tr"><span class="pr10">55</span></td>
+						</tr>
+						<tr>
+							<td><span class="pl10">基金</span></td>
+							<td class="tr"><span class="pr10">15,795.55</span></td>
+							<td class="tr"><span class="pr10">15,795.55</span></td>
+							<td class="tr"><span class="pr10">95.55</span></td>
+							<td class="tr"><span class="pr10">-15,795.55</span></td>
+							<td class="tr"><span class="pr10">95</span></td>
+						<tr>
+							<td><span class="pl10">社保</span></td>
+							<td class="tr"><span class="pr10">855.55</span></td>
+							<td class="tr"><span class="pr10">855.55</span></td>
+							<td class="tr"><span class="pr10">55.55</span></td>
+							<td class="tr"><span class="pr10">-855.55</span></td>
+							<td class="tr"><span class="pr10">97,778.32</span></td>
+						<tr>
+							<td><span class="pl10">QFLL</span></td>
+							<td class="tr"><span class="pr10">5,655.62</span></td>
+							<td class="tr"><span class="pr10">5,655.62</span></td>
+							<td class="tr"><span class="pr10">5.62</span></td>
+							<td class="tr"><span class="pr10">51</span></td>
+							<td class="tr"><span class="pr10">5,655.62</span></td>
+						<tr>
+							<td><span class="pl10">信托</span></td>
+							<td class="tr"><span class="pr10">121,5451.32</span></td>
+							<td class="tr"><span class="pr10">121,5451.32</span></td>
+							<td class="tr"><span class="pr10">11.32</span></td>
+							<td class="tr"><span class="pr10">-5,655.62</span></td>
+							<td class="tr"><span class="pr10">5,655.62</span></td>
+						<tr>
+							<td><span class="pl10">银行</span></td>
+							<td class="tr"><span class="pr10">3,211,210.88</span></td>
+							<td class="tr"><span class="pr10">3,211,210.88</span></td>
+							<td class="tr"><span class="pr10">30.88</span></td>
+							<td class="tr"><span class="pr10">121,5451.32</span></td>
+							<td class="tr"><span class="pr10">5,655.62</span></td>
+						<tr>
+							<td><span class="pl10">投资公司</span></td>
+							<td class="tr"><span class="pr10">97,778.32</span></td>
+							<td class="tr"><span class="pr10">97,778.32</span></td>
+							<td class="tr"><span class="pr10">78.32</span></td>
+							<td class="tr"><span class="pr10">3,211,210.88</span></td>
+							<td class="tr"><span class="pr10">5,655.62</span></td>
+						</tr>
+					</tbody>
+				</table>
+				<div class="tr"><a href="#">更多>></a></div>
+			</div>
+			<iframe id="IFR_zlzz" width="100%" frameborder="0" scrolling="no" style="display:none"></iframe>
+		</div>
+		<!--主力追踪 e-->
+		<!--机构底牌 s-->
+		<h3 class="sctock_tit clearfix">
+			<div class="sctock_tit_l">机构底牌</div>
+			<div class="sctock_tit_r">截止：12-14 <a href="#">介绍</a></div>
+		</h3>
+		<div class="sctock_tab pl10">
+			<ul id="sctock_tab_5">
+				<li id="tb_jgdp1" onclick="tab('tb_jgdp',1,4)" class="s">评级变化</li>
+				<li id="tb_jgdp2" onclick="tab('tb_jgdp',2,4)" >目标股价</li>
+				<li id="tb_jgdp3" onclick="tab('tb_jgdp',3,4)" >预测EPS</li>
+				<li id="tb_jgdp4" onclick="tab('tb_jgdp',4,4)" >近期研报</li>
+			</ul>
+		</div>
+		<div class="sctock_con pl10 pt10">
+			<div id="con_tb_jgdp_1">
+				<img src="temp/11.png" alt="" />
+				<div class="tr"><a href="#">更多>></a></div>
+			</div>
+			<div id="con_tb_jgdp_2" style="display:none">
+				<img src="temp/21.png" alt="" />
+				<div class="tr"><a href="#">更多>></a></div>
+			</div>
+			<div id="con_tb_jgdp_3" style="display:none">
+				<img src="temp/22.png" alt="" />
+				<div class="tr"><a href="#">更多>></a></div>
+			</div>
+			<div id="con_tb_jgdp_4" style="display:none">
+				<ul class="sckock_zx color_75 clearfix">
+					<li><p class="fl"><a class="f14" href="#">青岛啤酒(600600)：2012年半年度主要财务指标青岛啤酒(600600)：2012年半年度主要财务指标</a></p><span class="fl ml10">东方财富</span><em class="fr">12-08-06</em></li>
+					<li><p class="fl"><a class="f14" href="#">青岛啤酒(600600)：2012年半年度主要财务指标青岛啤酒(600600)：2012年半年度主要财务指标</a></p><span class="fl ml10">新浪</span><em class="fr">12-08-06</em></li>
+					<li><p class="fl"><a class="f14" href="#">青岛啤酒(600600)：2012年半年度主要财务指标青岛啤酒(600600)：2012年半年度主要财务指标</a></p><span class="fl ml10">执行官</span><em class="fr">12-08-06</em></li>
+					<li><p class="fl"><a class="f14" href="#">青岛啤酒(600600)：2012年半年度主要财务指标青岛啤酒(600600)：2012年半年度主要财务指标</a></p><span class="fl ml10">新浪</span><em class="fr">12-08-06</em></li>
+					<li><p class="fl"><a class="f14" href="#">青岛啤酒(600600)：2012年半年度主要财务指标青岛啤酒(600600)：2012年半年度主要财务指标</a><span class="fl ml10">东方财富</span></p><em class="fr">12-08-06</em></li>
+					<li><p class="fl"><a class="f14" href="#">青岛啤酒(600600)：2012年半年度主要财务指标青岛啤酒(600600)：2012年半年度主要财务指标</a></p><span class="fl ml10">东方财富</span><em class="fr">12-08-06</em></li>
+				</ul>
+			</div>
+		</div>
+		<!--机构底牌 e-->
+		<!--技术评估 s-->
+		<h3 class="sctock_tit clearfix">
+			<div class="sctock_tit_l">技术评估</div>
+			<div class="sctock_tit_r">截止：12-14 <a href="#">介绍</a></div>
+		</h3>
+		<div class="sctock_tab pl10">
+			<ul id="sctock_tab_6">
+				<li id="tb_jsdp1" onclick="tab('tb_jsdp',1,5)" class="s">技术点评</li>
+				<li id="tb_jsdp2" onclick="tab('tb_jsdp',2,5)" >综合分析</li>
+				<li id="tb_jsdp3" onclick="tab('tb_jsdp',3,5)" >量价分析</li>
+				<li id="tb_jsdp4" onclick="tab('tb_jsdp',4,5)" >成本分析</li>
+				<li id="tb_jsdp5" onclick="tab('tb_jsdp',5,5)" >筹码分析</li>
+			</ul>
+		</div>
+		<div class="sctock_con pl10 pt10">
+			<div id="con_tb_jsdp_1">
+				最近半个月走势弱于指数-0.17%；从当日盘面来看，明日可能下跌或低位震荡。近几日下跌力度加大，持币观望；该股近期的主力成本为41.90元，股价位于成本下方，已显弱势；股价整体长线趋势依然向下；明日可能下跌或低位震荡。近几日下跌力度加大，持币观望；
+			</div>
+			<div id="con_tb_jsdp_2" style="display:none">
+				<table class="data tdh">
+					<col width="110">
+					<col width="150">
+					<col width="140">
+					<col width="130">
+					<thead>
+						<tr>
+							<th>时 间</th>
+							<th>综合技术评分</th>
+							<th>技术评分市场排名</th>
+							<th class="bono">提 示</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td class="tl"><span class="pl10">今日</span></td>
+							<td class="tr"><span class="pr10">5,555.55</span></td>
+							<td class="tr"><span class="pr10">5,555.55</span></td>
+							<td class="tc">很弱</td>
+						</tr>
+						<tr>
+							<td class="tl"><span class="pl10">昨日</span></td>
+							<td class="tr"><span class="pr10">5,555.55</span></td>
+							<td class="tr"><span class="pr10">5,555.55</span></td>
+							<td class="tc">很弱</td>
+						</tr>
+						<tr>
+							<td class="tl"><span class="pl10">五日前</span></td>
+							<td class="tr"><span class="pr10">5,555.55</span></td>
+							<td class="tr"><span class="pr10">5,555.55</span></td>
+							<td class="tc">很弱</td>
+						</tr>
+						<tr>
+							<td class="tl"><span class="pl10">十日前</span></td>
+							<td class="tr"><span class="pr10">5,555.55</span></td>
+							<td class="tr"><span class="pr10">5,555.55</span></td>
+							<td class="tc">很弱</td>
+						</tr>
+						<tr>
+							<td class="tl"><span class="pl10">二十日前</span></td>
+							<td class="tr"><span class="pr10">5,555.55</span></td>
+							<td class="tr"><span class="pr10">5,555.55</span></td>
+							<td class="tc">很弱</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div id="con_tb_jsdp_3" style="display:none">
+				<table class="data tdh">
+					<col width="100">
+					<col width="100">
+					<col width="100">
+					<col width="90">
+					<col width="140">
+					<thead>
+						<tr>
+							<th>天 数</th>
+							<th>量价配合度</th>
+							<th>状态</th>
+							<th>5日平均涨幅度</th>
+							<th class="bono">5日平均成交量增减幅</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td class="tl"><span class="pl10">5日波动</span></td>
+							<td class="tr"><span class="pr10">-0.342</span></td>
+							<td class="tc">放量下跌</td>
+							<td class="tr"><span class="pr10">-2.17%</span></td>
+							<td class="tr"><span class="pr10">6.33%</span></td>
+						</tr>
+						<tr>
+							<td class="tl"><span class="pl10">5日波动</span></td>
+							<td class="tr"><span class="pr10">-0.342</span></td>
+							<td class="tc">放量下跌</td>
+							<td class="tr"><span class="pr10">-2.17%</span></td>
+							<td class="tr"><span class="pr10">6.33%</span></td>
+						</tr>
+						<tr>
+							<td class="tl"><span class="pl10">5日波动</span></td>
+							<td class="tr"><span class="pr10">-0.342</span></td>
+							<td class="tc">放量下跌</td>
+							<td class="tr"><span class="pr10">-2.17%</span></td>
+							<td class="tr"><span class="pr10">6.33%</span></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div id="con_tb_jsdp_4" style="display:none">
+				<table class="data tdh">
+					<col width="110">
+					<col width="90">
+					<col width="90">
+					<col width="130">
+					<col width="110">
+					<thead>
+						<tr>
+							<th>时 间</th>
+							<th>收盘价</th>
+							<th>主力成本</th>
+							<th>最近价与成本价</th>
+							<th class="bono">幅 度</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td class="tl"><span class="pl10">今日</span></td>
+							<td class="tr"><span class="pr10">7.300</span></td>
+							<td class="tr"><span class="pr10">7.300</span></td>
+							<td class="tr"><span class="pr10">7.300</span></td>
+							<td class="tr"><span class="pr10">7.300</span></td>
+						</tr>
+						<tr>
+							<td class="tl"><span class="pl10">昨日</span></td>
+							<td class="tr"><span class="pr10">7.300</span></td>
+							<td class="tr"><span class="pr10">7.300</span></td>
+							<td class="tr"><span class="pr10">7.300</span></td>
+							<td class="tr"><span class="pr10">7.300</span></td>
+						</tr>
+						<tr>
+							<td class="tl"><span class="pl10">五日前</span></td>
+							<td class="tr"><span class="pr10">7.300</span></td>
+							<td class="tr"><span class="pr10">7.300</span></td>
+							<td class="tr"><span class="pr10">7.300</span></td>
+							<td class="tr"><span class="pr10">7.300</span></td>
+						</tr>
+						<tr>
+							<td class="tl"><span class="pl10">十日前</span></td>
+							<td class="tr"><span class="pr10">7.300</span></td>
+							<td class="tr"><span class="pr10">7.300</span></td>
+							<td class="tr"><span class="pr10">7.300</span></td>
+							<td class="tr"><span class="pr10">7.300</span></td>
+						</tr>
+						<tr>
+							<td class="tl"><span class="pl10">二十日前</span></td>
+							<td class="tr"><span class="pr10">7.300</span></td>
+							<td class="tr"><span class="pr10">7.300</span></td>
+							<td class="tr"><span class="pr10">7.300</span></td>
+							<td class="tr"><span class="pr10">7.300</span></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div id="con_tb_jsdp_5" style="display:none">
+				<table class="data tdh">
+					<col width="176">
+					<col width="176">
+					<col width="178">
+					<thead>
+						<tr>
+							<th>获利筹码</th>
+							<th>套牢筹码</th>
+							<th class="bono">相对波动</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td class="tc">82.63%</td>
+							<td class="tc">82.63%</td>
+							<td class="tc">82.63%</td>
+						</tr>
+						<tr>
+							<td class="tc">82.63%</td>
+							<td class="tc">82.63%</td>
+							<td class="tc">82.63%</td>
+						</tr>
+						<tr>
+							<td class="tc">82.63%</td>
+							<td class="tc">82.63%</td>
+							<td class="tc">82.63%</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+		<!--技术评估 e-->
+		<!--基本分析 s-->
+		<h3 class="sctock_tit clearfix">
+			<div class="sctock_tit_l">基本分析</div>
+			<div class="sctock_tit_r">截止：2011-9-30 <a href="#">介绍</a></div>
+		</h3>
+		<div class="sctock_tab pl10">
+			<ul id="sctock_tab_7">
+				<li onclick="reIframe('IFR_jbfx','IFR_jbfx_01')" class="s">财务评估</li>
+				<li onclick="setIframe('IFR_jbfx','iframe/IFR_jbfx_02.html','145','IFR_jbfx_01')">综合估值</li>
+				<li onclick="setIframe('IFR_jbfx','iframe/IFR_jbfx_03.html','120','IFR_jbfx_01')">异常指标</li>
+				<li onclick="setIframe('IFR_jbfx','iframe/IFR_jbfx_04.html','215','IFR_jbfx_01')">价值评估</li>
+				<li onclick="setIframe('IFR_jbfx','iframe/IFR_jbfx_05.html','265','IFR_jbfx_01')">A股市场</li>
+				<li onclick="setIframe('IFR_jbfx','iframe/IFR_jbfx_06.html','215','IFR_jbfx_01')">行业排行</li>
+				<li onclick="setIframe('IFR_jbfx','iframe/IFR_jbfx_07.html','215','IFR_jbfx_01')">个股排行</li>
+			</ul>
+		</div>
+		<div class="sctock_con pl10 pt10">
+			<div id="IFR_jbfx_01">
+				<table class="data data3">
+					<col width="110">
+					<col width="145">
+					<col width="64">
+					<col width="70">
+					<col width="70">
+					<col width="70">
+					<thead>
+						<tr>
+							<th rowspan="2">财务能力<br>(11年前3季)</th>
+							<th rowspan="2">评级</th>
+							<th colspan="4" class="bono" style="border-bottom: 1px solid #E1E2E5;">排名</th>
+						</tr>
+						<tr class="data3th">
+							<th>标准</th>
+							<th>ICB</th>
+							<th>地域</th>
+							<th class="bono">市场</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td><span class="pl10"><a href="#" class="unl">综合能力</a></span></td>
+							<td class="tc">★★★★☆</td>
+							<td align="right"><span class="pr10">3</span></td>
+							<td align="right"><span class="pr10">62</span></td>
+							<td align="right"><span class="pr10">43</span></td>
+							<td align="right"><span class="pr10">319</span></td>
+						</tr>
+						<tr>
+							<td><span class="pl10"><a href="#" class="unl">盈利能力</a></span></td>
+							<td class="tc">★★★★☆</td>
+							<td align="right"><span class="pr10">3</span></td>
+							<td align="right"><span class="pr10">62</span></td>
+							<td align="right"><span class="pr10">43</span></td>
+							<td align="right"><span class="pr10">319</span></td>
+						</tr>
+						<tr>
+							<td><span class="pl10"><a href="#" class="unl">偿债能力</a></span></td>
+							<td class="tc">★★★★☆</td>
+							<td align="right"><span class="pr10">3</span></td>
+							<td align="right"><span class="pr10">62</span></td>
+							<td align="right"><span class="pr10">43</span></td>
+							<td align="right"><span class="pr10">319</span></td>
+						</tr>
+						<tr>
+							<td><span class="pl10"><a href="#" class="unl">成长能力</a></span></td>
+							<td class="tc">★★★★☆</td>
+							<td align="right"><span class="pr10">3</span></td>
+							<td align="right"><span class="pr10">62</span></td>
+							<td align="right"><span class="pr10">43</span></td>
+							<td align="right"><span class="pr10">319</span></td>
+						</tr>
+						<tr>
+							<td><span class="pl10"><a href="#" class="unl">资产经营</a></span></td>
+							<td class="tc">★★★★☆</td>
+							<td align="right"><span class="pr10">3</span></td>
+							<td align="right"><span class="pr10">62</span></td>
+							<td align="right"><span class="pr10">43</span></td>
+							<td align="right"><span class="pr10">319</span></td>
+						</tr>
+						<tr>
+							<td><span class="pl10"><a href="#" class="unl">市场表现</a></span></td>
+							<td class="tc">★★★★☆</td>
+							<td align="right"><span class="pr10">3</span></td>
+							<td align="right"><span class="pr10">62</span></td>
+							<td align="right"><span class="pr10">43</span></td>
+							<td align="right"><span class="pr10">319</span></td>
+						</tr>
+						<tr>
+							<td><span class="pl10"><a href="#" class="unl">投资收益</a></span></td>
+							<td class="tc">★★★★☆</td>
+							<td align="right"><span class="pr10">3</span></td>
+							<td align="right"><span class="pr10">62</span></td>
+							<td align="right"><span class="pr10">43</span></td>
+							<td align="right"><span class="pr10">319</span></td>
+						</tr>
+					<tbody>
+				</table>
+				<div class="tr"><a href="#" class="mr20">详情>></a><a href="#">排行榜>></a></div>
+			</div>
+			<iframe id="IFR_jbfx" width="100%" frameborder="0" scrolling="no" style="display:none"></iframe>
+		</div>
+		<!--基本分析 e-->
+		<!--财务数据 s-->
+		<h3 class="sctock_tit clearfix">
+			<div class="sctock_tit_l">财务数据</div>
+			<div class="sctock_tit_r">
+				<table class="fr">
+					<tr>
+						<td>截止：2011-9-30 <a href="#">介绍</a></td>
+						<td class="pl20">分享到：</td>
+						<td><a href="http://t.hexun.com/channel/shareweb.aspx?url=http://www.hexun.com&title=%u4EB2%uFF0C%u4F60%u597D%uFF0C%u6D4B%u8BD5%u4E00%u4E0B&appkey=C2A5115A5B8377236E55C66C98D283EF" target="_blank" class="fx_hx mr5"></a><a href="http://service.weibo.com/share/share.php?appkey=0123456789&title=你好,测试一下" class="fx_sina mr5" target="_blank"></a><a href="http://share.v.t.qq.com/index.php?c=share&a=index&title=你好,测试一下&site=&pic=&url=&appkey=&assname=" class="fx_tx" target="_blank"></a></td>
+					</tr>
+				</table>
+			</div>
+		</h3>
+		<div class="sctock_tab ml10">
+			<ul id="sctock_tab_8">
+				<li id="tb_cwsj1" onclick="tab('tb_cwsj',1,6)" class="s">最新财务</li>
+				<li id="tb_cwsj2" onclick="tab('tb_cwsj',2,6)" >English</li>
+				<li id="tb_cwsj3" onclick="tab('tb_cwsj',3,6)" >财务比率</li>
+				<li id="tb_cwsj4" onclick="tab('tb_cwsj',4,6)" >资产负债</li>
+				<li id="tb_cwsj5" onclick="tab('tb_cwsj',5,6)" >利润表</li>
+				<li id="tb_cwsj6" onclick="tab('tb_cwsj',6,6)" >现金流量</li>
+			</ul>
+		</div>
+		<div class="sctock_con pl10 pt10">
+			<div id="con_tb_cwsj_1">
+				<table class="data tdh">
+					<col width="200">
+					<col width="110">
+					<col width="110">
+					<col width="110">
+					<tr>
+						<th><span class="pl10">会计年度</span></th>
+						<td class="tc">2011-9-30</td>
+						<td class="tc">2011-9-30</td>
+						<td class="tc">2011-9-30</td>
+					</tr>
+					<tr>
+						<th><span class="pl10">营业收入</span></th>
+						<td class="tc">2011-9-30</td>
+						<td class="tc">2011-9-30</td>
+						<td class="tc">2011-9-30</td>
+					</tr>
+					<tr>
+						<th><span class="pl10">净利润</span></th>
+						<td class="tc">2011-9-30</td>
+						<td class="tc">2011-9-30</td>
+						<td class="tc">2011-9-30</td>
+					</tr>
+					<tr>
+						<th><span class="pl10">扣除非经常损益后的净利润</span></th>
+						<td class="tc">2011-9-30</td>
+						<td class="tc">2011-9-30</td>
+						<td class="tc">2011-9-30</td>
+					</tr>
+					<tr>
+						<th><span class="pl10">总资产</span></th>
+						<td class="tc">2011-9-30</td>
+						<td class="tc">2011-9-30</td>
+						<td class="tc">2011-9-30</td>
+					</tr>
+					<tr>
+						<th><span class="pl10">股东权益</span></th>
+						<td class="tc">2011-9-30</td>
+						<td class="tc">2011-9-30</td>
+						<td class="tc">2011-9-30</td>
+					</tr>
+					<tr>
+						<th><span class="pl10">经营活动产生的现金流量净额</span></th>
+						<td class="tc">2011-9-30</td>
+						<td class="tc">2011-9-30</td>
+						<td class="tc">2011-9-30</td>
+					</tr>
+					<tr>
+						<th><span class="pl10">基本每股收益</span></th>
+						<td class="tc">2011-9-30</td>
+						<td class="tc">2011-9-30</td>
+						<td class="tc">2011-9-30</td>
+					</tr>
+					<tr>
+						<th><span class="pl10">调整后每股净资产</span></th>
+						<td class="tc">2011-9-30</td>
+						<td class="tc">2011-9-30</td>
+						<td class="tc">2011-9-30</td>
+					</tr>
+					<tr>
+						<th><span class="pl10">境外会计准则净利润</span></th>
+						<td class="tc">2011-9-30</td>
+						<td class="tc">2011-9-30</td>
+						<td class="tc">2011-9-30</td>
+					</tr>
+					<tr>
+						<th class="noline"><span class="pl10">扣除非经常性损益后的每股收益</span></th>
+						<td class="tc">2011-9-30</td>
+						<td class="tc">2011-9-30</td>
+						<td class="tc">2011-9-30</td>
+					</tr>
+				</table>
+				<div class="tr"><a href="#">更多>></a></div>
+			</div>
+			<div id="con_tb_cwsj_2" style="display:none">
+				<table class="data tdh">
+					<col width="302">
+					<col width="76">
+					<col width="76">
+					<col width="76">
+					<tr>
+						<th><span class="pl10 english">Period End Date</span></th>
+						<td class="tc">2011-9-30</td>
+						<td class="tc">2011-9-30</td>
+						<td class="tc">2011-9-30</td>
+					</tr>
+					<tr>
+						<th><span class="pl10 english">Operating Income</span></th>
+						<td class="tc">2011-9-30</td>
+						<td class="tc">2011-9-30</td>
+						<td class="tc">2011-9-30</td>
+					</tr>
+					<tr>
+						<th><span class="pl10 english">Net Profit</span></th>
+						<td class="tc">2011-9-30</td>
+						<td class="tc">2011-9-30</td>
+						<td class="tc">2011-9-30</td>
+					</tr>
+					<tr>
+						<th><span class="pl10 english">Total Profit</span></th>
+						<td class="tc">2011-9-30</td>
+						<td class="tc">2011-9-30</td>
+						<td class="tc">2011-9-30</td>
+					</tr>
+					<tr>
+						<th><span class="pl10 english">Net Profit Excluding Extraordinary Items</span></th>
+						<td class="tc">2011-9-30</td>
+						<td class="tc">2011-9-30</td>
+						<td class="tc">2011-9-30</td>
+					</tr>
+					<tr>
+						<th><span class="pl10 english">Total Assets</span></th>
+						<td class="tc">2011-9-30</td>
+						<td class="tc">2011-9-30</td>
+						<td class="tc">2011-9-30</td>
+					</tr>
+					<tr>
+						<th><span class="pl10 english">Shareholders' Equity</span></th>
+						<td class="tc">2011-9-30</td>
+						<td class="tc">2011-9-30</td>
+						<td class="tc">2011-9-30</td>
+					</tr>
+					<tr>
+						<th><span class="pl10 english">Net Cash Flows From Operating Activities</span></th>
+						<td class="tc">2011-9-30</td>
+						<td class="tc">2011-9-30</td>
+						<td class="tc">2011-9-30</td>
+					</tr>
+					<tr>
+						<th><span class="pl10 english">Basic Earnings Per Share</span></th>
+						<td class="tc">2011-9-30</td>
+						<td class="tc">2011-9-30</td>
+						<td class="tc">2011-9-30</td>
+					</tr>
+					<tr>
+						<th><span class="pl10 english">The Rate Of Return On Equity</span></th>
+						<td class="tc">2011-9-30</td>
+						<td class="tc">2011-9-30</td>
+						<td class="tc">2011-9-30</td>
+					</tr>
+					<tr>
+						<th class="noline"><span class="pl10 english">Net Cash Flows From Operating Activities Per Share</span></th>
+						<td class="tc">2011-9-30</td>
+						<td class="tc">2011-9-30</td>
+						<td class="tc">2011-9-30</td>
+					</tr>
+				</table>
+				<div class="tr"><a href="#">更多>></a></div>
+			</div>
+			<div id="con_tb_cwsj_3" style="display:none">
+				<table class="data tdh">
+					<col width="200">
+					<col width="110">
+					<col width="110">
+					<col width="110">
+					<tr>
+						<th><span class="pl10">会计年度</span></th>
+						<td class="tc">2011-9-30</td>
+						<td class="tc">2011-9-30</td>
+						<td class="tc">2011-9-30</td>
+					</tr>
+					<tr>
+						<th><span class="pl10">流动比率</span></th>
+						<td class="tc">2011-9-30</td>
+						<td class="tc">2011-9-30</td>
+						<td class="tc">2011-9-30</td>
+					</tr>
+					<tr>
+						<th><span class="pl10">速动比率</span></th>
+						<td class="tc">2011-9-30</td>
+						<td class="tc">2011-9-30</td>
+						<td class="tc">2011-9-30</td>
+					</tr>
+					<tr>
+						<th><span class="pl10">净资产收益率</span></th>
+						<td class="tc">2011-9-30</td>
+						<td class="tc">2011-9-30</td>
+						<td class="tc">2011-9-30</td>
+					</tr>
+					<tr>
+						<th><span class="pl10">主营业务利润率</span></th>
+						<td class="tc">2011-9-30</td>
+						<td class="tc">2011-9-30</td>
+						<td class="tc">2011-9-30</td>
+					</tr>
+					<tr>
+						<th><span class="pl10">主营业务利润率(金融企业指标..</span></th>
+						<td class="tc">2011-9-30</td>
+						<td class="tc">2011-9-30</td>
+						<td class="tc">2011-9-30</td>
+					</tr>
+					<tr>
+						<th><span class="pl10">应收账款周转率</span></th>
+						<td class="tc">2011-9-30</td>
+						<td class="tc">2011-9-30</td>
+						<td class="tc">2011-9-30</td>
+					</tr>
+					<tr>
+						<th><span class="pl10">资产负债率</span></th>
+						<td class="tc">2011-9-30</td>
+						<td class="tc">2011-9-30</td>
+						<td class="tc">2011-9-30</td>
+					</tr>
+				</table>
+				<div class="tr"><a href="#">更多>></a></div>
+			</div>
+			<div id="con_tb_cwsj_4" style="display:none">
+				<table class="data tdh">
+					<col width="200">
+					<col width="110">
+					<col width="110">
+					<col width="110">
+					<tr>
+						<th><span class="pl10">会计年度</span></th>
+						<td class="tc">2011-9-30</td>
+						<td class="tc">2011-9-30</td>
+						<td class="tc">2011-9-30</td>
+					</tr>
+					<tr>
+						<th><span class="pl10">流动资产合计</span></th>
+						<td class="tc">2011-9-30</td>
+						<td class="tc">2011-9-30</td>
+						<td class="tc">2011-9-30</td>
+					</tr>
+					<tr>
+						<th><span class="pl10">会计年度</span></th>
+						<td class="tc">2011-9-30</td>
+						<td class="tc">2011-9-30</td>
+						<td class="tc">2011-9-30</td>
+					</tr>
+					<tr>
+						<th><span class="pl10">资产总计</span></th>
+						<td class="tc">2011-9-30</td>
+						<td class="tc">2011-9-30</td>
+						<td class="tc">2011-9-30</td>
+					</tr>
+					<tr>
+						<th><span class="pl10">流动负债合计</span></th>
+						<td class="tc">2011-9-30</td>
+						<td class="tc">2011-9-30</td>
+						<td class="tc">2011-9-30</td>
+					</tr>
+					<tr>
+						<th><span class="pl10">非流动负债合计</span></th>
+						<td class="tc">2011-9-30</td>
+						<td class="tc">2011-9-30</td>
+						<td class="tc">2011-9-30</td>
+					</tr>
+					<tr>
+						<th><span class="pl10">负债合计</span></th>
+						<td class="tc">2011-9-30</td>
+						<td class="tc">2011-9-30</td>
+						<td class="tc">2011-9-30</td>
+					</tr>
+					<tr>
+						<th><span class="pl10">所有者权益合计</span></th>
+						<td class="tc">2011-9-30</td>
+						<td class="tc">2011-9-30</td>
+						<td class="tc">2011-9-30</td>
+					</tr>
+				</table>
+				<div class="tr"><a href="#">更多>></a></div>
+			</div>
+			<div id="con_tb_cwsj_5" style="display:none">
+				<table class="data tdh">
+					<col width="200">
+					<col width="110">
+					<col width="110">
+					<col width="110">
+					<tr>
+						<th><span class="pl10">会计年度</span></th>
+						<td class="tc">2011-9-30</td>
+						<td class="tc">2011-9-30</td>
+						<td class="tc">2011-9-30</td>
+					</tr>
+					<tr>
+						<th><span class="pl10">营业收入</span></th>
+						<td class="tc">2011-9-30</td>
+						<td class="tc">2011-9-30</td>
+						<td class="tc">2011-9-30</td>
+					</tr>
+					<tr>
+						<th><span class="pl10">营业成本</span></th>
+						<td class="tc">2011-9-30</td>
+						<td class="tc">2011-9-30</td>
+						<td class="tc">2011-9-30</td>
+					</tr>
+					<tr>
+						<th><span class="pl10">投资收益</span></th>
+						<td class="tc">2011-9-30</td>
+						<td class="tc">2011-9-30</td>
+						<td class="tc">2011-9-30</td>
+					</tr>
+					<tr>
+						<th><span class="pl10">营业利润</span></th>
+						<td class="tc">2011-9-30</td>
+						<td class="tc">2011-9-30</td>
+						<td class="tc">2011-9-30</td>
+					</tr>
+					<tr>
+						<th><span class="pl10">利润总额</span></th>
+						<td class="tc">2011-9-30</td>
+						<td class="tc">2011-9-30</td>
+						<td class="tc">2011-9-30</td>
+					</tr>
+					<tr>
+						<th><span class="pl10">净利润</span></th>
+						<td class="tc">2011-9-30</td>
+						<td class="tc">2011-9-30</td>
+						<td class="tc">2011-9-30</td>
+					</tr>
+					<tr>
+						<th><span class="pl10">每股收益</span></th>
+						<td class="tc">2011-9-30</td>
+						<td class="tc">2011-9-30</td>
+						<td class="tc">2011-9-30</td>
+					</tr>
+				</table>
+				<div class="tr"><a href="#">更多>></a></div>
+			</div>
+			<div id="con_tb_cwsj_6" style="display:none">
+				<table class="data tdh">
+					<col width="200">
+					<col width="110">
+					<col width="110">
+					<col width="110">
+					<tr>
+						<th><span class="pl10">会计年度</span></th>
+						<td class="tc">2011-9-30</td>
+						<td class="tc">2011-9-30</td>
+						<td class="tc">2011-9-30</td>
+					</tr>
+					<tr>
+						<th><span class="pl10">经营活动现金流入小计</span></th>
+						<td class="tc">2011-9-30</td>
+						<td class="tc">2011-9-30</td>
+						<td class="tc">2011-9-30</td>
+					</tr>
+					<tr>
+						<th><span class="pl10">经营活动现金流出小计</span></th>
+						<td class="tc">2011-9-30</td>
+						<td class="tc">2011-9-30</td>
+						<td class="tc">2011-9-30</td>
+					</tr>
+					<tr>
+						<th><span class="pl10">经营活动产生的现金流量净额</span></th>
+						<td class="tc">2011-9-30</td>
+						<td class="tc">2011-9-30</td>
+						<td class="tc">2011-9-30</td>
+					</tr>
+					<tr>
+						<th><span class="pl10">投资活动现金流入小计</span></th>
+						<td class="tc">2011-9-30</td>
+						<td class="tc">2011-9-30</td>
+						<td class="tc">2011-9-30</td>
+					</tr>
+					<tr>
+						<th><span class="pl10">投资活动现金流出小计</span></th>
+						<td class="tc">2011-9-30</td>
+						<td class="tc">2011-9-30</td>
+						<td class="tc">2011-9-30</td>
+					</tr>
+					<tr>
+						<th><span class="pl10">投资活动产生的现金流量净额</span></th>
+						<td class="tc">2011-9-30</td>
+						<td class="tc">2011-9-30</td>
+						<td class="tc">2011-9-30</td>
+					</tr>
+					<tr>
+						<th><span class="pl10">筹资活动产生的现金流量净额</span></th>
+						<td class="tc">2011-9-30</td>
+						<td class="tc">2011-9-30</td>
+						<td class="tc">2011-9-30</td>
+					</tr>
+				</table>
+				<div class="tr"><a href="#">更多>></a></div>
+		</div>
+		</div>
+		<!--财务数据 e-->
+		<!--公司资料 s-->
+		<h3 class="sctock_tit clearfix">
+			<div class="sctock_tit_l">公司资料</div>
+			<div class="sctock_tit_r">截止：2011-9-30 <a href="#">介绍</a></div>
+		</h3>
+		<div class="sctock_tab pl10">
+			<ul id="sctock_tab_9">
+				<li id="tb_gszl1" onclick="tab('tb_gszl',1,5)" class="s">公司概况</li>
+				<li id="tb_gszl2" onclick="tab('tb_gszl',2,5)" >收入分布</li>
+				<li id="tb_gszl3" onclick="tab('tb_gszl',3,5)" >高管</li>
+				<li id="tb_gszl4" onclick="tab('tb_gszl',4,5)" >所属板块</li>
+				<li id="tb_gszl5" onclick="tab('tb_gszl',5,5)" >分红融资</li>
+			</ul>
+		</div>
+		<div class="sctock_con pl10 pt10">
+			<div id="con_tb_gszl_1">
+				<table>
+					<col width="75">
+					<col width="190">
+					<col width="75">
+					<col width="190">
+					<tr>
+						<td class="tr">区　　　域：</td>
+						<td><p class="pl5"><a href="#" class="unl">广东</a> <a href="#" class="unl">深圳</a></p></td>
+						<td class="tr">所属行业：</td>
+						<td><p class="pl5"><a href="#">食品饮料</a></p></td>
+					</tr>
+					<tr>
+						<td class="tr">法定代表人：</td>
+						<td><p class="pl5"><a href="#" class="unl">曹成峰</a></p></td>
+						<td class="tr">董 事 长：</td>
+						<td><p class="pl5"><a href="#">段保州</a></p></td>
+					</tr>
+					<tr>
+						<td class="tr">成立日期：</td>
+						<td><p class="pl5"><a href="#" class="unl">2000年6月30日</a></p></td>
+						<td class="tr">上市日期：</td>
+						<td><p class="pl5"><a href="#">2000年6月30日</a></p></td>
+					</tr>
+					<tr>
+						<td class="tr">电　　话：</td>
+						<td><p class="pl5">020-12345678</p></td>
+						<td class="tr">网　　址：</td>
+						<td><p class="pl5"><a href="#">www.gzzg.com.cn</a></p></td>
+					</tr>
+					<tr>
+						<td class="tr" valign="top">经营范围：</td>
+						<td colspan="3"><p class="pl5">贵州茅台酒系列产品的生产与销售；饮料、食品、包装材料的生产与销售；防伪技术开发；信息产业相关产品的研制、开发。<a href="#">[查看更多]</a></p></td>
+					</tr>
+				</table>
+				<div class="tr"><a href="#">更多>></a></div>
+			</div>
+			<div id="con_tb_gszl_2" style="display:none">
+				<table class="data tdh" width="100%">
+					<col width="90">
+					<col width="170">
+					<col width="170">
+					<col width="100">
+					<thead>
+						<tr>
+							<th>项目名称</th>
+							<th>主营收入</th>
+							<th>主营成本</th>
+							<th class="bono">毛利率</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td><span class="pl10">服务费</span></td>
+							<td><span class="le_o" style="width:80px;float:right;margin-top:7px"><span style="width:100%;float:right" class="le_r"></span></span><div class="fr mr5">123456789</div></td>
+							<td><span class="le_o" style="width:80px;float:left;margin-top:7px"><span style="width:60%" class="le_g"></span></span><div class="fl ml5">123456789</div></td>
+							<td class="tc">26.26%</td>
+						</tr>
+						<tr>
+							<td><span class="pl10">服务费</span></td>
+							<td><span class="le_o" style="width:80px;float:right;margin-top:7px"><span style="width:30%;float:right" class="le_r"></span></span><div class="fr mr5">123456789</div></td>
+							<td><span class="le_o" style="width:80px;float:left;margin-top:7px"><span style="width:100%" class="le_g"></span></span><div class="fl ml5">123456789</div></td>
+							<td class="tc">26.26%</td>
+						</tr>
+						<tr>
+							<td><span class="pl10">服务费</span></td>
+							<td><span class="le_o" style="width:80px;float:right;margin-top:7px"><span style="width:30%;float:right" class="le_r"></span></span><div class="fr mr5">123456789</div></td>
+							<td><span class="le_o" style="width:80px;float:left;margin-top:7px"><span style="width:60%" class="le_g"></span></span><div class="fl ml5">123456789</div></td>
+							<td class="tc">26.26%</td>
+						</tr>
+						<tr>
+							<td><span class="pl10">服务费</span></td>
+							<td><span class="le_o" style="width:80px;float:right;margin-top:7px"><span style="width:30%;float:right" class="le_r"></span></span><div class="fr mr5">123456789</div></td>
+							<td><span class="le_o" style="width:80px;float:left;margin-top:7px"><span style="width:60%" class="le_g"></span></span><div class="fl ml5">123456789</div></td>
+							<td class="tc">26.26%</td>
+						</tr>
+					</tbody>
+				</table>
+				<div class="tr"><a href="#">更多>></a></div>
+			</div>
+			<div id="con_tb_gszl_3" style="display:none">
+				<table class="data tdh" width="100%">
+					<col width="110">
+					<col width="210">
+					<col width="50">
+					<col width="80">
+					<col width="80">
+					<thead>
+						<tr>
+							<th>姓 名</th>
+							<th>职 务</th>
+							<th>年 龄</th>
+							<th>年薪(万元)</th>
+							<th class="bono">最新持股</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td class="tl"><a href="#" class="unl"><span class="pl10">理查德·杰克逊</span></a></td>
+							<td class="tl"><span class="pl10">前董事、总经理、执行主席</span></td>
+							<td class="tr"><span class="pr10">99</span></td>
+							<td class="tr"><span class="pr10">1,620,21</span></td>
+							<td class="tr"><span class="pr10">1,620,21</span></td>
+						</tr>
+						<tr>
+							<td class="tl"><span class="pl10">理查德·杰克逊</span></td>
+							<td class="tl"><span class="pl10">前董事、总经理、执行主席</span></td>
+							<td class="tr"><span class="pr10">99</span></td>
+							<td class="tr"><span class="pr10">1,620,21</span></td>
+							<td class="tr"><span class="pr10">1,620,21</span></td>
+						</tr>
+						<tr>
+							<td class="tl"><a href="#" class="unl"><span class="pl10">理查德·杰克逊</span></a></td>
+							<td class="tl"><span class="pl10">前董事、总经理、执行主席</span></td>
+							<td class="tr"><span class="pr10">99</span></td>
+							<td class="tr"><span class="pr10">1,620,21</span></td>
+							<td class="tr"><span class="pr10">1,620,21</span></td>
+						</tr>
+					</tbody>
+				</table>
+				<div class="tr"><a href="#">更多>></a></div>
+			</div>
+			<div id="con_tb_gszl_4" style="display:none">
+				<table>
+					<col width="75">
+					<col width="455">
+					<tr>
+						<td class="tr">证监会行业：</td>
+						<td><span class="pl10">电气设备　电气设备　电气设备　电气设备</span></td>
+					</tr>
+					<tr>
+						<td class="tr">概念板块：</td>
+						<td><span class="pl10">电气设备　互联网　有色金属　石油</span></td>
+					</tr>
+					<tr>
+						<td class="tr">地域板块：</td>
+						<td><span class="pl10">海南省　三亚市</span></td>
+					</tr>
+					<tr>
+						<td class="tr" valign="top">所属指数：</td>
+						<td>
+							<ul class="pl10">
+								<li class="mr10 fl">上证指数</li>
+								<li class="mr10 fl">沪深300</li>
+								<li class="mr10 fl">上证指数</li>
+								<li class="mr10 fl">沪深300</li>
+								<li class="mr10 fl">上证指数</li>
+								<li class="mr10 fl">沪深300</li>
+								<li class="mr10 fl">上证指数</li>
+								<li class="mr10 fl">沪深300</li>
+								<li class="mr10 fl">上证指数</li>
+								<li class="mr10 fl">沪深300</li>
+								<li class="mr10 fl">上证指数</li>
+								<li class="mr10 fl">沪深300</li>
+								<li class="mr10 fl">上证指数</li>
+								<li class="mr10 fl">沪深300</li>
+								<li class="mr10 fl">上证指数</li>
+								<li class="mr10 fl">沪深300</li>
+								<li class="mr10 fl">上证指数</li>
+								<li class="mr10 fl">沪深300</li>
+							</ul>
+						</td>
+					</tr>
+				</table>
+				<div class="tr"><a href="#">更多>></a></div>
+			</div>
+			<div id="con_tb_gszl_5" style="display:none">
+				<img src="http://stockdata.stock.hexun.com/drawDefault/img1/10000820.gif" alt="" />
+			</div>
+		</div>
+		<!--公司资料 e-->
+		<!--股权分析 s-->
+		<h3 class="sctock_tit clearfix">
+			<div class="sctock_tit_l">股权分析</div>
+			<div class="sctock_tit_r">
+				<table class="fr">
+					<tr>
+						<td>截止：2011-9-30 <a href="#">介绍</a></td>
+						<td class="pl20">分享到：</td>
+						<td><a href="http://t.hexun.com/channel/shareweb.aspx?url=http://www.hexun.com&title=%u4EB2%uFF0C%u4F60%u597D%uFF0C%u6D4B%u8BD5%u4E00%u4E0B&appkey=C2A5115A5B8377236E55C66C98D283EF" target="_blank" class="fx_hx mr5"></a><a href="http://service.weibo.com/share/share.php?appkey=0123456789&title=你好,测试一下" class="fx_sina mr5" target="_blank"></a><a href="http://share.v.t.qq.com/index.php?c=share&a=index&title=你好,测试一下&site=&pic=&url=&appkey=&assname=" class="fx_tx" target="_blank"></a></td>
+					</tr>
+				</table>
+			</div>
+		</h3>
+		<div class="sctock_tab pl10">
+			<ul id="sctock_tab_10">
+				<li id="tb_gqfx1" onclick="tab('tb_gqfx',1,5)" class="s">十大股东</li>
+				<li id="tb_gqfx2" onclick="tab('tb_gqfx',2,5)">十大流通</li>
+				<li id="tb_gqfx3" onclick="tab('tb_gqfx',3,5)">限售股解禁</li>
+				<li id="tb_gqfx4" onclick="tab('tb_gqfx',4,5)">股东户数</li>
+				<li id="tb_gqfx5" onclick="tab('tb_gqfx',5,5)">股本结构</li>
+			</ul>
+		</div>
+		<div class="sctock_con pl10 pt10">
+			<div id="con_tb_gqfx_1">
+				<table width="100%" class="data tdh">
+					<col width="200px">
+					<col width="80px">
+					<col width="90px">
+					<col width="90px">
+					<thead>
+						<tr>
+							<th>股东名称</th>
+							<th>股份类型</th>
+							<th>持股数(万)</th>
+							<th>占流通股本 <br>比率(%)</th>
+							<th class="bono">较上季度<br>变动数(万)</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td><div class="tdtxt" style="width:200px" title="中国平安保险(集团)股份有限公司-集团本级-自有资金">中国平安保险(集团)股份有限公司-集团本级-自有资金</div></td>
+							<td><div class="tdtxt">流通A股</div></td>
+							<td class="tr"><span class="pr5">215980.75</span></td>
+							<td class="tr"><span class="pr5">42.16%</span></td>
+							<td class="tr"><span class="pr5 color_900">0.00%</span></td>
+						</tr>
+						<tr>
+							<td><div class="tdtxt" style="width:200px" title="中国平安保险(集团)股份有限公司-集团本级-自有资金">中国平安保险(集团)股份有限公司-集团本级-自有资金</div></td>
+							<td><div class="tdtxt">流通受限股份</div></td>
+							<td class="tr"><span class="pr5">215980.75</span></td>
+							<td class="tr"><span class="pr5">42.16%</span></td>
+							<td class="tr"><span class="pr5 color_090">0.00%</span></td>
+						</tr>
+					</tbody>
+					<tfoot>
+						<tr>
+							<th class="tl"><span class="pl5">合计</span></th>
+							<th></th>
+							<th class="tr"><span class="pr5">303077.6818</span></th>
+							<th class="tr"><span class="pr5">59.16</span></th>
+							<th></th>
+						</tr>
+					</tfoot>
+				</table>
+				<div class="tr mb10"><a href="#">更多>></a></div>
+			</div>
+			<div id="con_tb_gqfx_2" style="display:none">
+				<table class="data tdh" width="100%">
+					<thead>
+						<tr>
+							<th>股东名称</th>
+							<th>股份类型</th>
+							<th>持股数(万)</th>
+							<th>占流通股本 <br />比率(%)</th>
+							<th class="bono">较上季度<br />变动数(万)</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td><span class="pl10">中国南方航空</span></td>
+							<td><span class="pl10">限售流通A股</span></td>
+							<td class="tr"><span class="pr10">7,061</span></td>
+							<td class="tr"><span class="pr10">55.21</span></td>
+							<td class="tr"><span class="pr10 color_900">9↑</span></td>
+						</tr>
+						<tr>
+							<td><span class="pl10">香港中央结算(代理人)有限</span></td>
+							<td><span class="pl10">H股流通股</span></td>
+							<td class="tr"><span class="pr10">61,795</span></td>
+							<td class="tr"><span class="pr10">95.30</span></td>
+							<td class="tr"><span class="pr10 color_900">14↑</span></td>
+						</tr>
+						<tr>
+							<td><span class="pl10">南龙控股有限公司</span></td>
+							<td><span class="pl10">H股流通股</span></td>
+							<td class="tr"><span class="pr10">3,855</span></td>
+							<td class="tr"><span class="pr10">51.14</span></td>
+							<td class="tr"><span class="pr10 color_090">20↓</span></td>
+						</tr>
+						<tr>
+							<td><span class="pl10">芜湖瑞健投资咨询有限公司</span></td>
+							<td><span class="pl10">限售流通A股</span></td>
+							<td class="tr"><span class="pr10">25,652</span></td>
+							<td class="tr"><span class="pr10">56.61</span></td>
+							<td class="tr"><span class="pr10 color_090">51↓</span></td>
+						</tr>
+						<tr>
+							<td><span class="pl10">安徽海螺创业有限责任公司</span></td>
+							<td><span class="pl10">限售流通A股</span></td>
+							<td class="tr"><span class="pr10">471,545</span></td>
+							<td class="tr"><span class="pr10">11.17</span></td>
+							<td class="tr"><span class="pr10 color_090">15↓</span></td>
+						</tr>
+					</tbody>
+					<tfoot>
+						<th class="tl"><span class="pl10">合计</span></th>
+						<th></th>
+						<th class="tr"><span class="pr10">31,544,540</span></th>
+						<th class="tr"><span class="pr10">81.4</span></th>
+						<th></th>
+					</tfoot>
+				</table>
+				<div class="tr mb10"><a href="#">更多>></a></div>
+			</div>
+			<div id="con_tb_gqfx_3" style="display:none">
+				<table class="data tdh" width="100%">
+					<thead>
+						<tr>
+							<th>解禁日</th>
+							<th>解禁股分数(万股)</th>
+							<th>解禁市值<br />(亿元，按现价)</th>
+							<th class="bono">解禁股份类型</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td class="tc">2012-12-12</td>
+							<td class="tr"><span class="pr10">1,244,349,12</span></td>
+							<td class="tr"><span class="pr10">1,244,349,12</span></td>
+							<td class="tc">定向增发机构配售股份</td>
+						</tr>
+						<tr>
+							<td class="tc">2012-12-12</td>
+							<td class="tr"><span class="pr10">1,244,349,12</span></td>
+							<td class="tr"><span class="pr10">1,244,349,12</span></td>
+							<td class="tc">定向增发机构配售股份</td>
+						</tr>
+						<tr>
+							<td class="tc">2012-12-12</td>
+							<td class="tr"><span class="pr10">1,244,349,12</span></td>
+							<td class="tr"><span class="pr10">1,244,349,12</span></td>
+							<td class="tc">定向增发机构配售股份</td>
+						</tr>
+						<tr>
+							<td class="tc">2012-12-12</td>
+							<td class="tr"><span class="pr10">1,244,349,12</span></td>
+							<td class="tr"><span class="pr10">1,244,349,12</span></td>
+							<td class="tc">定向增发机构配售股份</td>
+						</tr>
+						<tr>
+							<td class="tc">2012-12-12</td>
+							<td class="tr"><span class="pr10">1,244,349,12</span></td>
+							<td class="tr"><span class="pr10">1,244,349,12</span></td>
+							<td class="tc">定向增发机构配售股份</td>
+						</tr>
+					</tbody>
+				</table>
+				<div class="tr mb10"><a href="#">全部解禁时间表>></a></div>
+			</div>
+			<div id="con_tb_gqfx_4" style="display:none">
+				<div class="pb5">
+					<span class="pr10">2012年1季</span>
+					<a href="http://stockdata.stock.hexun.com/2009_cgjzd_002353.shtml" class="unl pr10">2012年2季</a>
+					<a href="http://stockdata.stock.hexun.com/2009_cgjzd_002353.shtml" class="unl pr10">2012年3季</a>
+				</div>
+				<table class="data tdh" width="100%">
+					<thead>
+						<tr>
+							<th>统计项目</th>
+							<th>数值</th>
+							<th>示意</th>
+							<th>变动情况<br />(较上季)</th>
+							<th class="bono">两市变动排名</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td class="tc">A股股东户数(户)</td>
+							<td class="tr"><span class="pr10">1,244,349,12</span></td>
+							<td class="tc"><span class="pr10">1,244,349,12</span></td>
+							<td class="tc">减少54.12%</td>
+							<td class="tc">第<a href="#" class="unl f14 fb">222</a>位</td>
+						</tr>
+						<tr>
+							<td class="tc">A股股东户数(户)</td>
+							<td class="tr"><span class="pr10">1,244,349,12</span></td>
+							<td class="tc"><span class="pr10">1,244,349,12</span></td>
+							<td class="tc">减少54.12%</td>
+							<td class="tc">第<a href="#" class="unl f14 fb">222</a>位</td>
+						</tr>
+						<tr>
+							<td class="tc">A股股东户数(户)</td>
+							<td class="tr"><span class="pr10">1,244,349,12</span></td>
+							<td class="tc"><span class="pr10">1,244,349,12</span></td>
+							<td class="tc">减少54.12%</td>
+							<td class="tc">第<a href="#" class="unl f14 fb">222</a>位</td>
+						</tr>
+					</tbody>
+				</table>
+				<div class="tr mb10"><a href="#">更多>></a></div>
+			</div>
+			<div id="con_tb_gqfx_5" style="display:none">
+				<div style="position:relative;">
+					<div style="position:absolute;top:21px;left:182px;line-height:20px">南方航空流通A股总计61.77亿， <br />占总股本62.93%，两市第<a href="#" class="f14 unl fb">555</a>名。</div>
+					<img src="temp/17.png" alt="" />
+				</div>
+				<div class="tr mb10"><a href="#">更多>></a></div>
+			</div>
+		</div>
+		<!--股权分析 e-->
+	</div>
+	<div class="stockr">
+		<div><img src="temp/13.png" alt="" style="display:block" /></div>
+		<!--我的股票 s-->
+		<div class="mystock mt10">
+			<div class="mystock-tit">
+				<ul>
+					<li class="s">我的股票</li>
+					<li>最近访问</li>
+				</ul>
+			</div>
+			<div class="mystock-con pt10 pl5">
+				<div>
+					<div class="pp pl10">
+						<form method="post" action="">
+						<p class="pt5 pb5">您未登录，无法获取自选股信息！</p>
+						<div>
+							<table>
+								<tr>
+									<td><input class="login" type="button" name="" value=""  onclick="addIStock(this)" /></td>
+									<td><a href="http://reg.hexun.com/regname.aspx?gourl=http%3A//wzkf1.test.hexun.com/2013/Default.aspx" class="fl ml10">快速注册</a></td>
+								</tr>
+							</table>
+						</div>
+						<p class="clearfix" style="display:none"><label>用户名:</label><input class="in" type="text" name="" maxlength="18" value="请输入用户名" /></p>
+						<p class="clearfix mt5" style="display:none"><label>密　码:</label><input class="in" type="password" name="" maxlength="18" value="请输入密码" /></p>
+						<p class="mt5" style="display:none"><input class="login" type="submit" name="" value="" /> <input name="" type="checkbox" class="cb fl ml10" value="" /><span class="fl">记住我</span> <a href="http://reg.hexun.com/regname.aspx?gourl=http%3A//wzkf1.test.hexun.com/2013/Default.aspx" class="fl ml5">快速注册</a></p>
+						</form>
+					</div>
+					<!--登录后显示我的自选股 s-->
+					<div id="mystock"  class="pl10"></div>
+					<!--登录后显示我的自选股 e-->
+					<!--span class="bn1"></span-->
+					<p class="line" id="hotstockTit_line"></p>
+				</div>
+				<div style="display:none">
+					<div class="p10" id="zjfgNull">没有您的近浏览记录，请 <a href="javascript:void(0)"  onclick="javascript:popup('登录','http://login.tool.hexun.com/OtherInterFace/IFR_userLoginDialog_01.aspx?hexunMember_loginSetup_referrer=http%3a%2f%2fwzkf1.test.hexun.com%2f2013%2fDefault.aspx','180');" >登录</a> 试试。</div>
+					<div class="pl10">
+						<table id="latelyVisit" width="100%" class="data7">
+						</table>
+					</div>
+					<p id="latelyVisit_line" class="line"></p>
+					<!--登录后显示下面按钮-->
+					<!--span class="bn1"></span-->
+				</div>
+			</div>
+		</div>
+		<!--我的股票 e-->
+		<!--热门股票 s-->
+		<p class="line pl10 ml5" id="hotstockTit">以下是热门股票：</p>
+		<div id="hotstock"  class="pl15"></div>
+		<!--热门股票 e-->
+		<!--推荐的关注 s-->
+		<h4>为你推荐的关注</h4>
+		<div id="tjgzstock"  class="pl15 tjgz pb5"></div>
+		<div class="tjgz-m mt10">查看更多</div>
+		<!--推荐的关注 e-->
+		<!--关注度 s-->
+		<h4><span class="color_900">贵州茅台</span> 关注度</h4>
+		<div class="stock_gzd pl10 pt10">
+			<span class="color_1">浦发银行</span>
+			<span class="color_2 ml20">资金净流入</span>
+		</div>
+		<div class="pl10"><img src="temp/15.png" alt="" /></div>
+		<!--关注度 e-->
+		<!--印象 s-->
+		<h4><span class="color_900">贵州茅台</span> 印象</h4>
+		<div class="yx mb10">
+			<ul class="clearfix">
+			</ul>
+			<div class="m mt10" id="yxMore" style="display:none">查看更多</div>
+		</div>
+		<!--印象 e-->
+		<!--所属板块 s-->
+		<h4><span class="color_900">贵州茅台</span> 所属板块</h4>
+		<div id="ssbkStock" class="p10"></div>
+		<!--所属板块 e-->
+		<!--网友热议 s-->
+		<h4>网友热议 <span class="color_900">贵州茅台</span></h4>
+		<div class="pt10">
+			<iframe marginheight="0" marginwidth="0" frameborder="0" scrolling="no" src="http://t.hexun.com/special/dzjy/postiframe.aspx?code=002081&amp;w=258&amp;t=2" width="100%" height="135px"></iframe>
+			<iframe marginheight="0" marginwidth="0" frameborder="0" scrolling="no" src="http://t.hexun.com/special/dzjy/dzjyWeibo.aspx?stock=300206&count=10" width="100%" height="1840px"></iframe>
+		</div>
+		<!--网友热议 e-->
+	</div>
+</div>
+<!--登录弹窗 s-->
+<div id="alertFramdl">
+	<dl style="cursor:move;">
+		<dd>
+			<span class="memberLogin_topicClass">用户登录</span>
+			<!--登陆框修改-->
+			<div class="login_right"><a class="close" title="关闭此对话框" onclick="Closea()" style="cursor:pointer;">关闭</a><a target="_top" href="http://stockdata.stock.hexun.com/zlkp/#" onclick="window.open(&#39;http://reg.hexun.com/regname.aspx?gourl=&#39;+escape(top.location));top.location.reload();" class="zc">快速注册</a></div>
+			<!--登陆框修改-->
+		</dd>
+		<dt><iframe width="100%" scrolling="no" height="180px" frameborder="0" src="http://login.tool.hexun.com/OtherInterFace/IFR_userLoginDialog_01.aspx?hexunMember_loginSetup_referrer=http://ui.cms.hexun.com/200/stock.html"></iframe></dt>
+	</dl>
+	<div class="clear"></div>
+</div>
+<!--登录弹窗 e-->
+<!--自选股弹窗 s-->
+<div id="msgbox2" style="display:none;" class="msgbox2">
+	<div class="close">
+		<a onclick="HX.$(&quot;msgbox2&quot;).style.display=&quot;none&quot;" href="javascript:void(0);"><img src="http://stockdata.stock.hexun.com/rzrq/img/btn_close.gif"></a>
+	</div>
+	<b>自选股添加成功</b><br>现在就去 <a href="http://mymoney.hexun.com/istock/" target="_blank" class="c495"><u>我的自选股</u></a>
+</div>
+<!--自选股弹窗 e-->
+<!--印象弹窗 s-->
+<div id="msgbox3" style="display:none;" class="msgbox2">
+	<div class="close">
+		<a onclick="HX.$(&quot;msgbox3&quot;).style.display=&quot;none&quot;" href="javascript:void(0);"><img src="http://stockdata.stock.hexun.com/rzrq/img/btn_close.gif"></a>
+	</div>
+	<b>你已赞同该印象，谢谢支持！</b>
+</div>
+<!--印象弹窗 e-->
+
+
+<!--返回顶部 s-->
+<div id="toTop"><div class="toTop-m"><a href="javascript:void(0)"></a></div></div>
+<script type="text/javascript" src="js/toTop.js"></script>
+<!--返回顶部 e-->
+
+
+<!--尾-->
+<link rel="stylesheet" type="text/css" href="http://img.hexun.com/news/2010/foot2010.css" />
+<div id="foot2010">
+    <div class="link">
+        <a target="_blank" href="http://media.news.hexun.com/feedback/support.htm" id="hexunUserSuggest">和讯恭候您的意见</a> -
+        <a target="_blank" href="http://corp.hexun.com/contact/index.html">联系我们</a> -
+        <a target="_blank" href="http://corp.hexun.com/default/index.html">关于我们</a> -
+        <a target="_blank" href="http://corp.hexun.com/adcenter/index.html">广告服务</a>
+    </div>
+    <div class="copyright">
+        本站郑重声明：和讯公司系政府批准的证券投资咨询机构[ZX0005]。所载文章、数据仅供参考，使用前请核实，风险自负。<br />Copyright&copy; 和讯网 和讯信息科技有限公司 All Rights Reserved 版权所有 复制必究
+    </div>
+</div>
+
+<script type="text/javascript" src="js/hexun.jcar.js"></script>
+<script type="text/javascript" src="js/myStock.js"></script>
+<script type="text/javascript" src="js/GGstock.js"></script>
+
+
+
+</body>
+</html>
