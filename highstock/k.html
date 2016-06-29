@@ -1,0 +1,169 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>k线</title>
+<script type="text/javascript" src="jquery1.8.2.min.js"></script>
+<script type="text/javascript">
+function jsonp(url,callback){
+		var url = (url.indexOf('?') != -1) ? (url + '&') : (url + '?');
+		var time = new Date().getTime();
+		var name = 'hx_' + time;
+		url += 'callback=' + name  ;
+		window[name] = callback;		
+		var road = document.createElement('script');
+		road.type = 'text/javascript';
+		road.charset = "utf-8";
+		road.src = url;
+		document.getElementsByTagName('head')[0].appendChild(road);
+		if (road.readyState) {
+			road.onreadystatechange = function () {
+				if (road.readyState == 'loaded' || road.readyState == 'complete') {
+					road.onreadystatechange = null;
+					document.getElementsByTagName('head')[0].removeChild(road);
+					window[name] = 'undefined';
+					try {
+						delete window[name];
+					}
+					catch (e) { }
+					}
+				}
+		} else {
+			road.onload = function () {
+				document.getElementsByTagName('head')[0].removeChild(road);
+				window[name] = 'undefined';
+				try { delete window[name]; }
+				catch (e) { }
+			}
+		}
+}
+function getTimeStamp(dateStr){
+	var getTimes = function(t){return t.replace(/\d{2}/g,function(o,i){return o+["","-","-"," ",":",":",""][i/2]})};
+	var newstr = getTimes(dateStr).replace(/-/g,'/'); 
+	var date =  new Date(newstr); 
+	var time_str = date.getTime().toString();
+	return parseInt(time_str);
+}
+var KlineData = [],volumeData = [];
+
+jsonp("http://webstock.quote.hermes.hexun.com/a/kline?code=SSE600519&start=20141229093000&number=-1000&type=6",function(data){
+	var priceWeight = data.Data[4];
+	for(var i = 0; i < data.Data[0].length; i++){
+		var time  =  data.Data[0][i][0].toString(),					// 日  期
+		price     =  data.Data[0][i][2] / priceWeight,			// 开盘价
+		high      =  data.Data[0][i][4] / priceWeight,			// 最高价
+		low       =  data.Data[0][i][5] / priceWeight,			// 最低价
+		close     =  data.Data[0][i][3] / priceWeight,			// 收盘价
+		lastClose =  data.Data[0][i][1] / priceWeight,			// 前收价
+		volume    =  data.Data[0][i][6],										// 成交量
+		color     =  close < lastClose?"green":"red";				// 颜  色
+		
+		KlineData.push({//x,open,high,low,close
+			x: getTimeStamp(time),
+			open: price,
+			high: high,
+			low: low,
+			close: close,
+			color: color,
+			lineColor: color
+		});
+		volumeData.push({
+			x: getTimeStamp(time),
+			y: volume,
+			color: color
+		});
+	}
+
+
+
+
+
+
+
+
+			
+			
+			
+			
+			var chart = new Highcharts.StockChart({
+				chart: {
+					renderTo: "container", 
+					type: 'candlestick',
+					zoomType: 'x'
+				},
+
+				plotOptions: {
+					candlestick: {
+						states:{
+							hover:{enabled:false}
+						}
+					},
+					column : {
+						//color:"#999",
+						pointPadding: 0,  
+						borderWidth: 0 ,
+						states: {
+							hover:{enabled:false}
+						}
+					}
+				},
+				xAxis: {
+					labels: {
+						enabled:false
+					}
+				},
+		    yAxis: [{
+					height: 400,
+					lineWidth: 1,
+					tickLength: 0,
+					labels: {
+						enabled:false
+					}
+		    },{
+					gridLineWidth: 0,
+					top: 400,
+					height: 100,
+					offset: 0,
+					lineWidth: 1,
+					tickLength: 0,
+					labels: {
+						enabled:false
+					}
+		    }],
+				rangeSelector : {
+					inputEnabled: true,
+					selected : 6
+				},
+		    series: [{
+					type: 'candlestick',
+					data: KlineData
+		    },{
+					type: 'column',
+					data: volumeData,
+					yAxis: 1
+				}]
+			
+			});
+
+	
+	//alert(JSON.stringify(KlineData));
+	//alert(JSON.stringify(volumeData));
+
+
+});
+
+
+
+
+</script>
+</head>
+
+<body>
+<script src="highstock.src.js"></script>
+<div id="container" style="height:100%;width:100%"></div>
+
+<style type="text/css">
+html,body{height:100%}
+</style>
+</body>
+</html>
