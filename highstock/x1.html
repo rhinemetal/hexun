@@ -1,0 +1,129 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<title></title>
+<style type="text/css">
+*{margin:0;padding:0}
+.yAxisLabels{font-family:"Arial";font-size:10px;}
+</style>
+<script>
+
+
+var stockData = new Array();
+function getTimes(dateStr){
+	var getTimes = function(t){
+		return t.replace(/\d{2}/g,function(o,i){return o+["","-","-"," ",":",":",""][i/2]});
+	}
+	var newstr = getTimes(dateStr).replace(/-/g,'/'); 
+	var date =  new Date(newstr); 
+	var time_str = date.getTime().toString();
+	return parseInt(time_str);
+}
+
+var k = {
+	a : {},
+	callback : function(url,callback){
+		var url = (url.indexOf('?') != -1) ? (url + '&') : (url + '?');
+		var time = new Date().getTime();
+		var name = 'hx_' + time;
+		url += 'callback=' + name  ;
+		window[name] = callback;		
+		var road = document.createElement('script');
+		road.type = 'text/javascript';
+		road.charset = "utf-8";
+		road.src = url;
+		document.getElementsByTagName('head')[0].appendChild(road);
+		if (road.readyState) {
+			road.onreadystatechange = function () {
+				if (road.readyState == 'loaded' || road.readyState == 'complete') {
+					road.onreadystatechange = null;
+					document.getElementsByTagName('head')[0].removeChild(road);
+					window[name] = 'undefined';
+					try {
+						delete window[name];
+					}
+					catch (e) { }
+					}
+				}
+		} else {
+			road.onload = function () {
+				document.getElementsByTagName('head')[0].removeChild(road);
+				window[name] = 'undefined';
+				try { delete window[name]; }
+				catch (e) { }
+			}
+		}
+	},
+	bind : function(){
+		window.d = {};
+		this.callback("http://webstock.quote.hermes.hexun.com/a/minute?code=sse600519&start=20141029093000&number=240",function(data){
+alert(JSON.stringify(data));
+			d = data;
+		});
+		return d
+	}
+}
+alert(JSON.stringify(k.bind()));
+
+
+/*
+function jsonp(url,callback){
+		var url = (url.indexOf('?') != -1) ? (url + '&') : (url + '?');
+		var time = new Date().getTime();
+		var name = 'hx_' + time;
+		url += 'callback=' + name  ;
+		window[name] = callback;		
+		var road = document.createElement('script');
+		road.type = 'text/javascript';
+		road.charset = "utf-8";
+		road.src = url;
+		document.getElementsByTagName('head')[0].appendChild(road);
+		if (road.readyState) {
+			road.onreadystatechange = function () {
+				if (road.readyState == 'loaded' || road.readyState == 'complete') {
+					road.onreadystatechange = null;
+					document.getElementsByTagName('head')[0].removeChild(road);
+					window[name] = 'undefined';
+					try {
+						delete window[name];
+					}
+					catch (e) { }
+					}
+				}
+		} else {
+			road.onload = function () {
+				document.getElementsByTagName('head')[0].removeChild(road);
+				window[name] = 'undefined';
+				try { delete window[name]; }
+				catch (e) { }
+			}
+		}
+}
+
+function getTimes(dateStr){
+	var getTimes = function(t){
+		return t.replace(/\d{2}/g,function(o,i){return o+["","-","-"," ",":",":",""][i/2]});
+	}
+	var newstr = getTimes(dateStr).replace(/-/g,'/'); 
+	var date =  new Date(newstr); 
+	var time_str = date.getTime().toString();
+	return parseInt(time_str);
+}
+*/
+
+
+
+</script>
+</head>
+
+
+
+<body>
+<div id="container" style="height:150px;width:230px"></div>
+
+
+
+
+</body>
+</html>
